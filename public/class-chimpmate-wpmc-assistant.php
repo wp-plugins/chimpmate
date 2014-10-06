@@ -18,7 +18,6 @@
 require_once( WPMCA_PLUGIN_PATH.'src/MailChimp.php' );
 use \WPMChimpA;
 class ChimipMate_WPMC_Assistant {
-
 	/**
 	 * @since   1.0.0
 	 *
