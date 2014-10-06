@@ -1,7 +1,7 @@
 === ChimpMate - WordPress MailChimp Assistant ===
 Contributors: Voltroid
 Donate link: http://voltroid.com/wordpress/plugins/chimpmate#donate
-Tags: mailchimp, mailchimp integration, MailChimp plugin, mailchimp signup, mailchimp wordpress, newsletter, newsletter signup, checkbox, newsletter, optin, registration form, shortcode, sign-up form, subscribe, widget,  analytics, automatic, collect email, double optin, email, exit popup, exit-intent, getresponse, growth, hellobar, lightbox, links, mail, newsletters, optin forms, optin monster, Optin Revolution, popover, popup, popup domination, popupdomination, posts, subscribe, subscribers, subscription, referrer, search engine, social sharing, cookie, customizable, responsive
+Tags: mailchimp, mailchimp integration, MailChimp plugin, mailchimp signup, mailchimp wordpress, newsletter, newsletter signup, checkbox, newsletter, optin, registration form, shortcode, sign-up form, subscribe, widget,  analytics, automatic, collect email, double optin, email, exit popup, exit-intent, getresponse, growth, hellobar, lightbox, links, mail, newsletters, optin forms,  popover, popup, popup domination, popupdomination, posts, subscribe, subscribers, subscription, referrer, search engine, social sharing, cookie, customizable, responsive
 Plugin URI: http://voltroid.com/wordpress/plugins/chimpmate
 Author URI: http://voltroid.com/
 Requires at least: 3.8
