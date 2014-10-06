@@ -2,7 +2,6 @@
 (function ( $ ) {
 	
 	$(function () {
-	console.log(wpmchimpa.goo);
 
 if (isset(wpmchimpa.goo)) {		
 WebFont.load({
