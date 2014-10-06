@@ -91,7 +91,7 @@ ChimpMate is a MailChimp based email marketing plugin for WordPress. MailChimp i
 
 == Frequently Asked Questions ==
 
-= Check out our [FAQ](http://voltroid.com/wordpress/plugins/chimpmate#faq) =
+Check out our [FAQ](http://voltroid.com/wordpress/plugins/chimpmate#faq)
 
 
 
