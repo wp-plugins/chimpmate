@@ -305,7 +305,6 @@ function wpmchimpa_pagetype_addon(){
 	 */
 function wpmchimpa_user_status() {
 	$wpmchimpa = json_decode(get_option('wpmchimpa_options'),true);
-	if(!isset($wpmchimpa["litebox"])) return false;
 	if(!isset($wpmchimpa["loggedin"]) && !isset($wpmchimpa["notloggedin"])) return false;
 	if(!isset($wpmchimpa["loggedin"]) && isset($wpmchimpa["notloggedin"]) && is_user_logged_in()) return false;
 	if(isset($wpmchimpa["loggedin"]) && !isset($wpmchimpa["notloggedin"]) && !is_user_logged_in()) return false;
