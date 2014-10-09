@@ -300,26 +300,29 @@ display: block;
 width: 90px;
 margin-top: 20px;
 }
-.wpmc_soc_cont::before{
+.wpmc_soc_cont .wpmc_socioicon::before{
 padding: 10px;
 font-size: 30px;
 color: #fff;
 border-radius:50%;
 }
+.wpmc_soc_cont a{
+  text-decoration: none;
+}
 .wp_likebox{
   margin-top:12px;
   position:relative;
-  z-index:0;
+  z-index:100;
 }
-.fb.wpmc_soc_cont::before{
+.fb.wpmc_soc_cont .wpmc_socioicon::before{
   content:'\f305';
   background:#3b5998;
 }
-.gp.wpmc_soc_cont::before{
+.gp.wpmc_soc_cont .wpmc_socioicon::before{
   content:'\f462';
   background:#D95232;
 }
-.tt.wpmc_soc_cont::before{
+.tt.wpmc_soc_cont .wpmc_socioicon::before{
   content:'\f301';
   background:#00ABF0;
 }

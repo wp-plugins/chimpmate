@@ -38,18 +38,21 @@
       <div class="h_right">
         <div class="h_left wpmc_social">
           <div class="wpmc_soc_cont fb">
+            <a href="https://www.facebook.com/Voltroid"><div class="wpmc_socioicon"></div></a>
             <div class="wp_likebox">
               <div id="fb-root"></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=174296672696220&version=v2.0"; fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script>
               <div class="fb-like" data-href="https://www.facebook.com/Voltroid" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
             </div>
           </div>
           <div class="wpmc_soc_cont tt">
+            <a href="https://twitter.com/Voltroid"><div class="wpmc_socioicon"></div></a>
             <div class="wp_likebox" style="margin-left: -7px;">
               <a href="https://twitter.com/Voltroid" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false" data-dnt="true"></a>
               <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
             </div>
           </div>
           <div class="wpmc_soc_cont gp">
+            <a href="https://plus.google.com/110722804771159318274/posts"><div class="wpmc_socioicon"></div></a>
             <div class="wp_likebox" style="margin-left: -15px;">
               <script src="https://apis.google.com/js/platform.js" async defer></script>
               <div class="g-follow" data-annotation="none" data-height="20" data-width="60" data-href="https://plus.google.com/110722804771159318274" data-rel="publisher"></div></div>
@@ -1184,18 +1187,21 @@
                  <div class="wpmca_group">
                     <div class="wpmc_social" style="margin-left:120px;">
                       <div class="wpmc_soc_cont fb">
+                        <a href="https://www.facebook.com/Voltroid"><div class="wpmc_socioicon"></div></a>
                         <div class="wp_likebox">
                           <div id="fb-root"></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=174296672696220&version=v2.0"; fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script>
                           <div class="fb-like" data-href="https://www.facebook.com/Voltroid" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
                         </div>
                       </div>
                       <div class="wpmc_soc_cont tt">
+                        <a href="https://twitter.com/Voltroid"><div class="wpmc_socioicon"></div></a>
                         <div class="wp_likebox" style="margin-left: -7px;">
                           <a href="https://twitter.com/Voltroid" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false" data-dnt="true"></a>
                           <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
                         </div>
                       </div>
                       <div class="wpmc_soc_cont gp">
+                        <a href="https://plus.google.com/110722804771159318274/posts"><div class="wpmc_socioicon"></div></a>
                         <div class="wp_likebox" style="margin-left: -8px;">
                           <script src="https://apis.google.com/js/platform.js" async defer></script>
                           <div class="g-follow" data-annotation="none" data-height="20" data-href="https://plus.google.com/110722804771159318274" data-rel="publisher"></div></div>
@@ -1251,6 +1257,9 @@
             <div class="wpmca_item">
                 <div class="itemhead">
                     <h2>Plugin Resources</h2>
+                </div>
+                <div class="wpmca_group wpmcapara">
+                  Want more awesome plugins? Encourage us by donating :)
                 </div>
                 <div class="wpmca_group">
                     <input type="image" class="wpmchimpa_donate" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">

@@ -6,7 +6,7 @@ Donate link: http://voltroid.com/wordpress/plugins/chimpmate#donate
 Tags: mailchimp, mailchimp integration, MailChimp plugin, mailchimp signup, mailchimp wordpress, newsletter, newsletter signup, checkbox, newsletter, optin, registration form, shortcode, sign-up form, subscribe, widget,  analytics, automatic, collect email, double optin, email, exit popup, exit-intent, getresponse, growth, hellobar, lightbox, links, mail, newsletters, optin forms, popover, popup, popup domination, popupdomination, posts, subscribe, subscribers, subscription, referrer, search engine, social sharing, cookie, customizable, responsive
 Requires at least: 3.8
 Tested up to: 4.0
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,13 +29,13 @@ ChimpMate is a MailChimp based email marketing plugin for WordPress. MailChimp i
 * User Status Based Filter
 * Cookie Based Lightbox
 * Scroll Toggle Detection 
-* FullyResponsable 
-* Multi Device Fiilter
+* Fully Responsive 
+* Multi-Device Filter
 * Filter By Page Type 
 * Light Box Open Delay
 * Inactivity based events
 * One Click Backup and Restore
-* Easy to Configuration (No coding required!)
+* Easy to Configure (No coding required!)
 
 > **GET ChimpMate Pro**
 >
@@ -49,9 +49,9 @@ ChimpMate is a MailChimp based email marketing plugin for WordPress. MailChimp i
 > * Cookie Based Lightbox day Customization
 > * Scroll Toggle % Custamization
 > * Post/Page Level Targeting 
-> * Contry base Trageting
+> * Country base Targeting
 > * Targeting Social Networking Vistors
-> * Targeting URL Shoretners
+> * Targeting URL Shorteners
 > * Targeting Specific URLs 
 > * Custom CSS editor
 > * Premium Support 24x7
@@ -96,6 +96,9 @@ Check out our [FAQ](http://voltroid.com/wordpress/plugins/chimpmate#faq)
 
 
 == Changelog ==
+
+= 1.0.1 =
+* Minor Bug fixes
 
 = 1.0.0 =
 * Initial release
