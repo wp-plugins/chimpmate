@@ -78,7 +78,9 @@ if(isset(wpmchimpa.litebox) || isset(wpmchimpa.addon) || isset(wpmchimpa.widget)
 		$(form).next(".wpmchimpa-feedback").html('');
 		var sEmail = $(form).find('.wpmchimpa_email').val();
         if ($.trim(sEmail).length == 0 || !(validateEmail(sEmail))) {
-            $(form).next(".wpmchimpa-feedback").html('Please enter valid email address');
+        	if(isset(wpmchimpa.errorfe)) var errmsg = wpmchimpa.errorfe;
+        	else var errmsg = 'Please enter valid email address';
+            $(form).next(".wpmchimpa-feedback").html(errmsg);
         }
         else {
         	$(form).find('.wpmchimpa-signal').fadeIn();
@@ -89,18 +91,31 @@ if(isset(wpmchimpa.litebox) || isset(wpmchimpa.addon) || isset(wpmchimpa.widget)
 			data: newSubsForm,
 			success:function(data){
 				$(form).find('.wpmchimpa-signal').hide();
-				if(wpmchimpa.suc_sub == 'suc_url' && isset(wpmchimpa.suc_url)){
-					if(isset(wpmchimpa.suc_url_tab)){
-						var win=window.open(wpmchimpa.suc_url,'_blank');
-						win.focus();
+				if(data == '1'){
+					if(wpmchimpa.suc_sub == 'suc_url' && isset(wpmchimpa.suc_url)){
+						 $('.wpmchimpa-overlay-bg').hide(); 
+						if(isset(wpmchimpa.suc_url_tab)){
+							var win=window.open(wpmchimpa.suc_url,'_blank');
+							win.focus();
+						}
+						else window.open(wpmchimpa.suc_url,'_self');
 					}
-					else window.open(wpmchimpa.suc_url,'_self');
+					else if(wpmchimpa.suc_sub == 'suc_msg' && isset(wpmchimpa.suc_msg)){
+						$(form).fadeOut(function () {
+							$(form).next(".wpmchimpa-feedback").html(wpmchimpa.suc_msg);
+						});
+					}
+					else{
+						$(form).fadeOut(function () {
+							$(form).next(".wpmchimpa-feedback").html('error');
+						});
+					}
 				}
 				else{
 					$(form).fadeOut(function () {
 						$(form).next(".wpmchimpa-feedback").html(data);
 					});
-				}				
+				}		
 			}
 			});
 		}
@@ -112,16 +127,7 @@ if(isset(wpmchimpa.litebox) || isset(wpmchimpa.addon) || isset(wpmchimpa.widget)
 
 }(jQuery));
 function isset() {
-  //  discuss at: http://phpjs.org/functions/isset/
-  // original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-  // improved by: FremyCompany
-  // improved by: Onno Marsman
-  // improved by: Rafał Kukawski
-  //   example 1: isset( undefined, true);
-  //   returns 1: false
-  //   example 2: isset( 'Kevin van Zonneveld' );
-  //   returns 2: true
-
+ 
   var a = arguments,
     l = a.length,
     i = 0,

@@ -128,6 +128,11 @@ class ChimipMate_WPMC_Assistant_Admin {
 		print_r('1');
 		die();
 	}
+	/**
+	 * ajax call for 1 Click Backup and Restore
+	 * @since    1.0.0
+	 * 
+	 */
 	public function wpmchimpa_secure(){
 		if ( !is_super_admin()) die();
 		if($_REQUEST['q']=='backup'){

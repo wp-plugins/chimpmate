@@ -235,6 +235,27 @@ line-height: 20px;{
         }
       ?>
 }
+#<?php echo $wpmcw_id; ?> .wpmchimpa-feedback {
+<?php
+        if(isset($wpmchimpa["widget_status_f"])){
+          echo 'font-family:'.str_replace("|ng","",$wpmchimpa["widget_status_f"]).';';
+        }
+        if(isset($wpmchimpa["widget_status_fs"])){
+            echo 'font-size:'.$wpmchimpa["widget_status_fs"].'px;';
+        }
+        if(isset($wpmchimpa["widget_status_fw"])){
+            echo 'font-weight:'.$wpmchimpa["widget_status_fw"].';';
+        }
+        if(isset($wpmchimpa["widget_status_fst"])){
+            echo 'font-style:'.$wpmchimpa["widget_status_fst"].';';
+        }
+        if(isset($wpmchimpa["widget_status_fc"])){
+            echo 'color:'.$wpmchimpa["widget_status_fc"].';';
+        }
+      ?>
+
+
+}
 #<?php echo $wpmcw_id; ?> .wpmchimpa-signal {
     display: none;
     border: 3px solid #000;
@@ -265,8 +286,12 @@ line-height: 20px;{
 <div class="wpmchimpa-reset" id="<?php echo $wpmcw_id; ?>">
 	<p><?php if(isset($wpmchimpa['widget_msg'])) echo $wpmchimpa['widget_msg'];?></p>
 	<form action="" method="post">
-  <?php if(isset($wpmchimpa['namebox']))echo '<input type="text" name="name" class="wpmchimpa_name" placeholder="name" required/>'; ?>
-		<input type="email" name="email" class="wpmchimpa_email" placeholder="Email address" required/>
+  <?php if(isset($wpmchimpa['namebox'])){
+     if(isset($wpmchimpa['labelnb'])) $nl = $wpmchimpa['labelnb'];
+     else $nl = 'Name';
+     echo '<input type="text" name="name" class="wpmchimpa_name" placeholder="'.$nl.'" required/>'; 
+    } ?>
+		<input type="email" name="email" class="wpmchimpa_email" placeholder="<?php if(isset($wpmchimpa['labeleb'])) echo $wpmchimpa['labeleb'];else echo 'Email address';?>" required/>
 		<input type="submit" value="<?php if(isset($wpmchimpa['widget_button'])) echo $wpmchimpa['widget_button'];else echo 'Subscribe';?>" name="subscribe" class="wpmchimpa-subs-button"/>
 		<input type="hidden" name="action" value="wpmchimpa_add_email_ajax"/>
 		<?php 

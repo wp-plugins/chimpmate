@@ -816,28 +816,56 @@ var goo_app = '<optgroup label="Web Safe Font"><option value="Georgia, serif|ng"
 
 if(isset(wpmchimpa.lite_heading_f))$("select[name='lite_heading_f']").val(wpmchimpa.lite_heading_f);
 if(isset(wpmchimpa.lite_heading_fs))$("select[name='lite_heading_fs']").val(wpmchimpa.lite_heading_fs);
+if(isset(wpmchimpa.lite_heading_fw))$("select[name='lite_heading_fw']").val(wpmchimpa.lite_heading_fw);
+if(isset(wpmchimpa.lite_heading_fst))$("select[name='lite_heading_fst']").val(wpmchimpa.lite_heading_fst);
 if(isset(wpmchimpa.lite_msg_f))$("select[name='lite_msg_f']").val(wpmchimpa.lite_msg_f);
 if(isset(wpmchimpa.lite_msg_fs))$("select[name='lite_msg_fs']").val(wpmchimpa.lite_msg_fs);
 if(isset(wpmchimpa.lite_tbox_f))$("select[name='lite_tbox_f']").val(wpmchimpa.lite_tbox_f);
 if(isset(wpmchimpa.lite_tbox_fs))$("select[name='lite_tbox_fs']").val(wpmchimpa.lite_tbox_fs);
+if(isset(wpmchimpa.lite_tbox_fw))$("select[name='lite_tbox_fw']").val(wpmchimpa.lite_tbox_fw);
+if(isset(wpmchimpa.lite_tbox_fst))$("select[name='lite_tbox_fst']").val(wpmchimpa.lite_tbox_fst);
 if(isset(wpmchimpa.lite_button_f))$("select[name='lite_button_f']").val(wpmchimpa.lite_button_f);
 if(isset(wpmchimpa.lite_button_fs))$("select[name='lite_button_fs']").val(wpmchimpa.lite_button_fs);
+if(isset(wpmchimpa.lite_button_fw))$("select[name='lite_button_fw']").val(wpmchimpa.lite_button_fw);
+if(isset(wpmchimpa.lite_button_fst))$("select[name='lite_button_fst']").val(wpmchimpa.lite_button_fst);
+if(isset(wpmchimpa.lite_status_f))$("select[name='lite_status_f']").val(wpmchimpa.lite_status_f);
+if(isset(wpmchimpa.lite_status_fs))$("select[name='lite_status_fs']").val(wpmchimpa.lite_status_fs);
+if(isset(wpmchimpa.lite_status_fw))$("select[name='lite_status_fw']").val(wpmchimpa.lite_status_fw);
+if(isset(wpmchimpa.lite_status_fst))$("select[name='lite_status_fst']").val(wpmchimpa.lite_status_fst);
 
 if(isset(wpmchimpa.widget_msg_f))$("select[name='widget_msg_f']").val(wpmchimpa.widget_msg_f);
 if(isset(wpmchimpa.widget_msg_fs))$("select[name='widget_msg_fs']").val(wpmchimpa.widget_msg_fs);
 if(isset(wpmchimpa.widget_tbox_f))$("select[name='widget_tbox_f']").val(wpmchimpa.widget_tbox_f);
 if(isset(wpmchimpa.widget_tbox_fs))$("select[name='widget_tbox_fs']").val(wpmchimpa.widget_tbox_fs);
+if(isset(wpmchimpa.widget_tbox_fw))$("select[name='widget_tbox_fw']").val(wpmchimpa.widget_tbox_fw);
+if(isset(wpmchimpa.widget_tbox_fst))$("select[name='widget_tbox_fst']").val(wpmchimpa.widget_tbox_fst);
 if(isset(wpmchimpa.widget_button_f))$("select[name='widget_button_f']").val(wpmchimpa.widget_button_f);
 if(isset(wpmchimpa.widget_button_fs))$("select[name='widget_button_fs']").val(wpmchimpa.widget_button_fs);
+if(isset(wpmchimpa.widget_button_fw))$("select[name='widget_button_fw']").val(wpmchimpa.widget_button_fw);
+if(isset(wpmchimpa.widget_button_fst))$("select[name='widget_button_fst']").val(wpmchimpa.widget_button_fst);
+if(isset(wpmchimpa.widget_status_f))$("select[name='widget_status_f']").val(wpmchimpa.widget_status_f);
+if(isset(wpmchimpa.widget_status_fs))$("select[name='widget_status_fs']").val(wpmchimpa.widget_status_fs);
+if(isset(wpmchimpa.widget_status_fw))$("select[name='widget_status_fw']").val(wpmchimpa.widget_status_fw);
+if(isset(wpmchimpa.widget_status_fst))$("select[name='widget_status_fst']").val(wpmchimpa.widget_status_fst);
 
 if(isset(wpmchimpa.addon_heading_f))$("select[name='addon_heading_f']").val(wpmchimpa.addon_heading_f);
 if(isset(wpmchimpa.addon_heading_fs))$("select[name='addon_heading_fs']").val(wpmchimpa.addon_heading_fs);
+if(isset(wpmchimpa.addon_heading_fw))$("select[name='addon_heading_fw']").val(wpmchimpa.addon_heading_fw);
+if(isset(wpmchimpa.addon_heading_fst))$("select[name='addon_heading_fst']").val(wpmchimpa.addon_heading_fst);
 if(isset(wpmchimpa.addon_msg_f))$("select[name='addon_msg_f']").val(wpmchimpa.addon_msg_f);
 if(isset(wpmchimpa.addon_msg_fs))$("select[name='addon_msg_fs']").val(wpmchimpa.addon_msg_fs);
 if(isset(wpmchimpa.addon_tbox_f))$("select[name='addon_tbox_f']").val(wpmchimpa.addon_tbox_f);
 if(isset(wpmchimpa.addon_tbox_fs))$("select[name='addon_tbox_fs']").val(wpmchimpa.addon_tbox_fs);
+if(isset(wpmchimpa.addon_tbox_fw))$("select[name='addon_tbox_fw']").val(wpmchimpa.addon_tbox_fw);
+if(isset(wpmchimpa.addon_tbox_fst))$("select[name='addon_tbox_fst']").val(wpmchimpa.addon_tbox_fst);
 if(isset(wpmchimpa.addon_button_f))$("select[name='addon_button_f']").val(wpmchimpa.addon_button_f);
 if(isset(wpmchimpa.addon_button_fs))$("select[name='addon_button_fs']").val(wpmchimpa.addon_button_fs);
+if(isset(wpmchimpa.addon_button_fw))$("select[name='addon_button_fw']").val(wpmchimpa.addon_button_fw);
+if(isset(wpmchimpa.addon_button_fst))$("select[name='addon_button_fst']").val(wpmchimpa.addon_button_fst);
+if(isset(wpmchimpa.addon_status_f))$("select[name='addon_status_f']").val(wpmchimpa.addon_status_f);
+if(isset(wpmchimpa.addon_status_fs))$("select[name='addon_status_fs']").val(wpmchimpa.addon_status_fs);
+if(isset(wpmchimpa.addon_status_fw))$("select[name='addon_status_fw']").val(wpmchimpa.addon_status_fw);
+if(isset(wpmchimpa.addon_status_fst))$("select[name='addon_status_fst']").val(wpmchimpa.addon_status_fst);
 
 $('.wpmccolor').wpColorPicker({
 	change:function (event,ui){

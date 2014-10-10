@@ -1,9 +1,7 @@
 <?php 
 $wpmchimpa = json_decode(get_option('wpmchimpa_options'),true);
 ?>
-<script type="text/javascript">
 
-</script>
 <style type="text/css">
 	
 .wpmchimpab {
@@ -233,13 +231,6 @@ $wpmchimpa = json_decode(get_option('wpmchimpa_options'),true);
         if(isset($wpmchimpa["addon_button_bc"])){
             echo 'background:'.$wpmchimpa["addon_button_bc"].';';
         }
-        if(isset($wpmchimpa["addon_button_br"])){
-            echo '-webkit-border-radius:'.$wpmchimpa["addon_button_br"].'px;';
-            echo '-moz-border-radius:'.$wpmchimpa["addon_button_br"].'px;';
-            echo '-ms-border-radius:'.$wpmchimpa["addon_button_br"].'px;';
-            echo '-o-border-radius:'.$wpmchimpa["addon_button_br"].'px;';
-            echo 'border-radius:'.$wpmchimpa["addon_button_br"].'px;';
-        }
         else{ ?>
           background: -moz-linear-gradient(left, #62bc33 0%, #8bd331 100%);
           background: -webkit-gradient(linear, left top, right top, color-stop(0%,#62bc33), color-stop(100%,#8bd331));
@@ -248,6 +239,13 @@ $wpmchimpa = json_decode(get_option('wpmchimpa_options'),true);
           background: -ms-linear-gradient(left, #62bc33 0%,#8bd331 100%);
           background: linear-gradient(to right, #62bc33 0%,#8bd331 100%);
         <?php }
+        if(isset($wpmchimpa["addon_button_br"])){
+            echo '-webkit-border-radius:'.$wpmchimpa["addon_button_br"].'px;';
+            echo '-moz-border-radius:'.$wpmchimpa["addon_button_br"].'px;';
+            echo '-ms-border-radius:'.$wpmchimpa["addon_button_br"].'px;';
+            echo '-o-border-radius:'.$wpmchimpa["addon_button_br"].'px;';
+            echo 'border-radius:'.$wpmchimpa["addon_button_br"].'px;';
+        }
         if(isset($wpmchimpa["addon_button_bor"]) && isset($wpmchimpa["addon_button_borc"])){
             echo ' border:'.$wpmchimpa["addon_button_bor"].'px solid '.$wpmchimpa["addon_button_borc"].';';
         }
@@ -315,6 +313,23 @@ top: 4px;
   clear:both;
   top: 7px;
 position: relative;
+  <?php
+        if(isset($wpmchimpa["addon_status_f"])){
+          echo 'font-family:'.str_replace("|ng","",$wpmchimpa["addon_status_f"]).';';
+        }
+        if(isset($wpmchimpa["addon_status_fs"])){
+            echo 'font-size:'.$wpmchimpa["addon_status_fs"].'px;';
+        }
+        if(isset($wpmchimpa["addon_status_fw"])){
+            echo 'font-weight:'.$wpmchimpa["addon_status_fw"].';';
+        }
+        if(isset($wpmchimpa["addon_status_fst"])){
+            echo 'font-style:'.$wpmchimpa["addon_status_fst"].';';
+        }
+        if(isset($wpmchimpa["addon_status_fc"])){
+            echo 'color:'.$wpmchimpa["addon_status_fc"].';';
+        }
+      ?>
 }
 @media only screen and (max-width:1024px) {
   .wpmchimpab{
@@ -333,8 +348,12 @@ position: relative;
 	<h3><?php if(isset($wpmchimpa['addon_heading'])) echo $wpmchimpa['addon_heading'];?></h3>
 	<p><?php if(isset($wpmchimpa['addon_msg'])) echo $wpmchimpa['addon_msg'];?></p>
 	<form action="" method="post">
-  <?php if(isset($wpmchimpa['namebox']))echo '<input type="text" name="name" class="wpmchimpa_name" placeholder="name" required/>'; ?>
-		<input type="email" name="email" class="wpmchimpa_email" placeholder="Email address" required/>
+  <?php if(isset($wpmchimpa['namebox'])){
+    if(isset($wpmchimpa['labelnb'])) $nl = $wpmchimpa['labelnb'];
+     else $nl = 'Name';
+    echo '<input type="text" name="name" class="wpmchimpa_name" placeholder="'.$nl.'" required/>'; 
+  } ?>
+		<input type="email" name="email" class="wpmchimpa_email" placeholder="<?php if(isset($wpmchimpa['labeleb'])) echo $wpmchimpa['labeleb'];else echo 'Email address';?>" required/>
 		<input type="submit" value="<?php if(isset($wpmchimpa["addon_button"]))echo $wpmchimpa["addon_button"];else echo 'Subscribe';?>" name="subscribe" class="wpmchimpa-subs-button button"/>
 		<div class="wpmchimpa-signal-cont"><div class="wpmchimpa-signal"></div></div>
 		<input type="hidden" name="action" value="wpmchimpa_add_email_ajax"/>

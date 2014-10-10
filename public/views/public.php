@@ -14,7 +14,6 @@ if($this->wpmchimpa_user_status() && $this->wpmchimpa_referral() && $this->wpmch
 ?> 
 <style>
 
-@import url(http://fonts.googleapis.com/css?family=Sacramento);
 .wpmchimpa-overlay-bg {
     display: none;
     top: 0;
@@ -277,6 +276,23 @@ width: 100%;
 #wpmchimpa .wpmchimpa-feedback {
     color: #fff;
     margin-top: 10px;
+     <?php
+        if(isset($wpmchimpa["lite_status_f"])){
+          echo 'font-family:'.str_replace("|ng","",$wpmchimpa["lite_status_f"]).';';
+        }
+        if(isset($wpmchimpa["lite_status_fs"])){
+            echo 'font-size:'.$wpmchimpa["lite_status_fs"].'px;';
+        }
+        if(isset($wpmchimpa["lite_status_fw"])){
+            echo 'font-weight:'.$wpmchimpa["lite_status_fw"].';';
+        }
+        if(isset($wpmchimpa["lite_status_fst"])){
+            echo 'font-style:'.$wpmchimpa["lite_status_fst"].';';
+        }
+        if(isset($wpmchimpa["lite_status_fc"])){
+            echo 'color:'.$wpmchimpa["lite_status_fc"].';';
+        }
+      ?>
 }
 
 
@@ -545,8 +561,12 @@ display: inline-block;
 			        			<?php if(isset($wpmchimpa['lite_heading'])) echo '<h3>'.$wpmchimpa['lite_heading'].'</h3>';?>
 			        			<?php if(isset($wpmchimpa['lite_msg'])) echo '<p>'.$wpmchimpa['lite_msg'].'</p>';?>
 			        			<form action="" method="post">
-			           				<?php if(isset($wpmchimpa['namebox']))echo '<input type="text" name="name" class="wpmchimpa_name" placeholder="name" required/>'; ?>
-			            			<input type="email" name="email" class="wpmchimpa_email" placeholder="Email address" required/>
+			           				<?php if(isset($wpmchimpa['namebox'])){
+                            if(isset($wpmchimpa['labelnb'])) $nl = $wpmchimpa['labelnb'];
+                            else $nl = 'Name';
+                            echo '<input type="text" name="name" class="wpmchimpa_name" placeholder="'.$nl.'" required/>'; 
+                         } ?>
+			            			<input type="email" name="email" class="wpmchimpa_email" placeholder="<?php if(isset($wpmchimpa['labeleb'])) echo $wpmchimpa['labeleb'];else echo 'Email address';?>" required/>
 			           				<input type="hidden" name="action" value="wpmchimpa_add_email_ajax"/>
 			            			<?php 
 			            			if(isset($wpmchimpa['list_record']['groups'])){

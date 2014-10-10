@@ -375,7 +375,7 @@ function wpmchimpa_referral() {
 
 	/**
 	 * Ajax call to add email to list
-	 * @since    1.0.0
+	 * @since    1.0.2
 	 * 
 	 */
 	public function wpmchimpa_add_email()
@@ -418,17 +418,21 @@ function wpmchimpa_referral() {
 		$result = $MailChimp->call('lists/subscribe', $options);
 		if( $result['status'] === 'error' ) {
 		    if($result['code']=== 214){
-		    	echo $_POST['email'] . " is already subscribed to Newsletters.";
+		    	if(isset($settings['erroras']))
+		    		$errmsg = $settings['erroras'];
+		    	else $errmsg = $_POST['email'] . " is already subscribed to Newsletters.";
+		    	
 		    }
 		    else{
-		    	echo "An unknown error occurred processing your request.  Please try again later.";		    	
+		    	if(isset($settings['errorue']))
+		    		$errmsg = $settings['errorue'];
+		    	else $errmsg = "An unknown error occurred processing your request.  Please try again later.";	    	
 		    }
+		    echo $errmsg;
 		}
 		else{
-			if($settings['suc_sub'] == "suc_msg" && isset($settings['suc_msg']))echo $settings['suc_msg'];
-			else echo 'error';
+			echo '1';
 		}
-		//echo json_encode($options);
 	    die();
 	}
 	/**

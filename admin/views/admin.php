@@ -159,7 +159,47 @@
                     <span class="wpmcahint" data-hint="Get name of subscribers along with email address"></span>
                 </div>
             </div>
-
+             <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Labels</h2>
+                    <span class="wpmcahint headhint" data-hint="Set Text Box Labels"></span>
+                </div>
+                <div class="wpmca_group wpmcatxt">      
+                  <input type="text" class="wpmchimp_text" spellcheck="false" name="labelnb" required<?php if(isset($wpmchimpa["labelnb"]))echo ' value="'.$wpmchimpa["labelnb"].'"';?>>
+                  <span class="highlighter"></span>
+                  <span class="bar"></span>
+                  <label>Name Box Label</label>
+                </div>
+                <div class="wpmca_group wpmcatxt">      
+                  <input type="text" class="wpmchimp_text" spellcheck="false" name="labeleb" required<?php if(isset($wpmchimpa["labeleb"]))echo ' value="'.$wpmchimpa["labeleb"].'"';?>>
+                  <span class="highlighter"></span>
+                  <span class="bar"></span>
+                  <label>Email Box Label</label>
+                </div>
+                <div class="itemhead">
+                    <h2>Error Messages</h2>
+                    <span class="wpmcahint headhint" data-hint="Set Respective Error Messages"></span>
+                </div>
+                <div class="wpmca_group wpmcatxt">      
+                  <input type="text" class="wpmchimp_text" spellcheck="false" name="errorfe" required<?php if(isset($wpmchimpa["errorfe"]))echo ' value="'.$wpmchimpa["errorfe"].'"';?>>
+                  <span class="highlighter"></span>
+                  <span class="bar"></span>
+                  <label>Field empty</label>
+                </div>
+                <div class="wpmca_group wpmcatxt">      
+                  <input type="text" class="wpmchimp_text" spellcheck="false" name="erroras" required<?php if(isset($wpmchimpa["erroras"]))echo ' value="'.$wpmchimpa["erroras"].'"';?>>
+                  <span class="highlighter"></span>
+                  <span class="bar"></span>
+                  <label>Already subscribed</label>
+                </div>
+                <div class="wpmca_group wpmcatxt">      
+                  <input type="text" class="wpmchimp_text" spellcheck="false" name="errorue" required<?php if(isset($wpmchimpa["errorue"]))echo ' value="'.$wpmchimpa["errorue"].'"';?>>
+                  <span class="highlighter"></span>
+                  <span class="bar"></span>
+                  <label>Unknown error</label>
+                </div>
+              </div>
+  
             <div class="wpmca_item">
                 <div class="itemhead">
                     <h2>User Status</h2>
@@ -316,7 +356,7 @@
                     <select name="lite_heading_fs" class="wpmca_sel google_fonts_size">
                         <option value="">Size</option>
                     </select>
-                    <select name="lite_heading_fw" class="wpmca_sel google_fonts_weight"<?php if(isset($wpmchimpa["lite_heading_fw"]))echo ' value="'.$wpmchimpa["lite_heading_fw"].'"';?>>
+                    <select name="lite_heading_fw" class="wpmca_sel google_fonts_weight">
                       <option value="">Weight</option>
                       <option value="normal">Normal</option>
                       <option value="bold">Bold</option>
@@ -332,7 +372,7 @@
                       <option value="800">800</option>
                       <option value="900">900</option>
                     </select>
-                    <select name="lite_heading_fst" class="wpmca_sel google_fonts_style"<?php if(isset($wpmchimpa["lite_heading_fst"]))echo ' value="'.$wpmchimpa["lite_heading_fst"].'"';?>>
+                    <select name="lite_heading_fst" class="wpmca_sel google_fonts_style">
                       <option value="">Style</option>
                       <option value="normal">Normal</option>
                       <option value="italic">Italic</option>
@@ -376,7 +416,7 @@
                     <select name="lite_tbox_fs" class="wpmca_sel google_fonts_size" value="20">
                         <option value="">Size</option>
                     </select>
-                    <select name="lite_tbox_fw" class="wpmca_sel google_fonts_weight"<?php if(isset($wpmchimpa["lite_tbox_fw"]))echo ' value="'.$wpmchimpa["lite_tbox_fw"].'"';?>>
+                    <select name="lite_tbox_fw" class="wpmca_sel google_fonts_weight">
                       <option value="">Weight</option>
                       <option value="normal">Normal</option>
                       <option value="bold">Bold</option>
@@ -392,7 +432,7 @@
                       <option value="800">800</option>
                       <option value="900">900</option>
                     </select>
-                    <select name="lite_tbox_fst" class="wpmca_sel google_fonts_style"<?php if(isset($wpmchimpa["lite_tbox_fst"]))echo ' value="'.$wpmchimpa["lite_tbox_fst"].'"';?>>
+                    <select name="lite_tbox_fst" class="wpmca_sel google_fonts_style">
                       <option value="">Style</option>
                       <option value="normal">Normal</option>
                       <option value="italic">Italic</option>
@@ -450,7 +490,7 @@
                     <select name="lite_button_fs" class="wpmca_sel google_fonts_size" value="20">
                         <option value="">Size</option>
                     </select>
-                    <select name="lite_button_fw" class="wpmca_sel google_fonts_weight"<?php if(isset($wpmchimpa["lite_button_fw"]))echo ' value="'.$wpmchimpa["lite_button_fw"].'"';?>>
+                    <select name="lite_button_fw" class="wpmca_sel google_fonts_weight">
                       <option value="">Weight</option>
                       <option value="normal">Normal</option>
                       <option value="bold">Bold</option>
@@ -466,7 +506,7 @@
                       <option value="800">800</option>
                       <option value="900">900</option>
                     </select>
-                    <select name="lite_button_fst" class="wpmca_sel google_fonts_style"<?php if(isset($wpmchimpa["lite_button_fst"]))echo ' value="'.$wpmchimpa["lite_button_fst"].'"';?>>
+                    <select name="lite_button_fst" class="wpmca_sel google_fonts_style">
                       <option value="">Style</option>
                       <option value="normal">Normal</option>
                       <option value="italic">Italic</option>
@@ -523,6 +563,48 @@
                    <label>Theme Color</label>
                    <input name="lite_spinner_c" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["lite_spinner_c"]))echo ' value="'.$wpmchimpa["lite_spinner_c"].'"';?>/>
                 </div>
+            </div>
+
+            <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Personalize your Status Message</h2>
+                    <span class="wpmcahint headhint" data-hint="Customize your Success or Error Message"></span>
+                </div>
+                <div class="wpmca_group">
+                    <select name="lite_status_f" class="wpmca_sel google_fonts">
+                      <option value="">Font</option>
+                    </select>
+                    <select name="lite_status_fs" class="wpmca_sel google_fonts_size" value="20">
+                        <option value="">Size</option>
+                    </select>
+                    <select name="lite_status_fw" class="wpmca_sel google_fonts_weight">
+                      <option value="">Weight</option>
+                      <option value="normal">Normal</option>
+                      <option value="bold">Bold</option>
+                      <option value="lighter">Lighter</option>
+                      <option value="bolder">Bolder</option>
+                      <option value="100">100</option>
+                      <option value="200">200</option>
+                      <option value="300">300</option>
+                      <option value="400">400</option>
+                      <option value="500">500</option>
+                      <option value="600">600</option>
+                      <option value="700">700</option>
+                      <option value="800">800</option>
+                      <option value="900">900</option>
+                    </select>
+                    <select name="lite_status_fst" class="wpmca_sel google_fonts_style">
+                      <option value="">Style</option>
+                      <option value="normal">Normal</option>
+                      <option value="italic">Italic</option>
+                      <option value="oblique">oblique</option>
+                    </select>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Font Color</label>
+                   <input name="lite_status_fc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["lite_status_fc"]))echo ' value="'.$wpmchimpa["lite_status_fc"].'"';?>/>
+                </div>
+
             </div>
 
             <div class="wpmca_item">
@@ -714,7 +796,7 @@
                     <select name="widget_tbox_fs" class="wpmca_sel google_fonts_size" value="20">
                         <option value="">Size</option>
                     </select>
-                    <select name="widget_tbox_fw" class="wpmca_sel google_fonts_weight"<?php if(isset($wpmchimpa["widget_tbox_fw"]))echo ' value="'.$wpmchimpa["widget_tbox_fw"].'"';?>>
+                    <select name="widget_tbox_fw" class="wpmca_sel google_fonts_weight">
                       <option value="">Weight</option>
                       <option value="normal">Normal</option>
                       <option value="bold">Bold</option>
@@ -730,7 +812,7 @@
                       <option value="800">800</option>
                       <option value="900">900</option>
                     </select>
-                    <select name="widget_tbox_fst" class="wpmca_sel google_fonts_style"<?php if(isset($wpmchimpa["widget_tbox_fst"]))echo ' value="'.$wpmchimpa["widget_tbox_fst"].'"';?>>
+                    <select name="widget_tbox_fst" class="wpmca_sel google_fonts_style">
                       <option value="">Style</option>
                       <option value="normal">Normal</option>
                       <option value="italic">Italic</option>
@@ -788,7 +870,7 @@
                     <select name="widget_button_fs" class="wpmca_sel google_fonts_size" value="20">
                         <option value="">Size</option>
                     </select>
-                    <select name="widget_button_fw" class="wpmca_sel google_fonts_weight"<?php if(isset($wpmchimpa["widget_button_fw"]))echo ' value="'.$wpmchimpa["widget_button_fw"].'"';?>>
+                    <select name="widget_button_fw" class="wpmca_sel google_fonts_weight">
                       <option value="">Weight</option>
                       <option value="normal">Normal</option>
                       <option value="bold">Bold</option>
@@ -804,7 +886,7 @@
                       <option value="800">800</option>
                       <option value="900">900</option>
                     </select>
-                    <select name="widget_button_fst" class="wpmca_sel google_fonts_style"<?php if(isset($wpmchimpa["widget_button_fst"]))echo ' value="'.$wpmchimpa["widget_button_fst"].'"';?>>
+                    <select name="widget_button_fst" class="wpmca_sel google_fonts_style">
                       <option value="">Style</option>
                       <option value="normal">Normal</option>
                       <option value="italic">Italic</option>
@@ -862,6 +944,49 @@
                    <input name="widget_spinner_c" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["widget_spinner_c"]))echo ' value="'.$wpmchimpa["widget_spinner_c"].'"';?>/>
                 </div>
             </div>
+
+            <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Personalize your Status Message</h2>
+                    <span class="wpmcahint headhint" data-hint="Customize your Success or Error Message"></span>
+                </div>
+                <div class="wpmca_group">
+                    <select name="widget_status_f" class="wpmca_sel google_fonts">
+                      <option value="">Font</option>
+                    </select>
+                    <select name="widget_status_fs" class="wpmca_sel google_fonts_size" value="20">
+                        <option value="">Size</option>
+                    </select>
+                    <select name="widget_status_fw" class="wpmca_sel google_fonts_weight">
+                      <option value="">Weight</option>
+                      <option value="normal">Normal</option>
+                      <option value="bold">Bold</option>
+                      <option value="lighter">Lighter</option>
+                      <option value="bolder">Bolder</option>
+                      <option value="100">100</option>
+                      <option value="200">200</option>
+                      <option value="300">300</option>
+                      <option value="400">400</option>
+                      <option value="500">500</option>
+                      <option value="600">600</option>
+                      <option value="700">700</option>
+                      <option value="800">800</option>
+                      <option value="900">900</option>
+                    </select>
+                    <select name="widget_status_fst" class="wpmca_sel google_fonts_style">
+                      <option value="">Style</option>
+                      <option value="normal">Normal</option>
+                      <option value="italic">Italic</option>
+                      <option value="oblique">oblique</option>
+                    </select>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Font Color</label>
+                   <input name="widget_status_fc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["widget_status_fc"]))echo ' value="'.$wpmchimpa["widget_status_fc"].'"';?>/>
+                </div>
+
+            </div>
+
         </div>
         <div id="addon" class="wpmca_box">
             
@@ -912,7 +1037,7 @@
                     <select name="addon_heading_fs" class="wpmca_sel google_fonts_size">
                         <option value="">Size</option>
                     </select>
-                    <select name="addon_heading_fw" class="wpmca_sel google_fonts_weight"<?php if(isset($wpmchimpa["addon_heading_fw"]))echo ' value="'.$wpmchimpa["addon_heading_fw"].'"';?>>
+                    <select name="addon_heading_fw" class="wpmca_sel google_fonts_weight">
                       <option value="">Weight</option>
                       <option value="normal">Normal</option>
                       <option value="bold">Bold</option>
@@ -928,7 +1053,7 @@
                       <option value="800">800</option>
                       <option value="900">900</option>
                     </select>
-                    <select name="addon_heading_fst" class="wpmca_sel google_fonts_style"<?php if(isset($wpmchimpa["addon_heading_fst"]))echo ' value="'.$wpmchimpa["addon_heading_fst"].'"';?>>
+                    <select name="addon_heading_fst" class="wpmca_sel google_fonts_style">
                       <option value="">Style</option>
                       <option value="normal">Normal</option>
                       <option value="italic">Italic</option>
@@ -972,7 +1097,7 @@
                     <select name="addon_tbox_fs" class="wpmca_sel google_fonts_size" value="20">
                         <option value="">Size</option>
                     </select>
-                    <select name="addon_tbox_fw" class="wpmca_sel google_fonts_weight"<?php if(isset($wpmchimpa["addon_tbox_fw"]))echo ' value="'.$wpmchimpa["addon_tbox_fw"].'"';?>>
+                    <select name="addon_tbox_fw" class="wpmca_sel google_fonts_weight">
                       <option value="">Weight</option>
                       <option value="normal">Normal</option>
                       <option value="bold">Bold</option>
@@ -988,7 +1113,7 @@
                       <option value="800">800</option>
                       <option value="900">900</option>
                     </select>
-                    <select name="addon_tbox_fst" class="wpmca_sel google_fonts_style"<?php if(isset($wpmchimpa["addon_tbox_fst"]))echo ' value="'.$wpmchimpa["addon_tbox_fst"].'"';?>>
+                    <select name="addon_tbox_fst" class="wpmca_sel google_fonts_style">
                       <option value="">Style</option>
                       <option value="normal">Normal</option>
                       <option value="italic">Italic</option>
@@ -1046,7 +1171,7 @@
                     <select name="addon_button_fs" class="wpmca_sel google_fonts_size" value="20">
                         <option value="">Size</option>
                     </select>
-                    <select name="addon_button_fw" class="wpmca_sel google_fonts_weight"<?php if(isset($wpmchimpa["addon_button_fw"]))echo ' value="'.$wpmchimpa["addon_button_fw"].'"';?>>
+                    <select name="addon_button_fw" class="wpmca_sel google_fonts_weight">
                       <option value="">Weight</option>
                       <option value="normal">Normal</option>
                       <option value="bold">Bold</option>
@@ -1062,7 +1187,7 @@
                       <option value="800">800</option>
                       <option value="900">900</option>
                     </select>
-                    <select name="addon_button_fst" class="wpmca_sel google_fonts_style"<?php if(isset($wpmchimpa["addon_button_fst"]))echo ' value="'.$wpmchimpa["addon_button_fst"].'"';?>>
+                    <select name="addon_button_fst" class="wpmca_sel google_fonts_style">
                       <option value="">Style</option>
                       <option value="normal">Normal</option>
                       <option value="italic">Italic</option>
@@ -1120,6 +1245,50 @@
                    <input name="addon_spinner_c" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["addon_spinner_c"]))echo ' value="'.$wpmchimpa["addon_spinner_c"].'"';?>/>
                 </div>
             </div>
+
+
+            <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Personalize your Status Message</h2>
+                    <span class="wpmcahint headhint" data-hint="Customize your Success or Error Message"></span>
+                </div>
+                <div class="wpmca_group">
+                    <select name="addon_status_f" class="wpmca_sel google_fonts">
+                      <option value="">Font</option>
+                    </select>
+                    <select name="addon_status_fs" class="wpmca_sel google_fonts_size" value="20">
+                        <option value="">Size</option>
+                    </select>
+                    <select name="addon_status_fw" class="wpmca_sel google_fonts_weight">
+                      <option value="">Weight</option>
+                      <option value="normal">Normal</option>
+                      <option value="bold">Bold</option>
+                      <option value="lighter">Lighter</option>
+                      <option value="bolder">Bolder</option>
+                      <option value="100">100</option>
+                      <option value="200">200</option>
+                      <option value="300">300</option>
+                      <option value="400">400</option>
+                      <option value="500">500</option>
+                      <option value="600">600</option>
+                      <option value="700">700</option>
+                      <option value="800">800</option>
+                      <option value="900">900</option>
+                    </select>
+                    <select name="addon_status_fst" class="wpmca_sel google_fonts_style">
+                      <option value="">Style</option>
+                      <option value="normal">Normal</option>
+                      <option value="italic">Italic</option>
+                      <option value="oblique">oblique</option>
+                    </select>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Font Color</label>
+                   <input name="addon_status_fc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["addon_status_fc"]))echo ' value="'.$wpmchimpa["addon_status_fc"].'"';?>/>
+                </div>
+
+            </div>
+
             <div class="wpmca_item">
                 <div class="itemhead">
                     <h2>Personalize the Background</h2>
