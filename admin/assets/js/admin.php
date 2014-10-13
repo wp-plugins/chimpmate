@@ -945,7 +945,7 @@ $('#faq_button').click(function(){
     window.open("http://voltroid.com/wordpress/plugins/chimpmate#faq","_blank");
 });
 $('#sup_button').click(function(){
-    window.open("http://voltroid.com/wordpress/plugins/chimpmate#support","_blank");
+    window.open("https://wordpress.org/support/plugin/chimpmate","_blank");
 });
 var JsonObj = null;
 function handleFileSelect(evt) {

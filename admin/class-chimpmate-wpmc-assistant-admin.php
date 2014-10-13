@@ -153,7 +153,7 @@ class ChimipMate_WPMC_Assistant_Admin {
 	}
 	/**
 	 * ajax call to load list
-	 * @since    1.0.0
+	 * @since    1.0.3
 	 * 
 	 */
 	public function wpmchimpa_load_list(){
@@ -169,9 +169,9 @@ class ChimipMate_WPMC_Assistant_Admin {
 			$groups = json_decode($this->retrieve_groups($list,$MailChimp));
 			$lists =array("stat" => "1",
 						'id' => $list,
-						'list_name' => $result['data']['0']['name'],
-						'groups' => $groups
+						'list_name' => $result['data']['0']['name']
 						);
+			if(!empty($groups))$lists['groups']=$groups;
 	   }
 	   else{
 	   		$list = array();
@@ -188,31 +188,33 @@ class ChimipMate_WPMC_Assistant_Admin {
 	}
 	/**
 	 * Ajax call to retrieve groups
-	 * @since    1.0.0
+	 * @since    1.0.3
 	 * 
 	 */
 	function retrieve_groups($list,$MailChimp){
 		$groups_result = $MailChimp->call('lists/interest-groupings', array(
 	                'id'=> $list));
 		$groups = array();
-		foreach($groups_result as $grouping){
-			$g = array();
-			$g['id'] = $grouping['id'];
-			$g['group_name'] = $grouping['name'];
-			$s = array();
-			foreach($grouping['groups'] as $group){
-				$t['id']=$group['id'];
-				$t['gname']=$group['name'];
-				array_push($s, $t);
+		if($groups_result['status']!='error'){
+			foreach($groups_result as $grouping){
+				$g = array();
+				$g['id'] = $grouping['id'];
+				$g['group_name'] = $grouping['name'];
+				$s = array();
+				foreach($grouping['groups'] as $group){
+					$t['id']=$group['id'];
+					$t['gname']=$group['name'];
+					array_push($s, $t);
+				}
+				$g['groups'] = $s;
+				array_push($groups,$g);
 			}
-			$g['groups'] = $s;
-			array_push($groups,$g);
 		}
 		return json_encode($groups);
 	}
 	/**
 	 * Ajax call to select list
-	 * @since    1.0.0
+	 * @since    1.0.3
 	 * 
 	 */
 	public function wpmchimpa_sel_list(){
@@ -225,9 +227,9 @@ class ChimipMate_WPMC_Assistant_Admin {
 			array("filters" => array("list_id" => $list)));
 		$lists =array("stat" => "1",
 						'id' => $list,
-						'list_name' => $result['data']['0']['name'],
-						'groups' => $groups
+						'list_name' => $result['data']['0']['name']
 						);
+		if(!empty($groups))$lists['groups']=$groups;
 		print_r(json_encode($lists));
 	    die();
 	}

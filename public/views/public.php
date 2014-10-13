@@ -476,20 +476,12 @@ display: inline-block;
     .wpmchimpa-overlay-bg .wpmchimpa-wrapper {
         width:92%;
     }
-
-    .wpmchimpa-overlay-bg #wpmchimpa span {
-        left:50px;
-    }
 }
 
 @media only screen and (max-width:769px) {
 
     .wpmchimpa-overlay-bg #wpmchimpa-newsletterform #wpmchimpa {
         padding: 40px 25px;
-    }
-
-    .wpmchimpa-overlay-bg #wpmchimpa span {
-        display: none;
     }
 
     .wpmchimpa-overlay-bg #wpmchimpa input[type="email"],#wpmchimpa input[type="text"] {
