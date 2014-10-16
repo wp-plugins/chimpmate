@@ -167,7 +167,7 @@ width: 100%;
 
 #wpmchimpa .wpmchimpa-subs-button{
   width:40%;
-  height:50px;
+  height:40px;
     cursor: pointer;
     border:none;
     margin: 10px auto;
