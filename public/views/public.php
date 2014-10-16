@@ -165,15 +165,13 @@ width: 100%;
         } ?>
 }
 
-#wpmchimpa input[type="submit"] {
-    width:40%;
-    padding:13px;
+#wpmchimpa .wpmchimpa-subs-button{
+  width:40%;
+  height:50px;
     cursor: pointer;
-    margin-bottom:0;
     border:none;
     margin: 10px auto;
     display: block;
-    cursor:pointer;
     transition: all 0.5s ease;
     -webkit-box-shadow:none;
     -moz-box-shadow:none;
@@ -181,14 +179,8 @@ width: 100%;
     -o-box-shadow:none;
     box-shadow:none;
     background: #62bc33;
-	color:#fff;
-    -webkit-box-shadow:none;
-    -moz-box-shadow:none;
-    -ms-box-shadow:none;
-    -o-box-shadow:none;
-    box-shadow:none;
+  color:#fff;
     clear:both;
-    text-decoration:none;
     text-shadow:none;
     border: 0;
     border-radius: 1px;
@@ -222,13 +214,13 @@ width: 100%;
             echo 'background-color:'.$wpmchimpa["lite_button_bc"].';';
         }
         else{ ?>
-	background: -moz-linear-gradient(left, #62bc33 0%, #8bd331 100%);
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#62bc33), color-stop(100%,#8bd331));
-	background: -webkit-linear-gradient(left, #62bc33 0%,#8bd331 100%);
-	background: -o-linear-gradient(left, #62bc33 0%,#8bd331 100%);
-	background: -ms-linear-gradient(left, #62bc33 0%,#8bd331 100%);
-	background: linear-gradient(to right, #62bc33 0%,#8bd331 100%);
-	<?php }
+  background: -moz-linear-gradient(left, #62bc33 0%, #8bd331 100%);
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#62bc33), color-stop(100%,#8bd331));
+  background: -webkit-linear-gradient(left, #62bc33 0%,#8bd331 100%);
+  background: -o-linear-gradient(left, #62bc33 0%,#8bd331 100%);
+  background: -ms-linear-gradient(left, #62bc33 0%,#8bd331 100%);
+  background: linear-gradient(to right, #62bc33 0%,#8bd331 100%);
+  <?php }
         if(isset($wpmchimpa["lite_button_br"])){
             echo '-webkit-border-radius:'.$wpmchimpa["lite_button_br"].'px;';
             echo '-moz-border-radius:'.$wpmchimpa["lite_button_br"].'px;';
@@ -241,8 +233,18 @@ width: 100%;
         }
       ?>
 }
-
-#wpmchimpa input[type="submit"]:hover {
+#wpmchimpa .wpmchimpa-subs-button::before{
+  content: '<?php if(isset($wpmchimpa['lite_button'])) echo $wpmchimpa['lite_button'];else echo 'Subscribe';?>';
+  display: block;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+#wpmchimpa .wpmchimpa-subs-button:hover {
     border:none;
     -webkit-box-shadow:none;
     -moz-box-shadow:none;
@@ -250,18 +252,18 @@ width: 100%;
     -o-box-shadow:none;
     box-shadow:none;
     background:#8BD331;
-	color:#fff;
+  color:#fff;
     <?php 
         if(isset($wpmchimpa["lite_button_bch"])){
             echo 'background-color:'.$wpmchimpa["lite_button_bch"].';';
         }
         else { ?>
     background: -moz-linear-gradient(left, #8BD331 0%, #8bd331 100%);
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,#8BD331), color-stop(100%,#8bd331));
-	background: -webkit-linear-gradient(left, #8BD331 0%,#8bd331 100%);
-	background: -o-linear-gradient(left, #8BD331 0%,#8bd331 100%);
-	background: -ms-linear-gradient(left, #8BD331 0%,#8bd331 100%);
-	background: linear-gradient(to right, #8BD331 0%,#8bd331 100%);
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#8BD331), color-stop(100%,#8bd331));
+  background: -webkit-linear-gradient(left, #8BD331 0%,#8bd331 100%);
+  background: -o-linear-gradient(left, #8BD331 0%,#8bd331 100%);
+  background: -ms-linear-gradient(left, #8BD331 0%,#8bd331 100%);
+  background: linear-gradient(to right, #8BD331 0%,#8bd331 100%);
        <?php }
         if(isset($wpmchimpa["lite_button_fch"])){
             echo 'color:'.$wpmchimpa["lite_button_fch"].';';
@@ -270,9 +272,7 @@ width: 100%;
             echo ' border:'.$wpmchimpa["lite_button_bor"].'px solid '.$wpmchimpa["lite_button_borc"].';';
         }
       ?>
-
 }
-
 #wpmchimpa .wpmchimpa-feedback {
     color: #fff;
     margin-top: 10px;
@@ -489,7 +489,7 @@ display: inline-block;
         margin-bottom:7px;
     }
 
-    .wpmchimpa-overlay-bg #wpmchimpa input[type="submit"] {
+    .wpmchimpa-overlay-bg #wpmchimpa .wpmchimpa-subs-button {
         width:100%;
     }
 	.wpmchimpa-overlay-bg #wpmchimpa h3 {
@@ -516,8 +516,7 @@ display: inline-block;
     #wpmchimpa input[type='text'],#wpmchimpa input[type='email']{
 		font-size: 12px
    	}
-    #wpmchimpa input[type='submit']{
-      padding:0;
+    #wpmchimpa .wpmchimpa-subs-button{
       height:34px;
       font-size: 18px
     }
@@ -581,8 +580,8 @@ display: inline-block;
 			            				}
 			            			}
 			            			?>
-			            			<input type="submit" value="<?php if(isset($wpmchimpa['lite_button'])) echo $wpmchimpa['lite_button'];else echo 'Subscribe';?>" name="subscribe" class="button wpmchimpa-subs-button"/>
-			        			<div class="wpmchimpa-signal"></div>
+			            			<div class="wpmchimpa-subs-button"></div>
+                    <div class="wpmchimpa-signal"></div>
 			            		</form>
 			        			<div class="wpmchimpa-feedback"></div>
 			    			</div>

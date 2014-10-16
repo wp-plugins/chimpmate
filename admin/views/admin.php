@@ -52,10 +52,10 @@
             </div>
           </div>
           <div class="wpmc_soc_cont gp">
-            <a href="https://plus.google.com/110722804771159318274/posts"><div class="wpmc_socioicon"></div></a>
+            <a href="https://plus.google.com/+VoltroidInc"><div class="wpmc_socioicon"></div></a>
             <div class="wp_likebox" style="margin-left: -15px;">
               <script src="https://apis.google.com/js/platform.js" async defer></script>
-              <div class="g-follow" data-annotation="none" data-height="20" data-width="60" data-href="https://plus.google.com/110722804771159318274" data-rel="publisher"></div></div>
+              <div class="g-follow" data-annotation="none" data-height="20" data-width="60" data-href="https://plus.google.com/+VoltroidInc" data-rel="publisher"></div></div>
           </div>
         </div>
         <div class="header_voltriod h_right">
@@ -184,7 +184,7 @@
                   <input type="text" class="wpmchimp_text" spellcheck="false" name="errorfe" required<?php if(isset($wpmchimpa["errorfe"]))echo ' value="'.$wpmchimpa["errorfe"].'"';?>>
                   <span class="highlighter"></span>
                   <span class="bar"></span>
-                  <label>Field empty</label>
+                  <label>Invalid Entry</label>
                 </div>
                 <div class="wpmca_group wpmcatxt">      
                   <input type="text" class="wpmchimp_text" spellcheck="false" name="erroras" required<?php if(isset($wpmchimpa["erroras"]))echo ' value="'.$wpmchimpa["erroras"].'"';?>>
@@ -1370,10 +1370,10 @@
                         </div>
                       </div>
                       <div class="wpmc_soc_cont gp">
-                        <a href="https://plus.google.com/110722804771159318274/posts"><div class="wpmc_socioicon"></div></a>
+                        <a href="https://plus.google.com/+VoltroidInc"><div class="wpmc_socioicon"></div></a>
                         <div class="wp_likebox" style="margin-left: -8px;">
                           <script src="https://apis.google.com/js/platform.js" async defer></script>
-                          <div class="g-follow" data-annotation="none" data-height="20" data-href="https://plus.google.com/110722804771159318274" data-rel="publisher"></div></div>
+                          <div class="g-follow" data-annotation="none" data-height="20" data-href="https://plus.google.com/+VoltroidInc" data-rel="publisher"></div></div>
                       </div>
                     </div>
                  </div>

@@ -143,10 +143,11 @@ line-height: 20px;{
     ?>
 }
 
-#<?php echo $wpmcw_id; ?> input[type="submit"]{
+#<?php echo $wpmcw_id; ?> .wpmchimpa-subs-button{
   margin: 12px 0;
   width: 100%;
-  padding: 11px 24px 10px !important;
+  height: 40px;
+text-align: center;
     background: #62bc33;
     cursor:pointer;
   color:#fff;
@@ -209,8 +210,18 @@ line-height: 20px;{
         }
       ?>
 }
-
-#<?php echo $wpmcw_id; ?> input[type="submit"]:hover{
+#<?php echo $wpmcw_id; ?> .wpmchimpa-subs-button::before{
+content: '<?php if(isset($wpmchimpa['widget_button'])) echo $wpmchimpa['widget_button'];else echo 'Subscribe';?>';
+  display: block;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+#<?php echo $wpmcw_id; ?> .wpmchimpa-subs-button:hover{
   
     background:#8BD331;
    
@@ -292,8 +303,8 @@ line-height: 20px;{
      echo '<input type="text" name="name" class="wpmchimpa_name" placeholder="'.$nl.'" required/>'; 
     } ?>
 		<input type="email" name="email" class="wpmchimpa_email" placeholder="<?php if(isset($wpmchimpa['labeleb'])) echo $wpmchimpa['labeleb'];else echo 'Email address';?>" required/>
-		<input type="submit" value="<?php if(isset($wpmchimpa['widget_button'])) echo $wpmchimpa['widget_button'];else echo 'Subscribe';?>" name="subscribe" class="wpmchimpa-subs-button"/>
-		<input type="hidden" name="action" value="wpmchimpa_add_email_ajax"/>
+		<div class="wpmchimpa-subs-button"></div>
+    <input type="hidden" name="action" value="wpmchimpa_add_email_ajax"/>
 		<?php 
 		if(isset($wpmchimpa['list_record']['groups'])){
 			$group_record = array();

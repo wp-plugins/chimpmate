@@ -234,7 +234,7 @@ class ChimipMate_WPMC_Assistant {
 	/**
 	 * Register and enqueues public-facing JavaScript files.
 	 *
-	 * @since    1.0.0
+	 * @since    1.0.4
 	 */
 	public function enqueue_scripts() {
 		$wpmchimpa = json_decode(get_option('wpmchimpa_options'),true);
@@ -243,13 +243,16 @@ class ChimipMate_WPMC_Assistant {
 		if (isset($wpmchimpa["lite_msg_f"]) && strpos($wpmchimpa["lite_msg_f"],'|ng') == false)array_push($goo_fonts, $wpmchimpa["lite_msg_f"]);
 		if (isset($wpmchimpa["lite_tbox_f"]) && strpos($wpmchimpa["lite_tbox_f"],'|ng') == false)array_push($goo_fonts, $wpmchimpa["lite_tbox_f"]);
 		if (isset($wpmchimpa["lite_button_f"]) && strpos($wpmchimpa["lite_button_f"],'|ng') == false)array_push($goo_fonts, $wpmchimpa["lite_button_f"]);
+		if (isset($wpmchimpa["lite_status_f"]) && strpos($wpmchimpa["lite_status_f"],'|ng') == false)array_push($goo_fonts, $wpmchimpa["lite_status_f"]);
 		if (isset($wpmchimpa["widget_msg_f"]) && strpos($wpmchimpa["widget_msg_f"],'|ng') == false)array_push($goo_fonts, $wpmchimpa["widget_msg_f"]);
 		if (isset($wpmchimpa["widget_tbox_f"]) && strpos($wpmchimpa["widget_tbox_f"],'|ng') == false)array_push($goo_fonts, $wpmchimpa["widget_tbox_f"]);
 		if (isset($wpmchimpa["widget_button_f"]) && strpos($wpmchimpa["widget_button_f"],'|ng') == false)array_push($goo_fonts, $wpmchimpa["widget_button_f"]);
+		if (isset($wpmchimpa["widget_status_f"]) && strpos($wpmchimpa["widget_status_f"],'|ng') == false)array_push($goo_fonts, $wpmchimpa["widget_status_f"]);
 		if (isset($wpmchimpa["addon_heading_f"]) && strpos($wpmchimpa["addon_heading_f"],'|ng') == false)array_push($goo_fonts, $wpmchimpa["addon_heading_f"]);
 		if (isset($wpmchimpa["addon_msg_f"]) && strpos($wpmchimpa["addon_msg_f"],'|ng') == false)array_push($goo_fonts, $wpmchimpa["addon_msg_f"]);
 		if (isset($wpmchimpa["addon_tbox_f"]) && strpos($wpmchimpa["addon_tbox_f"],'|ng') == false)array_push($goo_fonts, $wpmchimpa["addon_tbox_f"]);
 		if (isset($wpmchimpa["addon_button_f"]) && strpos($wpmchimpa["addon_button_f"],'|ng') == false)array_push($goo_fonts, $wpmchimpa["addon_button_f"]);
+		if (isset($wpmchimpa["addon_status_f"]) && strpos($wpmchimpa["addon_status_f"],'|ng') == false)array_push($goo_fonts, $wpmchimpa["addon_status_f"]);
 		if(!empty($goo_fonts)){
 				$goo = implode(',',$goo_fonts);
 				$wpmchimpa['goo'] = $goo;

@@ -181,9 +181,10 @@ $wpmchimpa = json_decode(get_option('wpmchimpa_options'),true);
             echo ' border:'.$wpmchimpa["addon_tbox_bor"].'px solid '.$wpmchimpa["addon_tbox_borc"].';';
         } ?>
 }
-.wpmchimpab input[type="submit"]{
+.wpmchimpab .wpmchimpa-subs-button{
   display:inline-block;
   vertical-align: initial;
+  text-align: center;
   width: 150px;
     height:45px;
     background: #62bc33;
@@ -195,7 +196,6 @@ $wpmchimpa = json_decode(get_option('wpmchimpa_options'),true);
     -o-box-shadow:none;
     box-shadow:none;
     clear:both;
-    text-decoration:none;
     text-shadow:none;
     border: 0;
     border-radius: 1px;
@@ -251,7 +251,18 @@ $wpmchimpa = json_decode(get_option('wpmchimpa_options'),true);
         }
       ?>
 }
-.wpmchimpab input[type="submit"]:hover{
+.wpmchimpab .wpmchimpa-subs-button::before{
+  content: '<?php if(isset($wpmchimpa['addon_button'])) echo $wpmchimpa['addon_button'];else echo 'Subscribe';?>';
+  display: block;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.wpmchimpab .wpmchimpa-subs-button:hover{
 
     background:#8BD331;
    
@@ -339,7 +350,7 @@ position: relative;
 }
 @media only screen and (max-width:420px) {
   .wpmchimpab input[type="email"], .wpmchimpab input[type="text"],
-  .wpmchimpab input[type="submit"]{
+  .wpmchimpab .wpmchimpa-subs-button{
     width:100%;
   }
 }
@@ -354,8 +365,8 @@ position: relative;
     echo '<input type="text" name="name" class="wpmchimpa_name" placeholder="'.$nl.'" required/>'; 
   } ?>
 		<input type="email" name="email" class="wpmchimpa_email" placeholder="<?php if(isset($wpmchimpa['labeleb'])) echo $wpmchimpa['labeleb'];else echo 'Email address';?>" required/>
-		<input type="submit" value="<?php if(isset($wpmchimpa["addon_button"]))echo $wpmchimpa["addon_button"];else echo 'Subscribe';?>" name="subscribe" class="wpmchimpa-subs-button button"/>
-		<div class="wpmchimpa-signal-cont"><div class="wpmchimpa-signal"></div></div>
+		<div class="wpmchimpa-subs-button"></div>
+    <div class="wpmchimpa-signal-cont"><div class="wpmchimpa-signal"></div></div>
 		<input type="hidden" name="action" value="wpmchimpa_add_email_ajax"/>
 		<?php 
 		if(isset($wpmchimpa['list_record']['groups'])){
