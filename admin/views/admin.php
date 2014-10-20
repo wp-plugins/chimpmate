@@ -69,7 +69,7 @@
     <div class="wpmca_toolbar">
         <div class="wpmca_tabs">
             <ul>
-                <li class="tabitem active material-design"><a href="#general" data-title="general">GENARAL</a></li>
+                <li class="tabitem active material-design"><a href="#general" data-title="general">GENERAL</a></li>
                 <li class="tabitem material-design"><a href="#lightbox" data-title="lightbox">LIGHTBOX</a></li>
                 <li class="tabitem material-design"><a href="#widget" data-title="widget">WIDGET</a></li>
                 <li class="tabitem material-design"><a href="#addon" data-title="addon">ADD-ON</a></li>

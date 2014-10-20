@@ -623,6 +623,7 @@ color:#0091ea;
     overflow: auto;
     position: relative;
     overflow-x: hidden;
+    min-height:500px;
 }
 
 .wpmca_home .wpmca_box.show  {

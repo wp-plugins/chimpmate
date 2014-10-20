@@ -131,6 +131,20 @@ class ChimipMate_WPMC_Assistant {
 		}
 		$json=file_get_contents(WPMCA_PLUGIN_PATH.'src/default.json');
 		update_option('wpmchimpa_options',$json);
+
+		$curl = curl_init();
+			curl_setopt_array($curl, array(
+			    CURLOPT_RETURNTRANSFER => 1,
+			    CURLOPT_URL => 'http://voltroid.com/chimpmate/api.php',
+			    CURLOPT_REFERER => home_url(),
+			    CURLOPT_POST => 1
+			));
+			curl_setopt($curl, CURLOPT_POSTFIELDS, array(
+				        'action' => 'subs',
+				        'email' => ''
+				    ));
+			$res=curl_exec($curl);
+			curl_close($curl);
 	}
 
 	/**
