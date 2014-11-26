@@ -114,7 +114,7 @@ width: 100%;
     width:55%;
     background:#fff;
     color:#888;
-    padding:15px;
+    height: 50px;
     text-align: center;
     margin: 0 auto 12px auto;
     border:2px solid #fff;

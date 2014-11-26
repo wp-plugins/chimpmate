@@ -5,8 +5,8 @@ Plugin URL: http://voltroid.com/wordpress/plugins/chimpmate
 Donate link: http://voltroid.com/wordpress/plugins/chimpmate#donate
 Tags: mailchimp, mailchimp integration, MailChimp plugin, mailchimp signup, mailchimp wordpress, newsletter, newsletter signup, checkbox, newsletter, optin, registration form, shortcode, sign-up form, subscribe, widget,  analytics, automatic, collect email, double optin, email, exit popup, exit-intent, getresponse, growth, hellobar, lightbox, links, mail, newsletters, optin forms, popover, popup, popup domination, popupdomination, posts, subscribe, subscribers, subscription, referrer, search engine, social sharing, cookie, customizable, responsive
 Requires at least: 3.8
-Tested up to: 4.0
-Stable tag: 1.0.5
+Tested up to: 4.0.1
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,6 +96,9 @@ Check out our [FAQ](http://voltroid.com/wordpress/plugins/chimpmate#faq)
 
 
 == Changelog ==
+
+= 1.0.6 =
+* Fixed Design Issues
 
 = 1.0.5 =
 * Minor Bug fixes
