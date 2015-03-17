@@ -1,12 +1,12 @@
 === ChimpMate - WordPress MailChimp Assistant ===
 Contributors: Voltroid
 Author URI: http://voltroid.com/
-Plugin URL: http://voltroid.com/wordpress/plugins/chimpmate
-Donate link: http://voltroid.com/wordpress/plugins/chimpmate#donate
+Plugin URL: http://voltroid.com/chimpmate
+Donate link: http://voltroid.com/chimpmate#donate
 Tags: mailchimp, mailchimp integration, MailChimp plugin, mailchimp signup, mailchimp wordpress, newsletter, newsletter signup, checkbox, newsletter, optin, registration form, shortcode, sign-up form, subscribe, widget,  analytics, automatic, collect email, double optin, email, exit popup, exit-intent, getresponse, growth, hellobar, lightbox, links, mail, newsletters, optin forms, popover, popup, popup domination, popupdomination, posts, subscribe, subscribers, subscription, referrer, search engine, social sharing, cookie, customizable, responsive
 Requires at least: 3.8
-Tested up to: 4.0.1
-Stable tag: 1.0.6
+Tested up to: 4.1.1
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,17 +14,21 @@ ChimpMate is a MailChimp based email marketing plugin. Professional & Custom des
 
 == Description ==
 
-ChimpMate is a MailChimp based email marketing plugin for WordPress. MailChimp is one of the most powerful email marketing tool with more than 7 million users. Beginners can start using the service with free* account. MailChimp also let the users to send mail to unlimited number of recipients. It is also ensures greater deliverability. Being inspired by MailChimp service we created this newsletter plugin for wordpress.org customers. It is a fully customizable plugin with professional design. The plugin offers easy installation of lightbox and widget. Hope you will like the plugin. Nothing to say much about it. Check our [screenshots](http://wordpress.org/plugins/chimpmate/screenshots/). Your feedback is appreciated.
+ChimpMate is a MailChimp based email marketing plugin for WordPress. MailChimp is one of the most powerful email marketing tool with more than 7 million users. Beginners can start using the service with free* account. MailChimp also let the users to send mail to unlimited number of recipients. It is also ensures greater deliverability. Being inspired by MailChimp service we created this newsletter plugin for wordpress.org customers. It is a fully customizable plugin with professional design. The plugin offers easy installation of lightbox, widget, slider, addon, topbar and flipbox. Hope you will like the plugin. Nothing to say much about it. Check our [screenshots](http://wordpress.org/plugins/chimpmate/screenshots/). Your feedback is appreciated.
+
+Check our [Backend Demo](http://voltroid.com/chimpmate/demo/wp-login.php?autologin=demo)
+Check our [Themes Demo](http://voltroid.com/chimpmate/demo)
 
 = ChimpMate Features =
 
-* Subscription on Light box, Widgets and On Page
+* Subscription on Light box, Widgets, Slider, Topbar, Flipbox and On Page
 * Built in Editor 
 * 650+ Google fonts
 * Automatic List and Group Fetching
 * Full Customizable Typography
 * Typography live Preview
 * Button Customization
+* Live Editor
 * Search engine Target 
 * User Status Based Filter
 * Cookie Based Lightbox
@@ -39,12 +43,11 @@ ChimpMate is a MailChimp based email marketing plugin for WordPress. MailChimp i
 
 > **GET ChimpMate Pro**
 >
-> [ChimpMate Pro](http://voltroid.com/wordpress/plugins/chimpmate) offers special features.
+> [ChimpMate Pro](http://voltroid.com/chimpmate) offers special features.
 >
 > * Premium Themes
-> * Gradient Button Generator
 > * A/B Testing
-> * Statistics Graphs and Logs 
+> * Instant Analytics
 > * Depart Intent Tecnolag
 > * Cookie Based Lightbox day Customization
 > * Scroll Toggle % Custamization
@@ -84,21 +87,33 @@ ChimpMate is a MailChimp based email marketing plugin for WordPress. MailChimp i
 
 1. Responsive Subscription Lightbox in Mobile Devices.
 2. Responsive Subscription Lightbox in Tab/Phablet Devices.
-3. Subsciption box below every post.
-4. Perfectly aligned Plugin General Settings Page at Dashboard
-5. Perfectly aligned Plugin Lightbox Settings Page at Dashboard
-6. Perfectly aligned Plugin Add-on Settings Page at Dashboard
+3. Responsive Subscription Slider in Tab/Phablet Devices.
+4. Subsciption box below every post.
+5. Perfectly aligned Plugin General Settings Page at Dashboard
+6. Perfectly aligned Plugin Lightbox Settings Page at Dashboard
+7. Perfectly aligned Plugin Slider Settings Page at Dashboard
+8. Plugin Lightbox Settings - ChimpMate Pro
+9. Plugin Addon Settings - ChimpMate Pro
+10. Plugin A/B Testing Settings - ChimpMate Pro
+11. Plugin General Settings - ChimpMate Pro
+12. Theme Display Demo 1 - ChimpMate Pro
+13. Subscribe to Unlock - ChimpMate Pro
+14. Theme Display Demo 2 - ChimpMate Pro
 
 == Frequently Asked Questions ==
 
-Check out our [FAQ](http://voltroid.com/wordpress/plugins/chimpmate#faq)
+Check out our [FAQ](http://voltroid.com/chimpmate#faq)
 
 
 
 == Changelog ==
 
-= 1.0.6 =
-* Fixed Design Issues
+= 1.1 =
+* Minor Bug fixes
+* Introducing Live Editor
+* New Slider
+* New Tobbar and Flipbox
+* Free Additional Theme
 
 = 1.0.5 =
 * Minor Bug fixes

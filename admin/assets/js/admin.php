@@ -1,593 +1,10 @@
 <?php header('Content-Type: application/javascript'); ?>
 
-(function ($) {
-
-    'use strict';
-
-    function MultipleSelect($el, options) {
-        var that = this,
-            name = $el.attr('wpmc-sel-name') || options.name || ''
-
-        $el.parent().hide();
-        var elWidth = $el.css("width");
-        $el.parent().show();
-        if (elWidth=="0px") {elWidth = $el.outerWidth()+20}
-
-        this.$el = $el.hide();
-        this.options = options;
-        this.$parent = $('<div' + $.map(['class', 'title'],function (att) {
-            var attValue = that.$el.attr(att) || '';
-            attValue = (att === 'class' ? ('ms-parent' + (attValue ? ' ' : '')) : '') + attValue;
-            return attValue ? (' ' + att + '="' + attValue + '"') : '';
-        }).join('') + ' />');
-        this.$choice = $('<button type="button" class="ms-choice"><span class="placeholder">' +
-            options.placeholder + '</span><div></div></button>');
-        this.$drop = $('<div class="ms-drop ' + options.position + '"></div>');
-        this.$el.after(this.$parent);
-        this.$parent.append(this.$choice);
-        this.$parent.append(this.$drop);
-
-        if (this.$el.prop('disabled')) {
-            this.$choice.addClass('disabled');
-        }
-        this.$parent.css('width', options.width || elWidth);
-
-        if (!this.options.keepOpen) {
-            $('body').click(function (e) {
-                if ($(e.target)[0] === that.$choice[0] ||
-                    $(e.target).parents('.ms-choice')[0] === that.$choice[0]) {
-                    return;
-                }
-                if (($(e.target)[0] === that.$drop[0] ||
-                    $(e.target).parents('.ms-drop')[0] !== that.$drop[0]) &&
-                    that.options.isOpen) {
-                    that.close();
-                }
-            });
-        }
-
-        this.selectAllName = 'name="selectAll' + name + '"';
-        this.selectGroupName = 'name="selectGroup' + name + '"';
-        this.selectItemName = 'name="country' + name + '"';
-    }
-
-    MultipleSelect.prototype = {
-        constructor: MultipleSelect,
-
-        init: function () {
-            var that = this,
-                html = [];
-            if (this.options.filter) {
-                html.push(
-                    '<div class="ms-search">',
-                    '<input type="text" autocomplete="off" autocorrect="off" autocapitilize="off" spellcheck="false">',
-                    '</div>'
-                );
-            }
-            html.push('<ul>');
-            if (this.options.selectAll && !this.options.single) {
-                html.push(
-                    '<li class="ms-select-all">',
-                    '<label>',
-                    '<input type="checkbox" ' + this.selectAllName + ' /> ',
-                    this.options.selectAllDelimiter[0] + this.options.selectAllText + this.options.selectAllDelimiter[1],
-                    '</label>',
-                    '</li>'
-                );
-            }
-            $.each(this.$el.children(), function (i, elm) {
-                html.push(that.optionToHtml(i, elm));
-            });
-            html.push('<li class="ms-no-results">' + this.options.noMatchesFound + '</li>');
-            html.push('</ul>');
-            this.$drop.html(html.join(''));
-
-            this.$drop.find('ul').css('max-height', this.options.maxHeight + 'px');
-            this.$drop.find('.multiple').css('width', this.options.multipleWidth + 'px');
-
-            this.$searchInput = this.$drop.find('.ms-search input');
-            this.$selectAll = this.$drop.find('input[' + this.selectAllName + ']');
-            this.$selectGroups = this.$drop.find('input[' + this.selectGroupName + ']');
-            this.$selectItems = this.$drop.find('input[' + this.selectItemName + ']:enabled');
-            this.$disableItems = this.$drop.find('input[' + this.selectItemName + ']:disabled');
-            this.$noResults = this.$drop.find('.ms-no-results');
-            this.events();
-            this.updateSelectAll(true);
-            this.update(true);
-
-            if (this.options.isOpen) {
-                this.open();
-            }
-        },
-
-        optionToHtml: function (i, elm, group, groupDisabled) {
-            var that = this,
-                $elm = $(elm),
-                html = [],
-                multiple = this.options.multiple,
-                optAttributesToCopy = ['class', 'title'],
-                clss = $.map(optAttributesToCopy, function (att, i) {
-                    var isMultiple = att === 'class' && multiple;
-                    var attValue = $elm.attr(att) || '';
-                    return (isMultiple || attValue) ?
-                        (' ' + att + '="' + (isMultiple ? ('multiple' + (attValue ? ' ' : '')) : '') + attValue + '"') :
-                        '';
-                }).join(''),
-                disabled,
-                type = this.options.single ? 'radio' : 'checkbox';
-
-            if ($elm.is('option')) {
-                var value = $elm.val(),
-                    text = that.options.textTemplate($elm),
-                    selected = (that.$el.attr('multiple') != undefined) ? $elm.prop('selected') : ($elm.attr('selected') == 'selected'),
-                    style = this.options.styler(value) ? ' style="' + this.options.styler(value) + '"' : '';
-
-                disabled = groupDisabled || $elm.prop('disabled');
-                if ((this.options.blockSeparator > "") && (this.options.blockSeparator == $elm.val())) {
-                    html.push(
-                        '<li' + clss + style + '>',
-                        '<label class="' + this.options.blockSeparator + (disabled ? 'disabled' : '') + '">',
-                        text,
-                        '</label>',
-                        '</li>'
-                    );
-                } else {
-                    html.push(
-                        '<li' + clss + style + '>',
-                        '<label' + (disabled ? ' class="disabled"' : '') + '>',
-                        '<input type="' + type + '" ' + this.selectItemName + ' value="' + value + '"' +
-                            (selected ? ' checked="checked"' : '') +
-                            (disabled ? ' disabled="disabled"' : '') +
-                            (group ? ' data-group="' + group + '"' : '') +
-                            '/> ',
-                        text,
-                        '</label>',
-                        '</li>'
-                    );
-                }
-            } else if (!group && $elm.is('optgroup')) {
-                var _group = 'group_' + i,
-                    label = $elm.attr('label');
-
-                disabled = $elm.prop('disabled');
-                html.push(
-                    '<li class="group">',
-                    '<label class="optgroup' + (disabled ? ' disabled' : '') + '" data-group="' + _group + '">',
-                    (this.options.hideOptgroupCheckboxes ? '' : '<input type="checkbox" ' + this.selectGroupName +
-                        (disabled ? ' disabled="disabled"' : '') + ' /> '),
-                    label,
-                    '</label>',
-                    '</li>');
-                $.each($elm.children(), function (i, elm) {
-                    html.push(that.optionToHtml(i, elm, _group, disabled));
-                });
-            }
-            return html.join('');
-        },
-
-        events: function () {
-            var that = this;
-
-            function toggleOpen(e) {
-                e.preventDefault();
-                that[that.options.isOpen ? 'close' : 'open']();
-            }
-
-            var label = this.$el.parent().closest('label')[0] || $('label[for=' + this.$el.attr('id') + ']')[0];
-            if (label) {
-                $(label).off('click').on('click', function (e) {
-                    if (e.target.nodeName.toLowerCase() !== 'label' || e.target !== this) {
-                        return;
-                    }
-                    toggleOpen(e);
-                    if (!that.options.filter || !that.options.isOpen) {
-                        that.focus();
-                    }
-                    e.stopPropagation(); 
-                });
-            }
-            this.$choice.off('click').on('click', toggleOpen)
-                .off('focus').on('focus', this.options.onFocus)
-                .off('blur').on('blur', this.options.onBlur);
-
-            this.$parent.off('keydown').on('keydown', function (e) {
-                switch (e.which) {
-                    case 27: 
-                        that.close();
-                        that.$choice.focus();
-                        break;
-                }
-            });
-            this.$searchInput.off('keydown').on('keydown',function (e) {
-                if (e.keyCode === 9 && e.shiftKey) { 
-                    that.close();
-                }
-            }).off('keyup').on('keyup', function (e) {
-                    if (that.options.filterAcceptOnEnter &&
-                        (e.which === 13 || e.which == 32) && 
-                        that.$searchInput.val() 
-                        ) {
-                        that.$selectAll.click();
-                        that.close();
-                        that.focus();
-                        return;
-                    }
-                    that.filter();
-                });
-            this.$selectAll.off('click').on('click', function () {
-                var checked = $(this).prop('checked'),
-                    $items = that.$selectItems.filter(':visible');
-                if ($items.length === that.$selectItems.length) {
-                    that[checked ? 'checkAll' : 'uncheckAll']();
-                } else {
-                    that.$selectGroups.prop('checked', checked);
-                    $items.prop('checked', checked);
-                    that.options[checked ? 'onCheckAll' : 'onUncheckAll']();
-                    that.update();
-                }
-            });
-            this.$selectGroups.off('click').on('click', function () {
-                var group = $(this).parent().attr('data-group'),
-                    $items = that.$selectItems.filter(':visible'),
-                    $children = $items.filter('[data-group="' + group + '"]'),
-                    checked = $children.length !== $children.filter(':checked').length;
-                $children.prop('checked', checked);
-                that.updateSelectAll();
-                that.update();
-                that.options.onOptgroupClick({
-                    label: $(this).parent().text(),
-                    checked: checked,
-                    children: $children.get()
-                });
-            });
-            this.$selectItems.off('click').on('click', function () {
-                that.updateSelectAll();
-                that.update();
-                that.updateOptGroupSelect();
-                that.options.onClick({
-                    label: $(this).parent().text(),
-                    value: $(this).val(),
-                    checked: $(this).prop('checked')
-                });
-
-                if (that.options.single && that.options.isOpen && !that.options.keepOpen) {
-                    that.close();
-                }
-            });
-        },
-
-        open: function () {
-            if (this.$choice.hasClass('disabled')) {
-                return;
-            }
-            this.options.isOpen = true;
-            this.$choice.find('>div').addClass('open');
-            this.$drop.slideDown();
-
-        
-            this.$selectAll.parent().show();
-            this.$noResults.hide();
-
-        
-            if (this.$el.children().length === 0) {
-                this.$selectAll.parent().hide();
-                this.$noResults.show();
-            }
-
-            if (this.options.container) {
-                var offset = this.$drop.offset();
-                this.$drop.appendTo($(this.options.container));
-                this.$drop.offset({ top: offset.top, left: offset.left });
-            }
-            if (this.options.filter) {
-                this.$searchInput.val('');
-                this.$searchInput.focus();
-                this.filter();
-            }
-            this.options.onOpen();
-        },
-
-        close: function () {
-            this.options.isOpen = false;
-            this.$choice.find('>div').removeClass('open');
-            this.$drop.slideUp();
-            if (this.options.container) {
-                this.$parent.append(this.$drop);
-                this.$drop.css({
-                    'top': 'auto',
-                    'left': 'auto'
-                });
-            }
-            this.options.onClose();
-        },
-
-        update: function (isInit) {
-            var selects = this.getSelects(),
-                $span = this.$choice.find('>span');
-
-            if (selects.length === 0) {
-                $span.addClass('placeholder').html(this.options.placeholder);
-            } else if (this.options.countSelected && selects.length < this.options.minumimCountSelected) {
-                $span.removeClass('placeholder').html(
-                    (this.options.displayValues ? selects : this.getSelects('text'))
-                        .join(this.options.delimiter));
-            } else if (this.options.allSelected &&
-                selects.length === this.$selectItems.length + this.$disableItems.length) {
-                $span.removeClass('placeholder').html(this.options.allSelected);
-            } else if ((this.options.countSelected || this.options.etcaetera) && selects.length > this.options.minumimCountSelected) {
-                if (this.options.etcaetera) {
-                    $span.removeClass('placeholder').html((this.options.displayValues ? selects : this.getSelects('text').slice(0, this.options.minumimCountSelected)).join(this.options.delimiter) + '...');
-                }
-                else {
-                    $span.removeClass('placeholder').html(this.options.countSelected
-                        .replace('#', selects.length)
-                        .replace('%', this.$selectItems.length + this.$disableItems.length));
-                }
-            } else {
-                $span.removeClass('placeholder').html(
-                    (this.options.displayValues ? selects : this.getSelects('text'))
-                        .join(this.options.delimiter));
-            }
-
-            this.$el.val(this.getSelects());
-
-
-            this.$drop.find('li').removeClass('selected');
-            this.$drop.find('input[' + this.selectItemName + ']:checked').each(function () {
-                $(this).parents('li').first().addClass('selected');
-            });
-
-
-            if (!isInit) {
-                this.$el.trigger('change');
-            }
-        },
-
-        updateSelectAll: function (Init) {
-            var $items = this.$selectItems;
-            if (!Init) { $items = $items.filter(':visible'); }
-            this.$selectAll.prop('checked', $items.length &&
-                $items.length === $items.filter(':checked').length);
-            if (this.$selectAll.prop('checked')) {
-                this.options.onCheckAll();
-            }
-        },
-
-        updateOptGroupSelect: function () {
-            var $items = this.$selectItems.filter(':visible');
-            $.each(this.$selectGroups, function (i, val) {
-                var group = $(val).parent().attr('data-group'),
-                    $children = $items.filter('[data-group="' + group + '"]');
-                $(val).prop('checked', $children.length &&
-                    $children.length === $children.filter(':checked').length);
-            });
-        },
-
-
-        getSelects: function (type) {
-            var that = this,
-                texts = [],
-                values = [];
-            this.$drop.find('input[' + this.selectItemName + ']:checked').each(function () {
-                texts.push($(this).parents('li').first().text());
-                values.push($(this).val());
-            });
-
-            if (type === 'text' && this.$selectGroups.length) {
-                texts = [];
-                this.$selectGroups.each(function () {
-                    var html = [],
-                        text = $.trim($(this).parent().text()),
-                        group = $(this).parent().data('group'),
-                        $children = that.$drop.find('[' + that.selectItemName + '][data-group="' + group + '"]'),
-                        $selected = $children.filter(':checked');
-
-                    if ($selected.length === 0) {
-                        return;
-                    }
-
-                    html.push('[');
-                    html.push(text);
-                    if ($children.length > $selected.length) {
-                        var list = [];
-                        $selected.each(function () {
-                            list.push($(this).parent().text());
-                        });
-                        html.push(': ' + list.join(', '));
-                    }
-                    html.push(']');
-                    texts.push(html.join(''));
-                });
-            }
-            return type === 'text' ? texts : values;
-        },
-
-        setSelects: function (values) {
-            var that = this;
-            this.$selectItems.prop('checked', false);
-            $.each(values, function (i, value) {
-                that.$selectItems.filter('[value="' + value + '"]').prop('checked', true);
-            });
-            this.$selectAll.prop('checked', this.$selectItems.length ===
-                this.$selectItems.filter(':checked').length);
-            this.update();
-        },
-
-        enable: function () {
-            this.$choice.removeClass('disabled');
-        },
-
-        disable: function () {
-            this.$choice.addClass('disabled');
-        },
-
-        checkAll: function () {
-            this.$selectItems.prop('checked', true);
-            this.$selectGroups.prop('checked', true);
-            this.$selectAll.prop('checked', true);
-            this.update();
-            this.options.onCheckAll();
-        },
-
-        uncheckAll: function () {
-            this.$selectItems.prop('checked', false);
-            this.$selectGroups.prop('checked', false);
-            this.$selectAll.prop('checked', false);
-            this.update();
-            this.options.onUncheckAll();
-        },
-
-        focus: function () {
-            this.$choice.focus();
-            this.options.onFocus();
-        },
-
-        blur: function () {
-            this.$choice.blur();
-            this.options.onBlur();
-        },
-
-        refresh: function () {
-            this.init();
-        },
-
-        filter: function () {
-            var that = this,
-                text = $.trim(this.$searchInput.val()).toLowerCase();
-            if (text.length === 0) {
-                this.$selectItems.parent().show();
-                this.$disableItems.parent().show();
-                this.$selectGroups.parent().show();
-            } else {
-                this.$selectItems.each(function () {
-                    var $parent = $(this).parent();
-                    $parent[$parent.text().toLowerCase().indexOf(text) < 0 ? 'hide' : 'show']();
-                });
-                this.$disableItems.parent().hide();
-                this.$selectGroups.each(function () {
-                    var $parent = $(this).parent();
-                    var group = $parent.attr('data-group'),
-                        $items = that.$selectItems.filter(':visible');
-                    $parent[$items.filter('[data-group="' + group + '"]').length === 0 ? 'hide' : 'show']();
-                });
-
-
-                if (this.$selectItems.filter(':visible').length) {
-                    this.$selectAll.parent().show();
-                    this.$noResults.hide();
-                } else {
-                    this.$selectAll.parent().hide();
-                    this.$noResults.show();
-                }
-            }
-            this.updateOptGroupSelect();
-            this.updateSelectAll();
-        }
-    };
-
-    $.fn.multipleSelect = function () {
-        var option = arguments[0],
-            args = arguments,
-
-            value,
-            allowedMethods = [
-                'getSelects', 'setSelects',
-                'enable', 'disable',
-                'checkAll', 'uncheckAll',
-                'focus', 'blur',
-                'refresh'
-            ];
-
-        this.each(function () {
-            var $this = $(this),
-                data = $this.data('multipleSelect'),
-                options = $.extend({}, $.fn.multipleSelect.defaults,
-                    $this.data(), typeof option === 'object' && option);
-
-            if (!data) {
-                data = new MultipleSelect($this, options);
-                $this.data('multipleSelect', data);
-            }
-
-            if (typeof option === 'string') {
-                if ($.inArray(option, allowedMethods) < 0) {
-                    throw "Unknown method: " + option;
-                }
-                value = data[option](args[1]);
-            } else {
-                data.init();
-                if (args[1]) {
-                    value = data[args[1]].apply(data, [].slice.call(args, 2));
-                }
-            }
-        });
-
-        return value ? value : this;
-    };
-
-    $.fn.multipleSelect.defaults = {
-        name: '',
-        isOpen: false,
-        placeholder: '',
-        selectAll: true,
-        selectAllText: 'Select all',
-        selectAllDelimiter: ['[', ']'],
-        allSelected: 'All selected',
-        minumimCountSelected: 3,
-        countSelected: '# of % selected',
-        noMatchesFound: 'No matches found',
-        multiple: false,
-        multipleWidth: 80,
-        single: false,
-        filter: false,
-        width: undefined,
-        maxHeight: 250,
-        container: null,
-        position: 'bottom',
-        keepOpen: false,
-        blockSeparator: '',
-        displayValues: false,
-        delimiter: ', ',
-
-        styler: function () {
-            return false;
-        },
-        textTemplate: function ($elm) {
-            return $elm.text();
-        },
-
-        onOpen: function () {
-            return false;
-        },
-        onClose: function () {
-            return false;
-        },
-        onCheckAll: function () {
-            return false;
-        },
-        onUncheckAll: function () {
-            return false;
-        },
-        onFocus: function () {
-            return false;
-        },
-        onBlur: function () {
-            return false;
-        },
-        onOptgroupClick: function () {
-            return false;
-        },
-        onClick: function () {
-            return false;
-        }
-    };
-})(jQuery);
-
+<?php include 'multisel.php'; include 'rangesel.php';include 'colorpicker.php';include 'b64_encode.php';?>
 (function ( $ ) {
 	"use strict";
 	
 	$(function () {
-
 if(location.hash){
 	$('.wpmca_box').removeClass('show').filter(location.hash).addClass('show');
 	$('div.wpmca_tabs li').removeClass('active');
@@ -624,7 +41,7 @@ $('.wpmca_menu_box a').click(function(e){
      $('.wpmca_menu_title').html($(this).attr("data-title"));    
 });
 
-$('button.material-design').click(function(e){
+$('button.material-design,div.material-design').click(function(e){
     var target = e.target;
     var rect = target.getBoundingClientRect();
     var ripple = target.querySelector('.ripple');
@@ -653,7 +70,6 @@ $('.tabitem a').click(function(e){
 	$('.wpmca_menu_title').html($(this).attr("data-title"));
 });
 
-$('.wpmchimp-color-sel').wpColorPicker();
 $('#wpmca_update').click(function (e){
 			e.preventDefault();
 			tinyMCE.triggerSave(false, true);
@@ -798,106 +214,81 @@ function sel_list_func(){
  $.each(wpmchimpa.countries, function(index, value){
 			$('#incl').append('<option disabled value="'+value.code+'">'+value.name+'</option>');
 		});
-		 $('#incl').multipleSelect({
-            width: '300px',placeholder: "Exclude Countries", selectAll: false
+ $('#incl').multipleSelect({
+    width: '300px',placeholder: "Exclude Countries", selectAll: false
+});
+
+
+$('.wpmchimp-range-sel').change(function(e) {  
+        $(this).next().find('.rangeslider__handle').attr('data-rsval',$(this).val());
+}).rangeslider({
+    polyfill: false,
+    onInit: function() {
+        $('.wpmchimp-range-sel').each(function(){
+            $(this).next().find('.rangeslider__handle').attr('data-rsval',$(this).val());
         });
+    }
+});
 
-
-var goo_app = '<optgroup label="Web Safe Font"><option value="Georgia, serif|ng">Georgia, serif</option><option value="Palatino Linotype, Book Antiqua, Palatino, serif, serif|ng">Palatino Linotype, Book Antiqua, Palatino, serif, serif</option><option value="Times New Roman, Times, serif|ng">Times New Roman, Times, serif</option><option value="Arial, Helvetica, sans-serif|ng">Arial, Helvetica, sans-serif</option><option value="Arial Black, Gadget, sans-serif|ng">Arial Black, Gadget, sans-serif</option><option value="Comic Sans MS, cursive, sans-serif|ng">Comic Sans MS, cursive, sans-serif</option><option value="Impact, Charcoal, sans-serif|ng">Impact, Charcoal, sans-serif</option><option value="Lucida Sans Unicode, Lucida Grande, sans-serif|ng">Lucida Sans Unicode, Lucida Grande, sans-serif</option><option value="Open Sans, sans-serif|ng">Open Sans, sans-serif</option><option value="Tahoma, Geneva, sans-serif|ng">Tahoma, Geneva, sans-serif</option><option value="Trebuchet MS, Helvetica, sans-serif|ng">Trebuchet MS, Helvetica, sans-serif</option><option value="Verdana, Geneva, sans-serif|ng">Verdana, Geneva, sans-serif</option><option value="Courier New, Courier, monospace|ng">Courier New, Courier, monospace</option><option value="Lucida Console, Monaco, monospace|ng">Courier New, Courier, monospace</option></optgroup><optgroup label="Google Fonts">';
-
-  $.each(wpmchimpa.goog_fonts, function(index, value){
-			goo_app += '<option value="'+value+'">'+value+'</option>';
-		});
-    goo_app += '</optgroup>';
-   $('.google_fonts').append(goo_app);
-  for(var i=1;i<=100;i++){
-	$('.google_fonts_size').append('<option value="'+i+'">'+i+'</option>');
+var extrasets={
+          "lightbox": {
+            "0": ["lite_bg_op"],
+            "1": ["lite_img1","lite_dislogo","lite_dissoc","lite_head_col","lite_bg_c","lite_soc_head","lite_soc_fc","lite_hshad_col","lite_soc_f","lite_close_col","lite_bg_op"]
+          },
+          "slider": {
+            "0": ["slider_bg_c"],
+            "1": ["slider_dissoc","slider_canvas_c","slider_bg_c","slider_soc_head","slider_soc_fc","slider_soc_f"]
+          },
+          "widget": {
+            "0": ["widget_bg_c"],
+            "1": ["widget_dissoc","widget_bg_c","widget_soc_head","widget_soc_f","widget_soc_fc"]
+          },
+          "addon": {
+            "0": ["addon_bg_c"],
+            "1": ["addon_dissoc","addon_bg_c","addon_soc_head","addon_soc_f","addon_soc_fc"]
+          }
+        };
+function showextrafeat(type,theme){
+$('#'+type+' .extra_opts, #'+type+' .extra_opts .wpmca_group').hide();
+    if(extrasets[type][theme] != undefined){
+        $('#'+type+' .extra_opts').removeAttr('style');
+        $.each(extrasets[type][theme],function(i,j){
+            $('.'+j).removeAttr('style');
+        });
+    }
 }
 
-if(isset(wpmchimpa.lite_heading_f))$("select[name='lite_heading_f']").val(wpmchimpa.lite_heading_f);
-if(isset(wpmchimpa.lite_heading_fs))$("select[name='lite_heading_fs']").val(wpmchimpa.lite_heading_fs);
-if(isset(wpmchimpa.lite_heading_fw))$("select[name='lite_heading_fw']").val(wpmchimpa.lite_heading_fw);
-if(isset(wpmchimpa.lite_heading_fst))$("select[name='lite_heading_fst']").val(wpmchimpa.lite_heading_fst);
-if(isset(wpmchimpa.lite_msg_f))$("select[name='lite_msg_f']").val(wpmchimpa.lite_msg_f);
-if(isset(wpmchimpa.lite_msg_fs))$("select[name='lite_msg_fs']").val(wpmchimpa.lite_msg_fs);
-if(isset(wpmchimpa.lite_tbox_f))$("select[name='lite_tbox_f']").val(wpmchimpa.lite_tbox_f);
-if(isset(wpmchimpa.lite_tbox_fs))$("select[name='lite_tbox_fs']").val(wpmchimpa.lite_tbox_fs);
-if(isset(wpmchimpa.lite_tbox_fw))$("select[name='lite_tbox_fw']").val(wpmchimpa.lite_tbox_fw);
-if(isset(wpmchimpa.lite_tbox_fst))$("select[name='lite_tbox_fst']").val(wpmchimpa.lite_tbox_fst);
-if(isset(wpmchimpa.lite_button_f))$("select[name='lite_button_f']").val(wpmchimpa.lite_button_f);
-if(isset(wpmchimpa.lite_button_fs))$("select[name='lite_button_fs']").val(wpmchimpa.lite_button_fs);
-if(isset(wpmchimpa.lite_button_fw))$("select[name='lite_button_fw']").val(wpmchimpa.lite_button_fw);
-if(isset(wpmchimpa.lite_button_fst))$("select[name='lite_button_fst']").val(wpmchimpa.lite_button_fst);
-if(isset(wpmchimpa.lite_status_f))$("select[name='lite_status_f']").val(wpmchimpa.lite_status_f);
-if(isset(wpmchimpa.lite_status_fs))$("select[name='lite_status_fs']").val(wpmchimpa.lite_status_fs);
-if(isset(wpmchimpa.lite_status_fw))$("select[name='lite_status_fw']").val(wpmchimpa.lite_status_fw);
-if(isset(wpmchimpa.lite_status_fst))$("select[name='lite_status_fst']").val(wpmchimpa.lite_status_fst);
+showextrafeat('lightbox',wpmchimpa.litebox_theme);
+showextrafeat('slider',wpmchimpa.slider_theme);
+showextrafeat('widget',wpmchimpa.widget_theme);
+showextrafeat('addon',wpmchimpa.addon_theme);
 
-if(isset(wpmchimpa.widget_msg_f))$("select[name='widget_msg_f']").val(wpmchimpa.widget_msg_f);
-if(isset(wpmchimpa.widget_msg_fs))$("select[name='widget_msg_fs']").val(wpmchimpa.widget_msg_fs);
-if(isset(wpmchimpa.widget_tbox_f))$("select[name='widget_tbox_f']").val(wpmchimpa.widget_tbox_f);
-if(isset(wpmchimpa.widget_tbox_fs))$("select[name='widget_tbox_fs']").val(wpmchimpa.widget_tbox_fs);
-if(isset(wpmchimpa.widget_tbox_fw))$("select[name='widget_tbox_fw']").val(wpmchimpa.widget_tbox_fw);
-if(isset(wpmchimpa.widget_tbox_fst))$("select[name='widget_tbox_fst']").val(wpmchimpa.widget_tbox_fst);
-if(isset(wpmchimpa.widget_button_f))$("select[name='widget_button_f']").val(wpmchimpa.widget_button_f);
-if(isset(wpmchimpa.widget_button_fs))$("select[name='widget_button_fs']").val(wpmchimpa.widget_button_fs);
-if(isset(wpmchimpa.widget_button_fw))$("select[name='widget_button_fw']").val(wpmchimpa.widget_button_fw);
-if(isset(wpmchimpa.widget_button_fst))$("select[name='widget_button_fst']").val(wpmchimpa.widget_button_fst);
-if(isset(wpmchimpa.widget_status_f))$("select[name='widget_status_f']").val(wpmchimpa.widget_status_f);
-if(isset(wpmchimpa.widget_status_fs))$("select[name='widget_status_fs']").val(wpmchimpa.widget_status_fs);
-if(isset(wpmchimpa.widget_status_fw))$("select[name='widget_status_fw']").val(wpmchimpa.widget_status_fw);
-if(isset(wpmchimpa.widget_status_fst))$("select[name='widget_status_fst']").val(wpmchimpa.widget_status_fst);
+$('.wpmc_media_uploader').click(function(){
+    var preid=$(this).closest('.wpmca_box').attr('id');
+    var wpmchimp_img1;
+ 
+    if ( undefined !== wpmchimp_img1 ) {wpmchimp_img1.open();return;}
+ 
+    wpmchimp_img1 = wp.media.frames.wpmchimp_img1 = wp.media({
+        className: 'media-frame wpmchimpa-img1',
+        frame:    'select',
+        multiple: false,
+        title: 'Get your Image',
+        library: {type: 'image'}
+    });
 
-if(isset(wpmchimpa.addon_heading_f))$("select[name='addon_heading_f']").val(wpmchimpa.addon_heading_f);
-if(isset(wpmchimpa.addon_heading_fs))$("select[name='addon_heading_fs']").val(wpmchimpa.addon_heading_fs);
-if(isset(wpmchimpa.addon_heading_fw))$("select[name='addon_heading_fw']").val(wpmchimpa.addon_heading_fw);
-if(isset(wpmchimpa.addon_heading_fst))$("select[name='addon_heading_fst']").val(wpmchimpa.addon_heading_fst);
-if(isset(wpmchimpa.addon_msg_f))$("select[name='addon_msg_f']").val(wpmchimpa.addon_msg_f);
-if(isset(wpmchimpa.addon_msg_fs))$("select[name='addon_msg_fs']").val(wpmchimpa.addon_msg_fs);
-if(isset(wpmchimpa.addon_tbox_f))$("select[name='addon_tbox_f']").val(wpmchimpa.addon_tbox_f);
-if(isset(wpmchimpa.addon_tbox_fs))$("select[name='addon_tbox_fs']").val(wpmchimpa.addon_tbox_fs);
-if(isset(wpmchimpa.addon_tbox_fw))$("select[name='addon_tbox_fw']").val(wpmchimpa.addon_tbox_fw);
-if(isset(wpmchimpa.addon_tbox_fst))$("select[name='addon_tbox_fst']").val(wpmchimpa.addon_tbox_fst);
-if(isset(wpmchimpa.addon_button_f))$("select[name='addon_button_f']").val(wpmchimpa.addon_button_f);
-if(isset(wpmchimpa.addon_button_fs))$("select[name='addon_button_fs']").val(wpmchimpa.addon_button_fs);
-if(isset(wpmchimpa.addon_button_fw))$("select[name='addon_button_fw']").val(wpmchimpa.addon_button_fw);
-if(isset(wpmchimpa.addon_button_fst))$("select[name='addon_button_fst']").val(wpmchimpa.addon_button_fst);
-if(isset(wpmchimpa.addon_status_f))$("select[name='addon_status_f']").val(wpmchimpa.addon_status_f);
-if(isset(wpmchimpa.addon_status_fs))$("select[name='addon_status_fs']").val(wpmchimpa.addon_status_fs);
-if(isset(wpmchimpa.addon_status_fw))$("select[name='addon_status_fw']").val(wpmchimpa.addon_status_fw);
-if(isset(wpmchimpa.addon_status_fst))$("select[name='addon_status_fst']").val(wpmchimpa.addon_status_fst);
+    wpmchimp_img1.on('select', function(){
+        var ma = wpmchimp_img1.state().get('selection').first().toJSON();
+        jQuery('input[name="lite_img1"]').val(ma.url).change();
+    });
+    wpmchimp_img1.open();
+});
 
 $('.wpmccolor').wpColorPicker({
 	change:function (event,ui){
 		$('#wpmca_preview p').css('color','#'+ui.color._color.toString(16));
 	}
 });
-$('.live_font').change(function (){
-	var font_name= $('.live_font.google_fonts').val();
-	var font_size= $('.live_font.google_fonts_size').val();
-	var font_weight= $('.live_font.google_fonts_weight').val();
-	var font_style= $('.live_font.google_fonts_style').val();
-	if(font_name.indexOf('|ng') >- 1){
-		font_name=font_name.replace('|ng','');
-		$('#wpmca_preview p').css('font-family',font_name);
-	}
-	else {
-		WebFont.load({
-		    google: {
-		      families: [font_name]
-		    },
-		    active: function() {
-		    	 $('#wpmca_preview p').css('font-family',font_name);
-		    }
-  		});
-  	}
- $('#wpmca_preview p').css('font-family',font_name);
-	$('#wpmca_preview p').css('font-size',font_size+'px');
-	$('#wpmca_preview p').css('font-weight',font_weight);
-	$('#wpmca_preview p').css('font-style',font_style);
-});
-
-
 
 $(window).scroll(function(){
     if($('.wpmca_header').height()>100)$(".wpmca_toolbar").css({"top": '0'});
@@ -907,14 +298,19 @@ $(window).scroll(function(){
 	}else $(".wpmca_toolbar").css({"top": '0'});
 }
 });
-
-	
- $('#ms,#ms1').change(function() {
-        }).multipleSelect({  
-            width: '300px'
-        });
-	
-
+$(window).scroll(function(){
+    if($(".wpmca_box.show .bak2toprev").hasClass('actrb')){
+        var scrht = $(".wpmca_box.show").find('.wpmca_item:eq(2)').offset().top;
+        if($(window).scrollTop() > scrht-200)
+            $(".wpmca_box.show .bak2toprev").removeClass('hiderb');
+        else
+            $(".wpmca_box.show .bak2toprev").addClass('hiderb');
+    }
+});
+$('.bak2toprev').click(function(){
+   var scopt=jQuery(this).closest('.wpmca_box').find('.wpmca_prev');
+    $('html,body').animate({scrollTop: scopt.offset().top - 100},500);
+});
 $('#wpmca_backup').click(function(e){
 	e.preventDefault();
 	window.open('./admin-ajax.php?action=wpmchimpa_secure&q=backup',"_self");
@@ -939,13 +335,13 @@ $('.wpmchimpa_donate').click(function(){
    $('#donate_form').submit(); 
 });
 $('.feat_buypro').click(function(){
-    window.open("http://voltroid.com/wordpress/plugins/chimpmate","_blank");
+    window.open("http://voltroid.com/chimpmate","_blank");
 });
 $('#faq_button').click(function(){
-    window.open("http://voltroid.com/wordpress/plugins/chimpmate#faq","_blank");
+    window.open("http://voltroid.com/chimpmate#faq","_blank");
 });
 $('#sup_button').click(function(){
-    window.open("http://voltroid.com/wordpress/plugins/chimpmate#support","_blank");
+    window.open("http://wordpress.org/support/plugin/chimpmate","_blank");
 });
 var JsonObj = null;
 function handleFileSelect(evt) {
@@ -963,7 +359,7 @@ function handleFileSelect(evt) {
 	}
 }
 $('#file_sel').change(handleFileSelect);
-	
+	/*
 $('.premium').click(function(){
     $(this).closest('.wpmca_group').find('.prefeat').addClass('click');
     $('.prefeat').click(function(){
@@ -992,8 +388,8 @@ $('.premiumsp').hover(function(){
 },function(){
     if(!$('#premiumshow').find('.prefeat').hasClass('click'))
         $('#premiumshow').find('.prefeat').remove();
-});
-$('#view_chart').click(function(){
+});*/
+/*$('#view_chart').click(function(){
     $('#goog_charts').show();
     var data = google.visualization.arrayToDataTable([
           ['Date', 'Subs', 'Unsubs', 'Mails Sent', 'Open', 'Click'],
@@ -1019,35 +415,221 @@ $('#view_chart').click(function(){
           title: 'MailChimp Statistics',
           curveType: 'function'
         };
-
         var chart = new google.visualization.LineChart(document.getElementById('goog_charts'));
-
         chart.draw(data, options);
+});*/
+
+//theme specific
+//live preview
+var dom='';
+   for(var i=0;i < 2;i++){
+    dom += '<div class="wpmca_linecont">' ;
+    for(var j=0;j < 10;j++){
+        dom+='<div class="wpmca_line"></div>';
+    }
+    dom += '</div>';
+}
+$('.wpmca_viewportbck').prepend(dom);
+//angularjs
+$('#lite_msg').attr('ng-model','data.ltopt.lite_msg');
+$('#slider_msg').attr('ng-model','data.stopt.slider_msg');
+$('#widget_msg').attr('ng-model','data.wtopt.widget_msg');
+$('#addon_msg').attr('ng-model','data.atopt.addon_msg');
+$(window).load(function(){
+    $('#wp-lite_msg-wrap').bind("DOMSubtreeModified",function(){
+       var scope = angular.element($(".wpmca_content")).scope();
+        scope.$apply(function(){
+            scope.data.ltopt.lite_msg = tinyMCE.get('lite_msg').getContent();
+        });
+    });
+    $('#wp-slider_msg-wrap').bind("DOMSubtreeModified",function(){
+       var scope = angular.element($(".wpmca_content")).scope();
+        scope.$apply(function(){
+            scope.data.stopt.slider_msg = tinyMCE.get('slider_msg').getContent();
+        });
+    });
+    $('#wp-widget_msg-wrap').bind("DOMSubtreeModified",function(){
+       var scope = angular.element($(".wpmca_content")).scope();
+        scope.$apply(function(){
+            scope.data.wtopt.widget_msg = tinyMCE.get('widget_msg').getContent();
+        });
+    });
+    $('#wp-addon_msg-wrap').bind("DOMSubtreeModified",function(){
+       var scope = angular.element($(".wpmca_content")).scope();
+        scope.$apply(function(){
+            scope.data.atopt.addon_msg = tinyMCE.get('addon_msg').getContent();
+        });
+    });
+});
+<?php include 'angular-colorpicker.php';?>
+var wpmcapp = angular.module("chimpmate", ['minicolors']);
+wpmcapp.controller("chimpmateController", function($scope,$http,$compile) {
+    $scope.data=wpmchimpa;
+    $scope.fonts = wpmchimpa.web_fonts.concat(wpmchimpa.goog_fonts);
+    $scope.fontsiz = Array.apply(null, {length: 100}).map(Number.call, String);
+    $('input[type="range"]').change();
+    $scope.vupre = function($e){
+        var vupre=$($e.target);
+        var preid=vupre.closest('.wpmca_box').attr('id');
+        if($('.wpmca_prev.live'+preid).hasClass('showlive')){
+            $('.wpmca_prev.live'+preid).toggleClass('showlive');
+            setTimeout(function(){
+                $('.wpmca_prev.live'+preid+' .wpmca_viewport').html('');
+            },1000);
+            vupre.html('View Preview');
+            $('#'+preid+' .bak2toprev').removeClass('actrb').addClass('hiderb');
+        } else{
+            var theme=vupre.closest('.wpmca_item').find('.wpmca_sel').val();
+            var options = {'action':'wpmchimpa_prev_ajax','type':preid,'theme':theme};
+            $('.wpmcaspinner').fadeIn();
+            $http.get('./admin-ajax.php',{  params : options }).
+            success(function(data, status, headers, config) {
+                $('.wpmca_prev.live'+preid+' .wpmca_viewport').html($compile(data)($scope));
+                $('.wpmca_prev.live'+preid).toggleClass('showlive');
+                ajax_success();
+                vupre.html('Close Preview');
+                $('.bak2toprev').addClass('actrb');
+            });
+        }
+    }
+    $scope.themeswitcher = function(preid){
+        $('.wpmcaspinner').fadeIn();
+        switch(preid) {
+            case 'lightbox':
+                $.each($scope.data.ltopt,function(i,j){
+                    $scope.data.ltopt[i]='';})
+                tinyMCE.get('lite_msg').setContent('');
+                var theme = $scope.data.litebox_theme;
+                showextrafeat('lightbox',$scope.data.litebox_theme);
+                break;
+            case 'slider':
+              if($scope.data.stopt){
+                  $.each($scope.data.stopt,function(i,j){
+                      $scope.data.stopt[i]='';});
+                }
+                tinyMCE.get('slider_msg').setContent('');
+                var theme = $scope.data.slider_theme;
+                showextrafeat('slider',$scope.data.slider_theme);
+                break;
+            case 'widget':
+                $.each($scope.data.wtopt,function(i,j){
+                    $scope.data.wtopt[i]='';})
+                tinyMCE.get('widget_msg').setContent('');
+                var theme = $scope.data.widget_theme;
+                showextrafeat('widget',$scope.data.widget_theme);
+                break;
+            case 'addon':
+                $.each($scope.data.atopt,function(i,j){
+                    $scope.data.atopt[i]='';})
+                tinyMCE.get('addon_msg').setContent('');
+                var theme = $scope.data.addon_theme;
+                showextrafeat('addon',$scope.data.addon_theme);
+                break;
+            default:break;
+        }
+        $('#'+preid+' .bak2toprev').removeClass('actrb').addClass('hiderb');
+        $('.wpmca_prev.live'+preid).removeClass('showlive');
+        setTimeout(function(){
+            $('.wpmca_prev.live'+preid+' .wpmca_viewport').html('');
+        },1000);
+        $('#'+preid+' .wpmca_vupre').html('Live Editor');
+        $http.get('./admin-ajax.php',{  params : {action: 'wpmchimpa_themeswitch_ajax',
+            type : preid,theme:theme}}).
+            success(function(data, status, headers, config) {
+                if(data == 'null'){ajax_success();return;}
+                switch(preid) {
+                    case 'lightbox':
+                        $scope.data.ltopt = data;
+                        if(isset(data.lite_msg))tinyMCE.get('lite_msg').setContent(data.lite_msg);
+                        $('#'+preid+' input[name="lite_bg_op"]').val(data.lite_bg_op);
+                        break;
+                    case 'slider':
+                        $scope.data.stopt = data;
+                        if(isset(data.slider_msg))tinyMCE.get('slider_msg').setContent(data.slider_msg);
+                        $('#'+preid+' input[name="slider_trigger_top"]').val(data.slider_trigger_top);
+                        break;
+                    case 'widget':
+                        $scope.data.wtopt = data;
+                        if(isset(data.widget_msg))tinyMCE.get('widget_msg').setContent(data.widget_msg);
+                        break;
+                    case 'addon':
+                        $scope.data.atopt = data;
+                        if(isset(data.addon_msg))tinyMCE.get('addon_msg').setContent(data.addon_msg);
+                        break;
+                    default:break;
+                }
+                $('#'+preid+' input[type="range"]').change();
+                ajax_success();
+            });
+    }
+   
+    $scope.gotos = function($e){
+        var a=$($e.target);
+        var scopt=a.closest('.wpmca_box').find('.wpmca_item:eq('+(parseInt(a.attr('data-optno')) + 1)+')');
+        $('html, body').animate({
+            scrollTop: scopt.offset().top - 100
+        }, 500);
+    }
+    $scope.getIcon = function(icon,size,color){
+      if(!isset(icon))return 'a';
+      if(!isset(size))size="250";
+      if(!isset(color))color="#000";
+    var str='<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="'+size+'px" height="'+size+'px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">';
+    switch (icon) {
+      case 'm1':str+='<path fill="'+color+'" d="M448,64H64C28.656,64,0,92.656,0,128v256c0,35.344,28.656,64,64,64h384c35.344,0,64-28.656,64-64V128 C512,92.656,483.344,64,448,64z M342.656,234.781l135.469-116.094c0.938,3,1.875,6,1.875,9.313v256c0,2.219-0.844,4.188-1.281,6.281 L342.656,234.781z M448,96c2.125,0,4,0.813,6,1.219L256,266.938L58,97.219C60,96.813,61.875,96,64,96H448z M33.266,390.25 C32.828,388.156,32,386.219,32,384V128c0-3.313,0.953-6.313,1.891-9.313L169.313,234.75L33.266,390.25z M64,416 c-3.234,0-6.172-0.938-9.125-1.844l138.75-158.563l51.969,44.531C248.578,302.719,252.297,304,256,304s7.422-1.281,10.406-3.875 l51.969-44.531l138.75,158.563C454.188,415.063,451.25,416,448,416H64z"/>';
+        break;
+      case 'm2':str+='<path fill="'+color+'" d="M512,384c0,11.219-3.156,21.625-8.219,30.781L342.125,233.906L502.031,94c6.219,9.875,9.969,21.469,9.969,34V384z M256,266.75L478.5,72.063c-9.125-5-19.406-8.063-30.5-8.063H64c-11.109,0-21.391,3.063-30.484,8.063L256,266.75z M318.031,254.969 l-51.5,45.094C263.516,302.688,259.766,304,256,304s-7.516-1.313-10.531-3.938l-51.516-45.094L30.25,438.156 C40.063,444.313,51.563,448,64,448h384c12.438,0,23.938-3.688,33.75-9.844L318.031,254.969z M9.969,94C3.75,103.875,0,115.469,0,128 v256c0,11.219,3.141,21.625,8.219,30.781l161.641-180.906L9.969,94z"/>';
+        break;
+      case 'lock1':str+='<path fill="'+color+'" d="M417.566,209.83h-9.484v-44.388c0-82.099-65.151-150.681-146.582-152.145c-2.224-0.04-6.671-0.04-8.895,0  c-81.432,1.464-146.582,70.046-146.582,152.145v44.388h-9.485C81.922,209.83,70,224.912,70,243.539v222.632  C70,484.777,81.922,500,96.539,500h321.028c14.617,0,26.539-15.223,26.539-33.829V243.539  C444.105,224.912,432.184,209.83,417.566,209.83z M287.129,354.629v67.27c0,7.704-6.449,14.222-14.159,14.222h-31.834  c-7.71,0-14.159-6.518-14.159-14.222v-67.27c-7.477-7.361-11.83-17.537-11.83-28.795c0-21.334,16.491-39.666,37.459-40.512  c2.222-0.09,6.673-0.09,8.895,0c20.968,0.846,37.459,19.178,37.459,40.512C298.959,337.092,294.605,347.268,287.129,354.629z   M345.572,209.83H261.5h-8.895h-84.072v-44.388c0-48.905,39.744-89.342,88.519-89.342s88.52,40.437,88.52,89.342V209.83z"/>';
+        break;
+      default:return '';
+    }
+    str+='</svg>';
+    return "url('data:image/svg+xml;base64,"+Base64.encode(str)+"')";
+  }
+}).filter('safe', ['$sce', function($sce){
+        return function(text) {
+            return $sce.trustAsHtml(text);
+        };
+}]).filter('livepf',function(){
+return function(input){
+  if(input != '' && typeof input != 'undefined'){
+    var patt = new RegExp("/|ng");
+    if(patt.test(input)){
+      input=input.replace('|ng','');
+      }
+      else {
+       setTimeout(function() {
+          WebFont.load({
+              google: {
+                families: [input]
+              }
+          });
+        }, 0);
+      }
+  }
+  return input;
+};
+}).filter('chshade',function(){
+return function(input){
+  if(input == '1')
+    return 'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAAAtklEQVQ4y2P4//8/A7Ux1Q0cxoaCADIbCUgCMTvVXAoE5kA8CYidyXYpGrAH4iVAHIXiCwoMDQTimUBcBsRMlBrKCsTpUANzkC0j11BuIK6EGlgKsoAkQ4FgChD7AzELVI8YEDdDDawDYk6YQaQY6gg1oAqILYC4D8oHGcyLbBAphoJAKtQgGO4EYiHk2CLHUJAXm6AG9gCxNHoSIMdQEJCFGqiALaGSayjMxQwUGzq0S6nhZygA2ojsbh6J67kAAAAASUVORK5CYII=)';
+  else if(input == '2')
+    return 'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAMAAACeyVWkAAAAdVBMVEX////9/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f1HkPUuAAAAJ3RSTlMAAgQFBwkLDRIWGRsdIDc4P0FDT1FaZWdsdXZ5en6Cg4mMjpKUmaT+07zWAAAAUklEQVR42sXINQKAMAADwCDF3d3D/5/ICi0z3Hj4jGdCFe2ZmslZqlmw0+QzajaQWT1b4x5HrsOdOQrcpRzijbONp4rk4kAiJq4+FMEa4oXAXy4RfwSA5WQdGAAAAABJRU5ErkJggg==)';  
+};
 });
 
-	});
 
+	});
 }(jQuery));
 function isset() {
-  //  discuss at: http://phpjs.org/functions/isset/
-  // original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
-  // improved by: FremyCompany
-  // improved by: Onno Marsman
-  // improved by: Rafał Kukawski
-  //   example 1: isset( undefined, true);
-  //   returns 1: false
-  //   example 2: isset( 'Kevin van Zonneveld' );
-  //   returns 2: true
-
   var a = arguments,
     l = a.length,
     i = 0,
     undef;
-
   if (l === 0) {
     throw new Error('Empty isset');
   }
-
   while (i !== l) {
     if (a[i] === undef || a[i] === null) {
       return false;
@@ -1056,3 +638,4 @@ function isset() {
   }
   return true;
 }
+

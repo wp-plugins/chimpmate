@@ -4,15 +4,15 @@
  * @package   ChimpMate - WordPress MailChimp Assistant
  * @author    Voltroid<care@voltroid.com>
  * @license   GPL-2.0+
- * @link      http://voltroid.com/wordpress/plugins/wpmailchimp
- * @copyright 2014 Voltroid
+ * @link      http://voltroid.com/chimpmate
+ * @copyright 2015 Voltroid
  *
  * @wordpress-plugin
  * Plugin Name:       ChimpMate - WordPress MailChimp Assistant
- * Plugin URI:        http://voltroid.com/wordpress/plugins/chimpmate
+ * Plugin URI:        http://voltroid.com/chimpmate
  * Description:       Easy to Use MailChimp Plugin
- * Version:           1.0.6
- * Author:            Voltoid
+ * Version:           1.1
+ * Author:            Voltroid
  * Author URI:        http://voltroid.com
  * Text Domain:       wp-mailchimp-assistant
  * License:           GPL-2.0+
@@ -27,15 +27,16 @@ define( 'WPMCA_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 require_once( plugin_dir_path( __FILE__ ) . 'public/class-chimpmate-wpmc-assistant.php' );
 
-register_activation_hook( __FILE__, array( 'ChimipMate_WPMC_Assistant', 'activate' ) );
-register_deactivation_hook( __FILE__, array( 'ChimipMate_WPMC_Assistant', 'deactivate' ) );
+register_activation_hook( __FILE__, array( 'ChimpMate_WPMC_Assistant', 'activate' ) );
+register_deactivation_hook( __FILE__, array( 'ChimpMate_WPMC_Assistant', 'deactivate' ) );
 
 
-add_action( 'plugins_loaded', array( 'ChimipMate_WPMC_Assistant', 'get_instance' ) );
+add_action( 'plugins_loaded', array( 'ChimpMate_WPMC_Assistant', 'get_instance' ) );
+add_action('plugins_loaded',  array( 'ChimpMate_WPMC_Assistant', 'wpmchimp_update_db_check' ));
 
 if ( is_admin() ) {
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-chimpmate-wpmc-assistant-admin.php' );
-	add_action( 'plugins_loaded', array( 'ChimipMate_WPMC_Assistant_Admin', 'get_instance' ) );
+	add_action( 'plugins_loaded', array( 'ChimpMate_WPMC_Assistant_Admin', 'get_instance' ) );
 }
 
 

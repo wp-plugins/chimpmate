@@ -5,8 +5,8 @@
  * @package   ChimpMate - WordPress MailChimp Assistant
  * @author    Voltroid<care@voltroid.com>
  * @license   GPL-2.0+
- * @link      http://voltroid.com/wordpress/plugins/wpmailchimp
- * @copyright 2014 Voltroid
+ * @link      http://voltroid.com/chimpmate
+ * @copyright 2015 Voltroid
  */
 
 // If uninstall not called from WordPress, then exit

@@ -5,8 +5,8 @@
  * @package   ChimpMate - WordPress MailChimp Assistant
  * @author    Voltroid<care@voltroid.com>
  * @license   GPL-2.0+
- * @link      http://voltroid.com/wordpress/plugins/wpmailchimp
- * @copyright 2014 Voltroid
+ * @link      http://voltroid.com/chimpmate
+ * @copyright 2015 Voltroid
  */
 
 ?>
@@ -71,17 +71,20 @@
             <ul>
                 <li class="tabitem active material-design"><a href="#general" data-title="general">GENERAL</a></li>
                 <li class="tabitem material-design"><a href="#lightbox" data-title="lightbox">LIGHTBOX</a></li>
+                <li class="tabitem material-design"><a href="#slider" data-title="slider">SLIDER</a></li>
                 <li class="tabitem material-design"><a href="#widget" data-title="widget">WIDGET</a></li>
                 <li class="tabitem material-design"><a href="#addon" data-title="addon">ADD-ON</a></li>
-                <li class="tabitem material-design"><a href="#statistics" data-title="statistics">STATISTICS</a></li>
+                <!-- <li class="tabitem material-design"><a href="#statistics" data-title="statistics">STATISTICS</a></li> -->
                 <li class="tabitem material-design"><a href="#advanced" data-title="advanced">ADVANCED</a></li>
             </ul>
         </div>
             <button id="wpmca_update" class="wpmca_button red material-design">Update Options</button>
             <div class="wpcmaloading_container">
-                <svg class="wpmcaspinner" width="40px" height="40px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                   <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-                </svg>
+               <div class="wpmcaspinner">
+                  <svg class="circular">
+                    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="4" stroke-miterlimit="10"/>
+                  </svg>
+                </div>
                 <div class="wpmca_status">
                 </div>                
             </div>
@@ -92,17 +95,23 @@
 			<div class="wpmca_menu_title">GENERAL</div>
 		    <ul class="wpmca_menu_list">
 		      <li><a href="#general" data-title="general">GENERAL</a></li>
-		      <li><a href="#lightbox" data-title="lightbox">LIGHTBOX</a></li>
+          <li><a href="#lightbox" data-title="lightbox">LIGHTBOX</a></li>
+		      <li><a href="#slider" data-title="slider">SLIDER</a></li>
 		      <li><a href="#widget" data-title="widget">WIDGET</a></li>
 		      <li><a href="#addon" data-title="add-on">ADD-ON</a></li>
-		      <li><a href="#statistics" data-title="statistics">STATISTICS</a></li>
+		      <!-- <li><a href="#statistics" data-title="statistics">STATISTICS</a></li> -->
 		      <li><a href="#advanced" data-title="advanced">ADVANCED</a></li>
 	    	</ul>
 	    </div>
 <form id="wpmca_form">
 <input type="hidden" name="action" id="wpmcaaction" value="wpmchimpa_add_email_ajax"/>
-<?php $wpmchimpa = json_decode(get_option('wpmchimpa_options'),true);?>
-    <div class="wpmca_content">
+<?php $wpmchimpa = json_decode(get_option('wpmchimpa_options'),true);
+$ltheme=$wpmchimpa['theme']['l'.$wpmchimpa['litebox_theme']];
+$stheme=$wpmchimpa['theme']['s'.$wpmchimpa['slider_theme']];
+$wtheme=$wpmchimpa['theme']['w'.$wpmchimpa['widget_theme']];
+$atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
+?>
+    <div class="wpmca_content" ng-app="chimpmate" ng-controller="chimpmateController">
      
         <div id="general" class="wpmca_box show">
             <div class="wpmca_item">
@@ -199,6 +208,33 @@
                   <label>Unknown error</label>
                 </div>
               </div>
+
+             <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Social API Keys</h2>
+                    <span class="wpmcahint headhint" data-hint="Set Social API Keys for Subscribe with Social Logins(wherever applicable)"></span>
+                </div>
+                <div class="wpmca_group wpmcatxt">      
+                  <input type="text" class="wpmchimp_text" spellcheck="false" name="fb_api" required ng-model="data.fb_api">
+                  <span class="highlighter"></span>
+                  <span class="bar"></span>
+                  <label>Facebook App ID</label>
+                </div>
+                <div class="wpmca_group wpmcatxt">      
+                  <input type="text" class="wpmchimp_text" spellcheck="false" name="gp_api" required ng-model="data.gp_api">
+                  <span class="highlighter"></span>
+                  <span class="bar"></span>
+                  <label>Google App Client ID for Web</label>
+                </div>
+                <div class="wpmca_group wpmcatxt">      
+                  <input type="text" class="wpmchimp_text" spellcheck="false" name="ms_api" required ng-model="data.ms_api">
+                  <span class="highlighter"></span>
+                  <span class="bar"></span>
+                  <label>Microsoft App Client ID</label>
+                  Please provide the Redirect URI while creating a Microsoft App as :<br>
+                  <?php echo plugins_url( 'assets/ms-oauth.php', dirname(dirname(__FILE__)) );?>
+                </div>
+            </div>
   
             <div class="wpmca_item">
                 <div class="itemhead">
@@ -236,7 +272,7 @@
                     <input type="checkbox" name="searchengine" value="1" <?php if(isset($wpmchimpa["searchengine"])) echo "checked";?>>  
                     <label>Search Engine</label>
                  </div>
-                 <div class="wpmca_group wpmcacb">
+                 <!-- <div class="wpmca_group wpmcacb">
                     <input type="checkbox" class="premium" readonly>  
                     <label>External URL</label>
                  </div>
@@ -247,7 +283,7 @@
                  <div class="wpmca_group wpmcacb">
                     <input type="checkbox" class="premium" readonly>  
                     <label>Social Networking</label>
-                 </div>
+                 </div> -->
             </div>
 
 
@@ -280,7 +316,7 @@
                  </div>
             </div>
 
-            <div class="wpmca_item">
+           <!--  <div class="wpmca_item">
                 <div class="itemhead">
                     <h2>Location based Filter</h2>
                     <span class="wpmcahint headhint" data-hint="Exclude the selected countries"></span>
@@ -288,7 +324,7 @@
                 <div class="wpmca_group">
                    <select id="incl" multiple="multiple" style="display: none;" class="premium"></select>
                 </div>
-            </div>
+            </div> -->
 
 
             <div class="wpmca_item">
@@ -305,6 +341,11 @@
                   <span class="bar"></span>
                   <label>Email Address</label>
                 </div>
+                 <div class="wpmca_group wpmcacb">
+                    <input type="checkbox" name="share_text" value="1" <?php if(isset($wpmchimpa["share_text"])) echo "checked";?>>  
+                    <label>Keep Share Text Link enabled to make us happy :) </label>
+                    <span class="wpmcahint" data-hint="You can disable it if you wish :("></span>
+                 </div>
             </div>
         </div>
         <div id="lightbox" class="wpmca_box">
@@ -327,15 +368,31 @@
                     <span class="wpmcahint headhint" data-hint="Select a theme for Lightbox"></span>
                 </div>
                 <div class="wpmca_group">
-                    <select class="wpmca_sel" style="width: 260px;">
-                      <option value="">Basic</option>
-                      <option disabled>Material - BUY PRO</option>
-                      <option disabled>Onamy - BUY PRO</option>
-                      <option disabled>Smash - BUY PRO</option>
-                      <option disabled>Glow - BUY PRO</option>
-                      <option disabled>Unidesign - BUY PRO</option>
+                    <select class="wpmca_sel" ng-change="themeswitcher('lightbox')" style="width: 260px;" ng-model="data.litebox_theme" name="litebox_theme">
+                      <option value="0">Basic</option>
+                      <option value="1">Epsilon</option>
+                      <option value="2" disabled>Material - BUY PRO</option>
+                      <option value="3" disabled>Onamy - BUY PRO</option>
+                      <option value="4" disabled>Smash - BUY PRO</option>
+                      <option value="5" disabled>Glow - BUY PRO</option>
+                      <option value="6" disabled>Unidesign - BUY PRO</option>
                     </select>
+                  </div>
+                  <div class="wpmca_group">
+                    <button class="wpmca_button orange material-design wpmca_vupre" ng-click="vupre($event,$compile)">Live Editor</button>
                 </div>
+             </div>
+             <div class="wpmca_prev livelightbox">
+<div class="wpmca_topbar">
+  <div class="wpmca_round" style="background:#f67a00"></div><div class="wpmca_round" style="background:#ebc71f"></div><div class="wpmca_round" style="background:#31bb37"></div><div class="wpmca_left"></div><div class="wpmca_right"></div><div class="wpmca_long"></div><div class="wpmca_search"></div><div class="wpmca_opts"></div>
+</div>
+<div class="wpmca_viewportbck">
+<div class="wpmca_lineimg"></div>
+<div class="wpmca_divide" style="left:33%"></div>
+<div class="wpmca_divide" style="left:66%"></div>
+</div>
+<div class="wpmca_viewport"></div>
+<div class="roundbutton bak2toprev hiderb material-design"></div>
              </div>
              <div class="wpmca_item">
                 <div class="itemhead">
@@ -343,20 +400,20 @@
                 </div>
               
                 <div class="wpmca_group wpmcatxt">      
-                  <input type="text" class="wpmchimp_text" spellcheck="false" name="lite_heading" required<?php if(isset($wpmchimpa["lite_heading"]))echo ' value="'.$wpmchimpa["lite_heading"].'"';?>>
+                  <input type="text" class="wpmchimp_text" spellcheck="false" name="lite_heading" required ng-model="data.ltopt.lite_heading">
                   <span class="wpmcahint" data-hint="Heading for the Lightbox"></span>
                   <span class="highlighter"></span>
                   <span class="bar"></span>
                   <label>Heading</label>
                 </div>
                 <div class="wpmca_group">
-                    <select name="lite_heading_f" class="wpmca_sel google_fonts">
+                    <select name="lite_heading_f" class="wpmca_sel google_fonts" ng-model="data.ltopt.lite_heading_f" ng-options="f for f in fonts track by f">
                       <option value="">Font</option>
                     </select>
-                    <select name="lite_heading_fs" class="wpmca_sel google_fonts_size">
+                    <select name="lite_heading_fs" class="wpmca_sel google_fonts_size" ng-model="data.ltopt.lite_heading_fs">
                         <option value="">Size</option>
                     </select>
-                    <select name="lite_heading_fw" class="wpmca_sel google_fonts_weight">
+                    <select name="lite_heading_fw" class="wpmca_sel google_fonts_weight" ng-model="data.ltopt.lite_heading_fw">
                       <option value="">Weight</option>
                       <option value="normal">Normal</option>
                       <option value="bold">Bold</option>
@@ -372,7 +429,7 @@
                       <option value="800">800</option>
                       <option value="900">900</option>
                     </select>
-                    <select name="lite_heading_fst" class="wpmca_sel google_fonts_style">
+                    <select name="lite_heading_fst" class="wpmca_sel google_fonts_style" ng-model="data.ltopt.lite_heading_fst">
                       <option value="">Style</option>
                       <option value="normal">Normal</option>
                       <option value="italic">Italic</option>
@@ -381,26 +438,24 @@
                 </div>
                 <div class="wpmca_group wpmcacolor">
                     <label>Font Color</label>
-                    <input name="lite_heading_fc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["lite_heading_fc"]))echo ' value="'.$wpmchimpa["lite_heading_fc"].'"';?>/>
+                    <input minicolors name="lite_heading_fc" type="text" class="wpmchimp-color-sel" ng-model="data.ltopt.lite_heading_fc"/>
                 </div>
-                <div class="wpmca_group">
+                <div class="wpmca_group"> 
                     <div class="wpmcapara">Message
                          <span class="wpmcahint" data-hint="Message for the Lightbox"></span>
                     </div>
-                <?php 
-                $content='';
-                if(isset($wpmchimpa["lite_msg"]))$content=$wpmchimpa["lite_msg"];
+                <?php              
                 $editor_id = 'lite_msg';
                 $settings = array(
                     'media_buttons' => false,
                     'textarea_rows' => 10);
-                wp_editor( $content, $editor_id, $settings ); ?> 
+                wp_editor( '', $editor_id, $settings ); ?>
                 </div>
                 <div class="wpmca_group">
-                    <select name="lite_msg_f" class="wpmca_sel google_fonts">
+                    <select name="lite_msg_f" class="wpmca_sel google_fonts" ng-model="data.ltopt.lite_msg_f" ng-options="f for f in fonts track by f">
                       <option value="">Font</option>
                     </select>
-                    <select name="lite_msg_fs" class="wpmca_sel google_fonts_size" value="20">
+                    <select name="lite_msg_fs" class="wpmca_sel google_fonts_size" ng-model="data.ltopt.lite_msg_fs" ng-options="f for f in fontsiz track by f">
                         <option value="">Size</option>
                     </select>
                 </div>
@@ -410,13 +465,13 @@
                     <h2>Personalize your Text Box</h2>
                 </div>
                 <div class="wpmca_group">
-                  <select name="lite_tbox_f" class="wpmca_sel google_fonts">
+                  <select name="lite_tbox_f" class="wpmca_sel google_fonts" ng-model="data.ltopt.lite_tbox_f" ng-options="f for f in fonts track by f">
                       <option value="">Font</option>
                     </select>
-                    <select name="lite_tbox_fs" class="wpmca_sel google_fonts_size" value="20">
+                    <select name="lite_tbox_fs" class="wpmca_sel google_fonts_size" ng-model="data.ltopt.lite_tbox_fs" ng-options="f for f in fontsiz track by f">
                         <option value="">Size</option>
                     </select>
-                    <select name="lite_tbox_fw" class="wpmca_sel google_fonts_weight">
+                    <select name="lite_tbox_fw" class="wpmca_sel google_fonts_weight" ng-model="data.ltopt.lite_tbox_fw">
                       <option value="">Weight</option>
                       <option value="normal">Normal</option>
                       <option value="bold">Bold</option>
@@ -432,7 +487,7 @@
                       <option value="800">800</option>
                       <option value="900">900</option>
                     </select>
-                    <select name="lite_tbox_fst" class="wpmca_sel google_fonts_style">
+                    <select name="lite_tbox_fst" class="wpmca_sel google_fonts_style" ng-model="data.ltopt.lite_tbox_fst">
                       <option value="">Style</option>
                       <option value="normal">Normal</option>
                       <option value="italic">Italic</option>
@@ -441,56 +496,79 @@
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Font Color</label>
-                   <input name="lite_tbox_fc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["lite_tbox_fc"]))echo ' value="'.$wpmchimpa["lite_tbox_fc"].'"';?>/>
+                   <input minicolors name="lite_tbox_fc" type="text" class="wpmchimp-color-sel" ng-model="data.ltopt.lite_tbox_fc"/>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Background Color</label>
+                   <input minicolors name="lite_tbox_bgc" type="text" class="wpmchimp-color-sel" ng-model="data.ltopt.lite_tbox_bgc"/>
                 </div>
                 <div class="wpmca_group wpmcatxts">      
                   <label>Width</label>
-                  <input type="text" class="wpmchimp_texts" name="lite_tbox_w"<?php if(isset($wpmchimpa["lite_tbox_w"]))echo ' value="'.$wpmchimpa["lite_tbox_w"].'"';?>>
+                  <input type="text" class="wpmchimp_texts" name="lite_tbox_w" ng-model="data.ltopt.lite_tbox_w">
                   <span>px</span>
                 </div>
                 <div class="wpmca_group wpmcatxts"> 
                   <label>Height</label>
-                  <input type="text" class="wpmchimp_texts" name="lite_tbox_h"<?php if(isset($wpmchimpa["lite_tbox_h"]))echo ' value="'.$wpmchimpa["lite_tbox_h"].'"';?>>
+                  <input type="text" class="wpmchimp_texts" name="lite_tbox_h" ng-model="data.ltopt.lite_tbox_h">
                   <span>px</span>
                 </div>
                 <div class="wpmca_group wpmcatxts"> 
                   <label>Border Width</label>
-                  <input type="text" class="wpmchimp_texts" name="lite_tbox_bor"<?php if(isset($wpmchimpa["lite_tbox_bor"]))echo ' value="'.$wpmchimpa["lite_tbox_bor"].'"';?>>
+                  <input type="text" class="wpmchimp_texts" name="lite_tbox_bor" ng-model="data.ltopt.lite_tbox_bor">
                   <span>px</span>
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Border Color</label>
-                   <input name="lite_tbox_borc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["lite_tbox_borc"]))echo ' value="'.$wpmchimpa["lite_tbox_borc"].'"';?>/>
-                </div>
+                   <input minicolors name="lite_tbox_borc" type="text" class="wpmchimp-color-sel" ng-model="data.ltopt.lite_tbox_borc"/>                </div>
             </div>
 
             <div class="wpmca_item">
                 <div class="itemhead">
                     <h2>Personalize your Checkbox</h2>
                 </div>
+                <div class="wpmca_group wpmcacb">
+                  <label class="wpmcapara">Checkbox Theme</label>
+                  <div class="wpmca_compac p1">
+                    <input id="lc1" type="radio" name="lite_check_shade" value="1" ng-model="data.ltopt.lite_check_shade">
+                    <label for="lc1">Light <div class="checkbdemo litet"></div></label>
+                  </div>
+                  <div class="wpmca_compac">
+                    <input id="lc2" type="radio" name="lite_check_shade" value="2" ng-model="data.ltopt.lite_check_shade">
+                    <label for="lc2">Dark <div class="checkbdemo darkt"></div></label> 
+                  </div>
+                  <div style="clear:both"></div>
+               </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Theme Color</label>
-                   <input name="lite_check_c" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["lite_check_c"]))echo ' value="'.$wpmchimpa["lite_check_c"].'"';?>/>
+                   <input minicolors name="lite_check_c" type="text" class="wpmchimp-color-sel" ng-model="data.ltopt.lite_check_c"/>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Border Color</label>
+                   <input minicolors name="lite_check_borc" type="text" class="wpmchimp-color-sel" ng-model="data.ltopt.lite_check_borc"/>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Font Color</label>
+                   <input minicolors name="lite_check_fc" type="text" class="wpmchimp-color-sel" ng-model="data.ltopt.lite_check_fc"/>
                 </div>
             </div>
             <div class="wpmca_item">
                 <div class="itemhead">
                     <h2>Personalize your Button</h2>
                 </div>
-                <div class="wpmca_group wpmcatxt">      
-                  <input type="text" class="wpmchimp_text" spellcheck="false" name="lite_button" required<?php if(isset($wpmchimpa["lite_button"]))echo ' value="'.$wpmchimpa["lite_button"].'"';?>>
+                <div class="wpmca_group wpmcatxt"> 
+                  <input type="text" class="wpmchimp_text" spellcheck="false" name="lite_button" required  ng-model="data.ltopt.lite_button">
                   <span class="highlighter"></span>
                   <span class="bar"></span>
                   <label>Button Text</label>
                 </div>
                 <div class="wpmca_group">
-                    <select name="lite_button_f" class="wpmca_sel google_fonts">
+                    <select name="lite_button_f" class="wpmca_sel google_fonts" ng-model="data.ltopt.lite_button_f" ng-options="f for f in fonts track by f">
                       <option value="">Font</option>
                     </select>
-                    <select name="lite_button_fs" class="wpmca_sel google_fonts_size" value="20">
+                    <select name="lite_button_fs" class="wpmca_sel google_fonts_size" ng-model="data.ltopt.lite_button_fs" ng-options="f for f in fontsiz track by f">
                         <option value="">Size</option>
                     </select>
-                    <select name="lite_button_fw" class="wpmca_sel google_fonts_weight">
+                    <select name="lite_button_fw" class="wpmca_sel google_fonts_weight" ng-model="data.ltopt.lite_button_fw">
                       <option value="">Weight</option>
                       <option value="normal">Normal</option>
                       <option value="bold">Bold</option>
@@ -506,7 +584,7 @@
                       <option value="800">800</option>
                       <option value="900">900</option>
                     </select>
-                    <select name="lite_button_fst" class="wpmca_sel google_fonts_style">
+                    <select name="lite_button_fst" class="wpmca_sel google_fonts_style" ng-model="data.ltopt.lite_button_fst">
                       <option value="">Style</option>
                       <option value="normal">Normal</option>
                       <option value="italic">Italic</option>
@@ -515,43 +593,43 @@
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Font Color</label>
-                   <input name="lite_button_fc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["lite_button_fc"]))echo ' value="'.$wpmchimpa["lite_button_fc"].'"';?>/>
+                   <input minicolors name="lite_button_fc" type="text" class="wpmchimp-color-sel" ng-model="data.ltopt.lite_button_fc"/>
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Hover Font Color</label>
-                   <input name="lite_button_fch" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["lite_button_fch"]))echo ' value="'.$wpmchimpa["lite_button_fch"].'"';?>/>
+                   <input minicolors name="lite_button_fch" type="text" class="wpmchimp-color-sel" ng-model="data.ltopt.lite_button_fch"/>
                 </div>
                 <div class="wpmca_group wpmcatxts">      
                   <label>Width</label>
-                  <input type="text" class="wpmchimp_texts" name="lite_button_w"<?php if(isset($wpmchimpa["lite_button_w"]))echo ' value="'.$wpmchimpa["lite_button_w"].'"';?>>
+                  <input type="text" class="wpmchimp_texts" name="lite_button_w" ng-model="data.ltopt.lite_button_w">
                   <span>px</span>
                 </div>
                 <div class="wpmca_group wpmcatxts"> 
                   <label>Height</label>
-                  <input type="text" class="wpmchimp_texts" name="lite_button_h"<?php if(isset($wpmchimpa["lite_button_h"]))echo ' value="'.$wpmchimpa["lite_button_h"].'"';?>>
+                  <input type="text" class="wpmchimp_texts" name="lite_button_h" ng-model="data.ltopt.lite_button_h">
                   <span>px</span>
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Background Color</label>
-                   <input name="lite_button_bc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["lite_button_bc"]))echo ' value="'.$wpmchimpa["lite_button_bc"].'"';?>/>
+                   <input minicolors name="lite_button_bc" type="text" class="wpmchimp-color-sel" ng-model="data.ltopt.lite_button_bc"/>
                 </div>
                 <div class="wpmca_group wpmcacolor">
                   <label>Hover Background Color</label>
-                   <input name="lite_button_bch" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["lite_button_bch"]))echo ' value="'.$wpmchimpa["lite_button_bch"].'"';?>/>
+                   <input minicolors name="lite_button_bch" type="text" class="wpmchimp-color-sel" ng-model="data.ltopt.lite_button_bch"/>
                 </div>
                 <div class="wpmca_group wpmcatxts"> 
                   <label>Border Radius</label>
-                  <input type="text" class="wpmchimp_texts" name="lite_button_br"<?php if(isset($wpmchimpa["lite_button_br"]))echo ' value="'.$wpmchimpa["lite_button_br"].'"';?>>
+                  <input type="text" class="wpmchimp_texts" name="lite_button_br" ng-model="data.ltopt.lite_button_br">
                   <span>px</span>
                 </div>
                 <div class="wpmca_group wpmcatxts"> 
                   <label>Border Width</label>
-                  <input type="text" class="wpmchimp_texts" name="lite_button_bor"<?php if(isset($wpmchimpa["lite_button_bor"]))echo ' value="'.$wpmchimpa["lite_button_bor"].'"';?>>
+                  <input type="text" class="wpmchimp_texts" name="lite_button_bor" ng-model="data.ltopt.lite_button_bor">
                   <span>px</span>
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Border Color</label>
-                   <input name="lite_button_borc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["lite_button_borc"]))echo ' value="'.$wpmchimpa["lite_button_borc"].'"';?>/>
+                   <input minicolors name="lite_button_borc" type="text" class="wpmchimp-color-sel" ng-model="data.ltopt.lite_button_borc"/>
                 </div>
             </div>
 
@@ -561,7 +639,7 @@
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Theme Color</label>
-                   <input name="lite_spinner_c" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["lite_spinner_c"]))echo ' value="'.$wpmchimpa["lite_spinner_c"].'"';?>/>
+                   <input minicolors name="lite_spinner_c" type="text" class="wpmchimp-color-sel" ng-model="data.ltopt.lite_spinner_c"/>
                 </div>
             </div>
 
@@ -571,13 +649,13 @@
                     <span class="wpmcahint headhint" data-hint="Customize your Success or Error Message"></span>
                 </div>
                 <div class="wpmca_group">
-                    <select name="lite_status_f" class="wpmca_sel google_fonts">
+                    <select name="lite_status_f" class="wpmca_sel google_fonts" ng-model="data.ltopt.lite_status_f" ng-options="f for f in fonts track by f">
                       <option value="">Font</option>
                     </select>
-                    <select name="lite_status_fs" class="wpmca_sel google_fonts_size" value="20">
+                    <select name="lite_status_fs" class="wpmca_sel google_fonts_size" ng-model="data.ltopt.lite_status_fs" ng-options="f for f in fontsiz track by f">
                         <option value="">Size</option>
                     </select>
-                    <select name="lite_status_fw" class="wpmca_sel google_fonts_weight">
+                    <select name="lite_status_fw" class="wpmca_sel google_fonts_weight" ng-model="data.ltopt.lite_status_fw">
                       <option value="">Weight</option>
                       <option value="normal">Normal</option>
                       <option value="bold">Bold</option>
@@ -593,7 +671,7 @@
                       <option value="800">800</option>
                       <option value="900">900</option>
                     </select>
-                    <select name="lite_status_fst" class="wpmca_sel google_fonts_style">
+                    <select name="lite_status_fst" class="wpmca_sel google_fonts_style" ng-model="data.ltopt.lite_status_fst">
                       <option value="">Style</option>
                       <option value="normal">Normal</option>
                       <option value="italic">Italic</option>
@@ -602,10 +680,144 @@
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Font Color</label>
-                   <input name="lite_status_fc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["lite_status_fc"]))echo ' value="'.$wpmchimpa["lite_status_fc"].'"';?>/>
+                   <input minicolors name="lite_status_fc" type="text" class="wpmchimp-color-sel" ng-model="data.ltopt.lite_status_fc"/>
+                </div>
+            </div>
+            <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Personalize your Tag</h2>
+                    <span class="wpmcahint headhint" data-hint="Customize your Tag"></span>
                 </div>
 
+                 <div class="wpmca_group wpmcacb">
+                    <input type="checkbox" name="lite_tag_en" value="1" ng-model="data.ltopt.lite_tag_en" ng-checked="data.ltopt.lite_tag_en">  
+                    <label>Enable</label>
+                 </div>                 
+                <div class="wpmca_group wpmcatxt"> 
+                  <input type="text" class="wpmchimp_text" spellcheck="false" name="lite_tag" required  ng-model="data.ltopt.lite_tag">
+                  <span class="highlighter"></span>
+                  <span class="bar"></span>
+                  <label>Tag Text</label>
+                </div>
+                <div class="wpmca_group">
+                    <select name="lite_tag_f" class="wpmca_sel google_fonts" ng-model="data.ltopt.lite_tag_f" ng-options="f for f in fonts track by f">
+                      <option value="">Font</option>
+                    </select>
+                    <select name="lite_tag_fs" class="wpmca_sel google_fonts_size" ng-model="data.ltopt.lite_tag_fs" ng-options="f for f in fontsiz track by f">
+                        <option value="">Size</option>
+                    </select>
+                    <select name="lite_tag_fw" class="wpmca_sel google_fonts_weight" ng-model="data.ltopt.lite_tag_fw">
+                      <option value="">Weight</option>
+                      <option value="normal">Normal</option>
+                      <option value="bold">Bold</option>
+                      <option value="lighter">Lighter</option>
+                      <option value="bolder">Bolder</option>
+                      <option value="100">100</option>
+                      <option value="200">200</option>
+                      <option value="300">300</option>
+                      <option value="400">400</option>
+                      <option value="500">500</option>
+                      <option value="600">600</option>
+                      <option value="700">700</option>
+                      <option value="800">800</option>
+                      <option value="900">900</option>
+                    </select>
+                    <select name="lite_tag_fst" class="wpmca_sel google_fonts_style" ng-model="data.ltopt.lite_tag_fst">
+                      <option value="">Style</option>
+                      <option value="normal">Normal</option>
+                      <option value="italic">Italic</option>
+                      <option value="oblique">oblique</option>
+                    </select>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Font Color</label>
+                   <input minicolors name="lite_tag_fc" type="text" class="wpmchimp-color-sel" ng-model="data.ltopt.lite_tag_fc"/>
+                </div>
             </div>
+
+
+<div class="wpmca_item extra_opts">
+  <div class="itemhead">
+      <h2>Additional Theme Options</h2>
+  </div>
+  <div class="wpmca_group wpmcacolor lite_close_col">
+     <label>Close Button Color</label>
+     <input minicolors name="lite_close_col" type="text" class="wpmchimp-color-sel" ng-model="data.ltopt.lite_close_col"/>
+  </div>  
+  <div class="wpmca_group wpmcarange lite_bg_op">
+     <label>Background Opacity</label>
+     <input type="range" min="0" max="100" name="lite_bg_op" class="wpmchimp-range-sel" ng-model="data.ltopt.lite_bg_op" <?php echo ' value="'.(isset($ltheme["lite_bg_op"])? $ltheme["lite_bg_op"]:'40').'"';?>/>
+  </div>
+  <div class="wpmca_group wpmcacb lite_dislogo">
+      <input type="checkbox" name="lite_dislogo" value="1" ng-model="data.ltopt.lite_dislogo" ng-checked="data.ltopt.lite_dislogo">  
+      <label>Disable Logo Head</label>
+  </div>
+  <div class="wpmca_group wpmcacb lite_dissoc">
+      <input type="checkbox" name="lite_dissoc" value="1" ng-model="data.ltopt.lite_dissoc" ng-checked="data.ltopt.lite_dissoc">  
+      <label>Disable Social Buttons</label>
+   </div>
+  <div class="wpmca_group wpmcatxt lite_img1">      
+    <input type="text" class="wpmchimp_text" spellcheck="false" name="lite_img1" required ng-model="data.ltopt.lite_img1">
+    <button class="wpmca_button green material-design wpmc_media_uploader">Select Image</button>
+    <span class="wpmcahint" data-hint="Upload Image or Enter base64 of image with dimension 120x120(px)"></span>
+    <span class="highlighter"></span>
+    <span class="bar"></span>
+    <label>Featured Image URL</label>
+  </div>
+  <div class="wpmca_group wpmcacolor lite_head_col">
+     <label>Head Color</label>
+     <input minicolors name="lite_head_col" type="text" class="wpmchimp-color-sel" ng-model="data.ltopt.lite_head_col"/>
+  </div>
+  <div class="wpmca_group wpmcacolor lite_hshad_col">
+     <label>Head Shadow Color</label>
+     <input minicolors name="lite_hshad_col" type="text" class="wpmchimp-color-sel" ng-model="data.ltopt.lite_hshad_col"/>
+  </div>
+  <div class="wpmca_group wpmcacolor lite_bg_c">
+     <label>Popup Background</label>
+     <input minicolors name="lite_bg_c" type="text" class="wpmchimp-color-sel" ng-model="data.ltopt.lite_bg_c"/>
+  </div>
+  <div class="wpmca_group wpmcatxt lite_soc_head">      
+    <input type="text" class="wpmchimp_text" spellcheck="false" name="lite_soc_head" required ng-model="data.ltopt.lite_soc_head">
+    <span class="highlighter"></span>
+    <span class="bar"></span>
+    <label>Social Buttons Header</label>
+  </div>
+  <div class="wpmca_group lite_soc_f">
+      <select name="lite_soc_f" class="wpmca_sel google_fonts" ng-model="data.ltopt.lite_soc_f" ng-options="f for f in fonts track by f">
+        <option value="">Font</option>
+      </select>
+      <select name="lite_soc_fs" class="wpmca_sel google_fonts_size" ng-model="data.ltopt.lite_soc_fs" ng-options="f for f in fontsiz track by f">
+          <option value="">Size</option>
+      </select>
+      <select name="lite_soc_fw" class="wpmca_sel google_fonts_weight" ng-model="data.ltopt.lite_soc_fw">
+        <option value="">Weight</option>
+        <option value="normal">Normal</option>
+        <option value="bold">Bold</option>
+        <option value="lighter">Lighter</option>
+        <option value="bolder">Bolder</option>
+        <option value="100">100</option>
+        <option value="200">200</option>
+        <option value="300">300</option>
+        <option value="400">400</option>
+        <option value="500">500</option>
+        <option value="600">600</option>
+        <option value="700">700</option>
+        <option value="800">800</option>
+        <option value="900">900</option>
+      </select>
+      <select name="lite_soc_fst" class="wpmca_sel google_fonts_style" ng-model="data.ltopt.lite_soc_fst">
+        <option value="">Style</option>
+        <option value="normal">Normal</option>
+        <option value="italic">Italic</option>
+        <option value="oblique">oblique</option>
+      </select>
+  </div>
+  <div class="wpmca_group wpmcacolor lite_soc_fc">
+     <label>Social Buttons Header Color</label>
+     <input minicolors name="lite_soc_fc" type="text" class="wpmchimp-color-sel" ng-model="data.ltopt.lite_soc_fc"/>
+  </div>
+</div>
+
 
             <div class="wpmca_item">
                 <div class="itemhead">
@@ -655,7 +867,7 @@
                     <label>404 Error</label>
                  </div>
             </div>
-            <div class="wpmca_item">
+            <!-- <div class="wpmca_item">
                 <div class="itemhead">
                     <h2>Filter by Specific Posts</h2>
                     <span class="wpmcahint headhint" data-hint="Include/Exclude Specific posts from Lightbox"></span>
@@ -675,7 +887,7 @@
                     <div class="wpmcapara premiumsp"><textarea readonly></textarea>
                   </div>
                 </div>
-            </div>
+            </div> -->
             <div class="wpmca_item">
                 <div class="itemhead">
                     <h2>Behaviour</h2>
@@ -694,10 +906,10 @@
                   <input type="text" class="wpmchimp_texts premium" readonly value="50">
                   <span>% of the page scrolled</span>
                 </div>
-                 <div class="wpmca_group wpmcacb">
+                 <!-- <div class="wpmca_group wpmcacb">
                     <input type="checkbox" class="premium" readonly>  
                     <label>Depart Intent </label>
-                 </div>
+                 </div> -->
                 <div class="wpmca_group wpmcatxts wpmcacb"> 
                   <input type="checkbox" name="lite_behave_cookie" value="1" <?php if(isset($wpmchimpa["lite_behave_cookie"])) echo "checked";?>>  
                   <label>Reappear after</label>
@@ -722,6 +934,586 @@
                  </div>
               </div>
         </div>
+        <div id="slider" class="wpmca_box">
+            
+            <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Subscribe box in Slider</h2>
+                </div>
+                <div class="wpmca_group">
+                    <div class="paper-toggle">
+                        <input type="checkbox" id="slider_en" name="slider" value="1" class="wpmcatoggle" <?php if(isset($wpmchimpa["slider"])) echo "checked";?>/>
+                        <label for="slider_en">Enable</label>
+                    </div>
+                    <span class="wpmcahint" data-hint="Enable Slider"></span>
+                </div>
+            </div>
+             <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Select Theme</h2>
+                    <span class="wpmcahint headhint" data-hint="Select a theme for Slider"></span>
+                </div>
+                <div class="wpmca_group">
+                    <select class="wpmca_sel" ng-change="themeswitcher('slider')" style="width: 260px;" ng-model="data.slider_theme" name="slider_theme">
+                      <option value="0">Basic</option>
+                      <option value="1">Epsilon</option>
+                      <option value="2" disabled>Material - BUY PRO</option>
+                      <option value="3" disabled>Onamy - BUY PRO</option>
+                      <option value="4" disabled>Smash - BUY PRO</option>
+                      <option value="5" disabled>Glow - BUY PRO</option>
+                      <option value="6" disabled>Unidesign - BUY PRO</option>
+                    </select>
+                  </div>
+                  <div class="wpmca_group">
+                    <button class="wpmca_button orange material-design wpmca_vupre" ng-click="vupre($event,$compile)">Live Editor</button>
+                </div>
+             </div>
+             <div class="wpmca_prev liveslider">
+<div class="wpmca_topbar">
+  <div class="wpmca_round" style="background:#f67a00"></div><div class="wpmca_round" style="background:#ebc71f"></div><div class="wpmca_round" style="background:#31bb37"></div><div class="wpmca_left"></div><div class="wpmca_right"></div><div class="wpmca_long"></div><div class="wpmca_search"></div><div class="wpmca_opts"></div>
+</div>
+<div class="wpmca_viewportbck">
+<div class="wpmca_lineimg"></div>
+<div class="wpmca_divide" style="left:33%"></div>
+<div class="wpmca_divide" style="left:66%"></div>
+</div>
+<div class="wpmca_viewport"></div>
+<div class="roundbutton bak2toprev hiderb material-design"></div>
+             </div>
+             <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Custom Message</h2>
+                </div>
+              
+                <div class="wpmca_group wpmcatxt">      
+                  <input type="text" class="wpmchimp_text" spellcheck="false" name="slider_heading" required ng-model="data.stopt.slider_heading">
+                  <span class="wpmcahint" data-hint="Heading for the Slider"></span>
+                  <span class="highlighter"></span>
+                  <span class="bar"></span>
+                  <label>Heading</label>
+                </div>
+                <div class="wpmca_group">
+                    <select name="slider_heading_f" class="wpmca_sel google_fonts" ng-model="data.stopt.slider_heading_f" ng-options="f for f in fonts track by f">
+                      <option value="">Font</option>
+                    </select>
+                    <select name="slider_heading_fs" class="wpmca_sel google_fonts_size" ng-model="data.stopt.slider_heading_fs" ng-options="f for f in fontsiz track by f">
+                        <option value="">Size</option>
+                    </select>
+                    <select name="slider_heading_fw" class="wpmca_sel google_fonts_weight" ng-model="data.stopt.slider_heading_fw">
+                      <option value="">Weight</option>
+                      <option value="normal">Normal</option>
+                      <option value="bold">Bold</option>
+                      <option value="lighter">Lighter</option>
+                      <option value="bolder">Bolder</option>
+                      <option value="100">100</option>
+                      <option value="200">200</option>
+                      <option value="300">300</option>
+                      <option value="400">400</option>
+                      <option value="500">500</option>
+                      <option value="600">600</option>
+                      <option value="700">700</option>
+                      <option value="800">800</option>
+                      <option value="900">900</option>
+                    </select>
+                    <select name="slider_heading_fst" class="wpmca_sel google_fonts_style" ng-model="data.stopt.slider_heading_fst">
+                      <option value="">Style</option>
+                      <option value="normal">Normal</option>
+                      <option value="italic">Italic</option>
+                      <option value="oblique">oblique</option>
+                    </select>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                    <label>Font Color</label>
+                    <input minicolors name="slider_heading_fc" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_heading_fc"/>
+                </div>
+                <div class="wpmca_group"> 
+                    <div class="wpmcapara">Message
+                         <span class="wpmcahint" data-hint="Message for the Slider"></span>
+                    </div>
+                <?php              
+                $editor_id = 'slider_msg';
+                $settings = array(
+                    'media_buttons' => false,
+                    'textarea_rows' => 10);
+                wp_editor( '', $editor_id, $settings ); ?>
+                </div>
+                <div class="wpmca_group">
+                    <select name="slider_msg_f" class="wpmca_sel google_fonts" ng-model="data.stopt.slider_msg_f" ng-options="f for f in fonts track by f">
+                      <option value="">Font</option>
+                    </select>
+                    <select name="slider_msg_fs" class="wpmca_sel google_fonts_size" ng-model="data.stopt.slider_msg_fs" ng-options="f for f in fontsiz track by f">
+                        <option value="">Size</option>
+                    </select>
+                </div>
+            </div>
+             <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Personalize your Text Box</h2>
+                </div>
+                <div class="wpmca_group">
+                  <select name="slider_tbox_f" class="wpmca_sel google_fonts" ng-model="data.stopt.slider_tbox_f" ng-options="f for f in fonts track by f">
+                      <option value="">Font</option>
+                    </select>
+                    <select name="slider_tbox_fs" class="wpmca_sel google_fonts_size" ng-model="data.stopt.slider_tbox_fs" ng-options="f for f in fontsiz track by f">
+                        <option value="">Size</option>
+                    </select>
+                    <select name="slider_tbox_fw" class="wpmca_sel google_fonts_weight" ng-model="data.stopt.slider_tbox_fw">
+                      <option value="">Weight</option>
+                      <option value="normal">Normal</option>
+                      <option value="bold">Bold</option>
+                      <option value="lighter">Lighter</option>
+                      <option value="bolder">Bolder</option>
+                      <option value="100">100</option>
+                      <option value="200">200</option>
+                      <option value="300">300</option>
+                      <option value="400">400</option>
+                      <option value="500">500</option>
+                      <option value="600">600</option>
+                      <option value="700">700</option>
+                      <option value="800">800</option>
+                      <option value="900">900</option>
+                    </select>
+                    <select name="slider_tbox_fst" class="wpmca_sel google_fonts_style" ng-model="data.stopt.slider_tbox_fst">
+                      <option value="">Style</option>
+                      <option value="normal">Normal</option>
+                      <option value="italic">Italic</option>
+                      <option value="oblique">oblique</option>
+                    </select>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Font Color</label>
+                   <input minicolors name="slider_tbox_fc" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_tbox_fc"/>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Background Color</label>
+                   <input minicolors name="slider_tbox_bgc" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_tbox_bgc"/>
+                </div>
+                <div class="wpmca_group wpmcatxts">      
+                  <label>Width</label>
+                  <input type="text" class="wpmchimp_texts" name="slider_tbox_w" ng-model="data.stopt.slider_tbox_w">
+                  <span>px</span>
+                </div>
+                <div class="wpmca_group wpmcatxts"> 
+                  <label>Height</label>
+                  <input type="text" class="wpmchimp_texts" name="slider_tbox_h" ng-model="data.stopt.slider_tbox_h">
+                  <span>px</span>
+                </div>
+                <div class="wpmca_group wpmcatxts"> 
+                  <label>Border Width</label>
+                  <input type="text" class="wpmchimp_texts" name="slider_tbox_bor" ng-model="data.stopt.slider_tbox_bor">
+                  <span>px</span>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Border Color</label>
+                   <input minicolors name="slider_tbox_borc" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_tbox_borc"/>                </div>
+            </div>
+
+            <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Personalize your Checkbox</h2>
+                </div>
+                <div class="wpmca_group wpmcacb">
+                  <label class="wpmcapara">Checkbox Theme</label>
+                  <div class="wpmca_compac p1">
+                    <input id="lc1" type="radio" name="slider_check_shade" value="1" ng-model="data.stopt.slider_check_shade">
+                    <label for="lc1">Light <div class="checkbdemo litet"></div></label>
+                  </div>
+                  <div class="wpmca_compac">
+                    <input id="lc2" type="radio" name="slider_check_shade" value="2" ng-model="data.stopt.slider_check_shade">
+                    <label for="lc2">Dark <div class="checkbdemo darkt"></div></label> 
+                  </div>
+                  <div style="clear:both"></div>
+               </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Theme Color</label>
+                   <input minicolors name="slider_check_c" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_check_c"/>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Border Color</label>
+                   <input minicolors name="slider_check_borc" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_check_borc"/>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Font Color</label>
+                   <input minicolors name="slider_check_fc" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_check_fc"/>
+                </div>
+            </div>
+            <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Personalize your Button</h2>
+                </div>
+                <div class="wpmca_group wpmcatxt"> 
+                  <input type="text" class="wpmchimp_text" spellcheck="false" name="slider_button" required  ng-model="data.stopt.slider_button">
+                  <span class="highlighter"></span>
+                  <span class="bar"></span>
+                  <label>Button Text</label>
+                </div>
+                <div class="wpmca_group">
+                    <select name="slider_button_f" class="wpmca_sel google_fonts" ng-model="data.stopt.slider_button_f" ng-options="f for f in fonts track by f">
+                      <option value="">Font</option>
+                    </select>
+                    <select name="slider_button_fs" class="wpmca_sel google_fonts_size" ng-model="data.stopt.slider_button_fs" ng-options="f for f in fontsiz track by f">
+                        <option value="">Size</option>
+                    </select>
+                    <select name="slider_button_fw" class="wpmca_sel google_fonts_weight" ng-model="data.stopt.slider_button_fw">
+                      <option value="">Weight</option>
+                      <option value="normal">Normal</option>
+                      <option value="bold">Bold</option>
+                      <option value="lighter">Lighter</option>
+                      <option value="bolder">Bolder</option>
+                      <option value="100">100</option>
+                      <option value="200">200</option>
+                      <option value="300">300</option>
+                      <option value="400">400</option>
+                      <option value="500">500</option>
+                      <option value="600">600</option>
+                      <option value="700">700</option>
+                      <option value="800">800</option>
+                      <option value="900">900</option>
+                    </select>
+                    <select name="slider_button_fst" class="wpmca_sel google_fonts_style" ng-model="data.stopt.slider_button_fst">
+                      <option value="">Style</option>
+                      <option value="normal">Normal</option>
+                      <option value="italic">Italic</option>
+                      <option value="oblique">oblique</option>
+                    </select>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Font Color</label>
+                   <input minicolors name="slider_button_fc" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_button_fc"/>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Hover Font Color</label>
+                   <input minicolors name="slider_button_fch" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_button_fch"/>
+                </div>
+                <div class="wpmca_group wpmcatxts">      
+                  <label>Width</label>
+                  <input type="text" class="wpmchimp_texts" name="slider_button_w" ng-model="data.stopt.slider_button_w">
+                  <span>px</span>
+                </div>
+                <div class="wpmca_group wpmcatxts"> 
+                  <label>Height</label>
+                  <input type="text" class="wpmchimp_texts" name="slider_button_h" ng-model="data.stopt.slider_button_h">
+                  <span>px</span>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Background Color</label>
+                   <input minicolors name="slider_button_bc" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_button_bc"/>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                  <label>Hover Background Color</label>
+                   <input minicolors name="slider_button_bch" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_button_bch"/>
+                </div>
+                <div class="wpmca_group wpmcatxts"> 
+                  <label>Border Radius</label>
+                  <input type="text" class="wpmchimp_texts" name="slider_button_br" ng-model="data.stopt.slider_button_br">
+                  <span>px</span>
+                </div>
+                <div class="wpmca_group wpmcatxts"> 
+                  <label>Border Width</label>
+                  <input type="text" class="wpmchimp_texts" name="slider_button_bor" ng-model="data.stopt.slider_button_bor">
+                  <span>px</span>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Border Color</label>
+                   <input minicolors name="slider_button_borc" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_button_borc"/>
+                </div>
+            </div>
+
+            <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Personalize your Spinner</h2>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Theme Color</label>
+                   <input minicolors name="slider_spinner_c" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_spinner_c"/>
+                </div>
+            </div>
+            <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Personalize your Trigger</h2>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Icon Color</label>
+                   <input minicolors name="slider_trigger_c" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_trigger_c"/>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Background Color</label>
+                   <input minicolors name="slider_trigger_bg" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_trigger_bg"/>
+                </div>
+              <div class="wpmca_group wpmcarange">
+                 <label>Position from top(%)</label>
+                 <input type="range" min="0" max="100" name="slider_trigger_top" class="wpmchimp-range-sel" ng-model="data.stopt.slider_trigger_top" <?php echo ' value="'.(isset($stheme["slider_trigger_top"])? $stheme["slider_trigger_top"]:'40').'"';?>/>
+              </div>
+              <div class="wpmca_group wpmcatxts wpmcacb"> 
+                <input type="checkbox" name="slider_trigger_scroll" value="1" <?php if(isset($wpmchimpa["slider_trigger_scroll"])) echo "checked";?>>  
+                <label>Appear after</label>
+                <input type="text" class="wpmchimp_texts premium" readonly value="50">
+                <span>% of the page scrolled</span>
+              </div>
+            </div>
+
+            <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Personalize your Status Message</h2>
+                    <span class="wpmcahint headhint" data-hint="Customize your Success or Error Message"></span>
+                </div>
+                <div class="wpmca_group">
+                    <select name="slider_status_f" class="wpmca_sel google_fonts" ng-model="data.stopt.slider_status_f" ng-options="f for f in fonts track by f">
+                      <option value="">Font</option>
+                    </select>
+                    <select name="slider_status_fs" class="wpmca_sel google_fonts_size" ng-model="data.stopt.slider_status_fs" ng-options="f for f in fontsiz track by f">
+                        <option value="">Size</option>
+                    </select>
+                    <select name="slider_status_fw" class="wpmca_sel google_fonts_weight" ng-model="data.stopt.slider_status_fw">
+                      <option value="">Weight</option>
+                      <option value="normal">Normal</option>
+                      <option value="bold">Bold</option>
+                      <option value="lighter">Lighter</option>
+                      <option value="bolder">Bolder</option>
+                      <option value="100">100</option>
+                      <option value="200">200</option>
+                      <option value="300">300</option>
+                      <option value="400">400</option>
+                      <option value="500">500</option>
+                      <option value="600">600</option>
+                      <option value="700">700</option>
+                      <option value="800">800</option>
+                      <option value="900">900</option>
+                    </select>
+                    <select name="slider_status_fst" class="wpmca_sel google_fonts_style" ng-model="data.stopt.slider_status_fst">
+                      <option value="">Style</option>
+                      <option value="normal">Normal</option>
+                      <option value="italic">Italic</option>
+                      <option value="oblique">oblique</option>
+                    </select>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Font Color</label>
+                   <input minicolors name="slider_status_fc" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_status_fc"/>
+                </div>
+            </div>
+            
+            <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Personalize your Tag</h2>
+                    <span class="wpmcahint headhint" data-hint="Customize your Tag"></span>
+                </div>
+
+                 <div class="wpmca_group wpmcacb">
+                    <input type="checkbox" name="slider_tag_en" value="1" ng-model="data.ltopt.lite_dissoc" ng-checked="data.ltopt.lite_dissoc">  
+                    <label>Enable</label>
+                 </div>                 
+                <div class="wpmca_group wpmcatxt"> 
+                  <input type="text" class="wpmchimp_text" spellcheck="false" name="slider_tag" required  ng-model="data.stopt.slider_tag">
+                  <span class="highlighter"></span>
+                  <span class="bar"></span>
+                  <label>Tag Text</label>
+                </div>
+                <div class="wpmca_group">
+                    <select name="slider_tag_f" class="wpmca_sel google_fonts" ng-model="data.stopt.slider_tag_f" ng-options="f for f in fonts track by f">
+                      <option value="">Font</option>
+                    </select>
+                    <select name="slider_tag_fs" class="wpmca_sel google_fonts_size" ng-model="data.stopt.slider_tag_fs" ng-options="f for f in fontsiz track by f">
+                        <option value="">Size</option>
+                    </select>
+                    <select name="slider_tag_fw" class="wpmca_sel google_fonts_weight" ng-model="data.stopt.slider_tag_fw">
+                      <option value="">Weight</option>
+                      <option value="normal">Normal</option>
+                      <option value="bold">Bold</option>
+                      <option value="lighter">Lighter</option>
+                      <option value="bolder">Bolder</option>
+                      <option value="100">100</option>
+                      <option value="200">200</option>
+                      <option value="300">300</option>
+                      <option value="400">400</option>
+                      <option value="500">500</option>
+                      <option value="600">600</option>
+                      <option value="700">700</option>
+                      <option value="800">800</option>
+                      <option value="900">900</option>
+                    </select>
+                    <select name="slider_tag_fst" class="wpmca_sel google_fonts_style" ng-model="data.stopt.slider_tag_fst">
+                      <option value="">Style</option>
+                      <option value="normal">Normal</option>
+                      <option value="italic">Italic</option>
+                      <option value="oblique">oblique</option>
+                    </select>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Font Color</label>
+                   <input minicolors name="slider_tag_fc" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_tag_fc"/>
+                </div>
+            </div>
+
+
+<div class="wpmca_item extra_opts">
+  <div class="itemhead">
+      <h2>Additional Theme Options</h2>
+  </div>
+  <div class="wpmca_group wpmcacb slider_dissoc">
+      <input type="checkbox" name="slider_dissoc" value="1" ng-model="data.stopt.slider_dissoc" ng-checked="data.stopt.slider_dissoc">  
+      <label>Disable Social Buttons</label>
+   </div>
+  <div class="wpmca_group wpmcacolor slider_canvas_c">
+     <label>Canvas Color</label>
+     <input minicolors name="slider_canvas_c" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_canvas_c"/>
+  </div>
+  <div class="wpmca_group wpmcacolor slider_bg_c">
+     <label>Background Color</label>
+     <input minicolors name="slider_bg_c" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_bg_c"/>
+  </div>
+  <div class="wpmca_group wpmcatxt slider_soc_head">      
+    <input type="text" class="wpmchimp_text" spellcheck="false" name="slider_soc_head" required ng-model="data.stopt.slider_soc_head">
+    <span class="highlighter"></span>
+    <span class="bar"></span>
+    <label>Social Buttons Header</label>
+  </div>
+  <div class="wpmca_group slider_soc_f">
+      <select name="slider_soc_f" class="wpmca_sel google_fonts" ng-model="data.stopt.slider_soc_f" ng-options="f for f in fonts track by f">
+        <option value="">Font</option>
+      </select>
+      <select name="slider_soc_fs" class="wpmca_sel google_fonts_size" ng-model="data.stopt.slider_soc_fs" ng-options="f for f in fontsiz track by f">
+          <option value="">Size</option>
+      </select>
+      <select name="slider_soc_fw" class="wpmca_sel google_fonts_weight" ng-model="data.stopt.slider_soc_fw">
+        <option value="">Weight</option>
+        <option value="normal">Normal</option>
+        <option value="bold">Bold</option>
+        <option value="lighter">Lighter</option>
+        <option value="bolder">Bolder</option>
+        <option value="100">100</option>
+        <option value="200">200</option>
+        <option value="300">300</option>
+        <option value="400">400</option>
+        <option value="500">500</option>
+        <option value="600">600</option>
+        <option value="700">700</option>
+        <option value="800">800</option>
+        <option value="900">900</option>
+      </select>
+      <select name="slider_soc_fst" class="wpmca_sel google_fonts_style" ng-model="data.stopt.slider_soc_fst">
+        <option value="">Style</option>
+        <option value="normal">Normal</option>
+        <option value="italic">Italic</option>
+        <option value="oblique">oblique</option>
+      </select>
+  </div>
+  <div class="wpmca_group wpmcacolor slider_soc_fc">
+     <label>Social Buttons Header Color</label>
+     <input minicolors name="slider_soc_fc" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_soc_fc"/>
+  </div>
+</div>
+
+
+            <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Filter by Device</h2>
+                    <span class="wpmcahint headhint" data-hint="Show Subscription form if the user visits from?"></span>
+                </div>
+                 <div class="wpmca_group wpmcacb">
+                    <input type="checkbox" name="slider_desktop" value="1" <?php if(isset($wpmchimpa["slider_desktop"])) echo "checked";?>>  
+                    <label>Desktop</label>
+                 </div>
+                 <div class="wpmca_group wpmcacb">
+                    <input type="checkbox" name="slider_tablet" value="1" <?php if(isset($wpmchimpa["slider_tablet"])) echo "checked";?>>  
+                    <label>Tablet</label>
+                 </div>
+                 <div class="wpmca_group wpmcacb">
+                    <input type="checkbox" name="slider_mobile" value="1" <?php if(isset($wpmchimpa["slider_mobile"])) echo "checked";?>>  
+                    <label>Mobile</label>
+                 </div>
+            </div>
+            <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Filter by Page type</h2>
+                    <span class="wpmcahint headhint" data-hint="Show Subscription form if the user visits?"></span>
+                </div>
+                 <div class="wpmca_group wpmcacb">
+                    <input type="checkbox" name="slider_homepage" value="1" <?php if(isset($wpmchimpa["slider_homepage"])) echo "checked";?>>  
+                    <label>Home Page</label>
+                 </div>
+                 <div class="wpmca_group wpmcacb">
+                    <input type="checkbox" name="slider_page" value="1" <?php if(isset($wpmchimpa["slider_page"])) echo "checked";?>>  
+                    <label>Pages</label>
+                 </div>
+                 <div class="wpmca_group wpmcacb">
+                    <input type="checkbox" name="slider_post" value="1" <?php if(isset($wpmchimpa["slider_post"])) echo "checked";?>>  
+                    <label>Posts</label>
+                 </div>
+                 <div class="wpmca_group wpmcacb">
+                    <input type="checkbox" name="slider_category" value="1" <?php if(isset($wpmchimpa["slider_category"])) echo "checked";?>>  
+                    <label>Categories/Archives</label>
+                 </div>
+                 <div class="wpmca_group wpmcacb">
+                    <input type="checkbox" name="slider_search" value="1" <?php if(isset($wpmchimpa["slider_search"])) echo "checked";?>>  
+                    <label>Search</label>
+                 </div>
+                 <div class="wpmca_group wpmcacb">
+                    <input type="checkbox" name="slider_404error" value="1" <?php if(isset($wpmchimpa["slider_404error"])) echo "checked";?>>  
+                    <label>404 Error</label>
+                 </div>
+            </div>
+            <!-- <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Filter by Specific Posts</h2>
+                    <span class="wpmcahint headhint" data-hint="Include/Exclude Specific posts from Slider"></span>
+                </div>
+                <div class="wpmca_group">
+                    <div class="paper-toggle">
+                        <input id="slider_spec_post" type="checkbox" class="wpmcatoggle"/>
+                        <label for="slider_spec_post" class="premiumsp">Exclude</label>
+                    </div><label for="slider_spec_post" class="premiumsp" style="top: -4px;left: 60px;position: relative;">Include</label>
+                </div>
+                  <div class="wpmca_group" id="premiumshow">
+                    <div class="wpmcapara"> Enter Post/Page IDs
+                        <span class="wpmcahint" data-hint="Separate post ids by comma ','"></span>
+                    </div>
+                  </div>
+                  <div class="wpmca_group">
+                    <div class="wpmcapara premiumsp"><textarea readonly></textarea>
+                  </div>
+                </div>
+            </div> -->
+              <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Behaviour</h2>
+                    <span class="wpmcahint headhint" data-hint="Behaviour of the Slider"></span>
+                </div>
+                <div class="wpmca_group wpmcacb">
+                  <label class="wpmcapara">Orientation</label>
+                  <div class="wpmca_compac p1">
+                    <input id="so1" type="radio" name="slider_orient" value="left"  <?php if(isset($wpmchimpa["slider_orient"]) && $wpmchimpa["slider_orient"] == 'left') echo "checked";?>>
+                    <label for="so1">Left <div class="orientdemo lefto"></div></label>
+                  </div>
+                  <div class="wpmca_compac">
+                    <input id="so2" type="radio" name="slider_orient" value="right" <?php if(isset($wpmchimpa["slider_orient"]) && $wpmchimpa["slider_orient"] == 'right') echo "checked";?>>
+                    <label for="so2">Right <div class="orientdemo righto"></div></label> 
+                  </div>
+                  <div style="clear:both"></div>
+               </div>
+                 <!-- <div class="wpmca_group wpmcacb">
+                    <input type="checkbox" class="premium" readonly>  
+                    <label>Move-in-with </label>
+                    <span class="wpmcahint" data-hint="Move in the slider from out"></span>
+                 </div> -->
+                <div class="wpmca_group wpmcatxts wpmcacb"> 
+                  <label>Appear after</label>
+                  <input type="text" class="wpmchimp_texts" name="slider_behave_time"<?php if(isset($wpmchimpa["slider_behave_time"]))echo ' value="'.$wpmchimpa["slider_behave_time"].'"';?>>
+                  <span>seconds</span>
+                  <input type="checkbox" style="margin-left: 10px;" name="slider_behave_time_inac" value="1" <?php if(isset($wpmchimpa["slider_behave_time_inac"])) echo "checked";?>>  
+                  <label>of Inactivity</label>
+                </div>
+                 <!-- <div class="wpmca_group wpmcacb">
+                    <input type="checkbox" class="premium" readonly>  
+                    <label>Depart Intent </label>
+                 </div> -->
+                 <div class="wpmca_group wpmcacb">
+                    <input type="checkbox" value="1" name="slider_close_bck"<?php if(isset($wpmchimpa["slider_close_bck"]))echo ' checked';?>>  
+                    <label>Close when Slider background is clicked</label>
+                    <span class="wpmcahint" data-hint="If not selected, visitors need to click close button to exit the slider"></span>
+                 </div>
+              </div>
+        </div>
         <div id="widget" class="wpmca_box">
             <div class="wpmca_item">
                 <div class="itemhead">
@@ -741,8 +1533,9 @@
                     <span class="wpmcahint headhint" data-hint="Select a theme for widget"></span>
                 </div>
                 <div class="wpmca_group">
-                    <select class="wpmca_sel" style="width: 260px;">
-                      <option value="">Basic</option>
+                    <select class="wpmca_sel" ng-change="themeswitcher('widget')" style="width: 260px;" ng-model="data.widget_theme" name="widget_theme">
+                      <option value="0">Basic</option>
+                      <option value="1">Epsilon</option>
                       <option disabled>Material - BUY PRO</option>
                       <option disabled>Onamy - BUY PRO</option>
                       <option disabled>Smash - BUY PRO</option>
@@ -750,13 +1543,27 @@
                       <option disabled>Unidesign - BUY PRO</option>
                     </select>
                 </div>
+                  <div class="wpmca_group">
+                    <button class="wpmca_button orange material-design wpmca_vupre" ng-click="vupre($event,$compile)">Live Editor</button>
+                </div>
+             </div>
+             <div class="wpmca_prev livewidget">
+<div class="wpmca_topbar">
+  <div class="wpmca_round" style="background:#f67a00"></div><div class="wpmca_round" style="background:#ebc71f"></div><div class="wpmca_round" style="background:#31bb37"></div><div class="wpmca_left"></div><div class="wpmca_right"></div><div class="wpmca_long"></div><div class="wpmca_search"></div><div class="wpmca_opts"></div>
+</div>
+<div class="wpmca_viewportbck">
+<div class="wpmca_lineimg"></div>
+<div class="wpmca_divide" style="left:584px"></div>
+</div>
+<div class="wpmca_viewport"></div>
+<div class="roundbutton bak2toprev hiderb material-design"></div>
              </div>
              <div class="wpmca_item">
                 <div class="itemhead">
                     <h2>Custom Message</h2>
                 </div>
                 <div class="wpmca_group wpmcatxt">      
-                  <input type="text" class="wpmchimp_text" spellcheck="false" name="widget_heading" required<?php if(isset($wpmchimpa["widget_heading"]))echo ' value="'.$wpmchimpa["widget_heading"].'"';?>>
+                  <input type="text" class="wpmchimp_text" spellcheck="false" name="widget_heading" required ng-model="data.wtopt.widget_heading">
                   <span class="wpmcahint" data-hint="Heading for the Widget"></span>
                   <span class="highlighter"></span>
                   <span class="bar"></span>
@@ -765,22 +1572,20 @@
               
                 <div class="wpmca_group">
                     <div class="wpmcapara">Message
-                         <span class="wpmcahint" data-hint="Message for the Lightbox"></span>
+                         <span class="wpmcahint" data-hint="Message for the Widget"></span>
                     </div>
                 <?php 
-                $content='';
-                if(isset($wpmchimpa["widget_msg"]))$content=$wpmchimpa["widget_msg"];
                 $editor_id = 'widget_msg';
                 $settings = array(
                     'media_buttons' => false,
                     'textarea_rows' => 10);
-                wp_editor( $content, $editor_id, $settings ); ?> 
+                wp_editor( '', $editor_id, $settings ); ?> 
                 </div>
                 <div class="wpmca_group">
-                    <select name="widget_msg_f" class="wpmca_sel google_fonts">
+                    <select name="widget_msg_f" class="wpmca_sel google_fonts" ng-model="data.wtopt.widget_msg_f" ng-options="f for f in fonts track by f">
                       <option value="">Font</option>
                     </select>
-                    <select name="widget_msg_fs" class="wpmca_sel google_fonts_size" value="20">
+                    <select name="widget_msg_fs" class="wpmca_sel google_fonts_size" ng-model="data.wtopt.widget_msg_fs" ng-options="f for f in fontsiz track by f">
                         <option value="">Size</option>
                     </select>
                 </div>
@@ -790,13 +1595,13 @@
                     <h2>Personalize your Text Box</h2>
                 </div>
                 <div class="wpmca_group">
-                  <select name="widget_tbox_f" class="wpmca_sel google_fonts">
+                  <select name="widget_tbox_f" class="wpmca_sel google_fonts" ng-model="data.wtopt.widget_tbox_f" ng-options="f for f in fonts track by f">
                       <option value="">Font</option>
                     </select>
-                    <select name="widget_tbox_fs" class="wpmca_sel google_fonts_size" value="20">
+                    <select name="widget_tbox_fs" class="wpmca_sel google_fonts_size" ng-model="data.wtopt.widget_tbox_fs" ng-options="f for f in fontsiz track by f">
                         <option value="">Size</option>
                     </select>
-                    <select name="widget_tbox_fw" class="wpmca_sel google_fonts_weight">
+                    <select name="widget_tbox_fw" class="wpmca_sel google_fonts_weight" ng-model="data.wtopt.widget_tbox_fw">
                       <option value="">Weight</option>
                       <option value="normal">Normal</option>
                       <option value="bold">Bold</option>
@@ -812,7 +1617,7 @@
                       <option value="800">800</option>
                       <option value="900">900</option>
                     </select>
-                    <select name="widget_tbox_fst" class="wpmca_sel google_fonts_style">
+                    <select name="widget_tbox_fst" class="wpmca_sel google_fonts_style" ng-model="data.wtopt.widget_tbox_fst">
                       <option value="">Style</option>
                       <option value="normal">Normal</option>
                       <option value="italic">Italic</option>
@@ -821,26 +1626,30 @@
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Font Color</label>
-                   <input name="widget_tbox_fc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["widget_tbox_fc"]))echo ' value="'.$wpmchimpa["widget_tbox_fc"].'"';?>/>
+                   <input minicolors name="widget_tbox_fc" type="text" class="wpmchimp-color-sel" ng-model="data.wtopt.widget_tbox_fc"/>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Background Color</label>
+                   <input minicolors name="widget_tbox_bgc" type="text" class="wpmchimp-color-sel" ng-model="data.wtopt.widget_tbox_bgc"/>
                 </div>
                 <div class="wpmca_group wpmcatxts">      
                   <label>Width</label>
-                  <input type="text" class="wpmchimp_texts" name="widget_tbox_w"<?php if(isset($wpmchimpa["widget_tbox_w"]))echo ' value="'.$wpmchimpa["widget_tbox_w"].'"';?>>
+                  <input type="text" class="wpmchimp_texts" name="widget_tbox_w" ng-model="data.wtopt.widget_tbox_w">
                   <span>px</span>
                 </div>
                 <div class="wpmca_group wpmcatxts"> 
                   <label>Height</label>
-                  <input type="text" class="wpmchimp_texts" name="widget_tbox_h"<?php if(isset($wpmchimpa["widget_tbox_h"]))echo ' value="'.$wpmchimpa["widget_tbox_h"].'"';?>>
+                  <input type="text" class="wpmchimp_texts" name="widget_tbox_h" ng-model="data.wtopt.widget_tbox_h">
                   <span>px</span>
                 </div>
                 <div class="wpmca_group wpmcatxts"> 
                   <label>Border Width</label>
-                  <input type="text" class="wpmchimp_texts" name="widget_tbox_bor"<?php if(isset($wpmchimpa["widget_tbox_bor"]))echo ' value="'.$wpmchimpa["widget_tbox_bor"].'"';?>>
+                  <input type="text" class="wpmchimp_texts" name="widget_tbox_bor" ng-model="data.wtopt.widget_tbox_bor">
                   <span>px</span>
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Border Color</label>
-                   <input name="widget_tbox_borc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["widget_tbox_borc"]))echo ' value="'.$wpmchimpa["widget_tbox_borc"].'"';?>/>
+                   <input minicolors name="widget_tbox_borc" type="text" class="wpmchimp-color-sel" ng-model="data.wtopt.widget_tbox_borc"/>
                 </div>
             </div>
 
@@ -848,9 +1657,29 @@
                 <div class="itemhead">
                     <h2>Personalize your Checkbox</h2>
                 </div>
+                <div class="wpmca_group wpmcacb">
+                  <label class="wpmcapara">Checkbox Theme</label>
+                  <div class="wpmca_compac p1">
+                    <input id="wc1" type="radio" name="widget_check_shade" value="1" ng-model="data.wtopt.widget_check_shade">
+                    <label for="wc1">Light <div class="checkbdemo litet"></div></label>
+                  </div>
+                  <div class="wpmca_compac">
+                    <input id="wc2" type="radio" name="widget_check_shade" value="2" ng-model="data.wtopt.widget_check_shade">
+                    <label for="wc2">Dark <div class="checkbdemo darkt"></div></label> 
+                  </div>
+                  <div style="clear:both"></div>
+               </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Theme Color</label>
-                   <input name="widget_check_c" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["widget_check_c"]))echo ' value="'.$wpmchimpa["widget_check_c"].'"';?>/>
+                   <input minicolors name="widget_check_c" type="text" class="wpmchimp-color-sel" ng-model="data.wtopt.widget_check_c"/>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Border Color</label>
+                   <input minicolors name="widget_check_borc" type="text" class="wpmchimp-color-sel" ng-model="data.wtopt.widget_check_borc"/>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Font Color</label>
+                   <input minicolors name="widget_check_fc" type="text" class="wpmchimp-color-sel" ng-model="data.wtopt.widget_check_fc"/>
                 </div>
             </div>
             <div class="wpmca_item">
@@ -858,19 +1687,19 @@
                     <h2>Personalize your Button</h2>
                 </div>
                 <div class="wpmca_group wpmcatxt">      
-                  <input type="text" class="wpmchimp_text" spellcheck="false" name="widget_button" required<?php if(isset($wpmchimpa["widget_button"]))echo ' value="'.$wpmchimpa["widget_button"].'"';?>>
+                  <input type="text" class="wpmchimp_text" spellcheck="false" name="widget_button" required ng-model="data.wtopt.widget_button">
                   <span class="highlighter"></span>
                   <span class="bar"></span>
                   <label>Button Text</label>
                 </div>
                 <div class="wpmca_group">
-                    <select name="widget_button_f" class="wpmca_sel google_fonts">
+                    <select name="widget_button_f" class="wpmca_sel google_fonts" ng-model="data.wtopt.widget_button_f" ng-options="f for f in fonts track by f">
                       <option value="">Font</option>
                     </select>
-                    <select name="widget_button_fs" class="wpmca_sel google_fonts_size" value="20">
+                    <select name="widget_button_fs" class="wpmca_sel google_fonts_size" ng-model="data.wtopt.widget_button_fs" ng-options="f for f in fontsiz track by f">
                         <option value="">Size</option>
                     </select>
-                    <select name="widget_button_fw" class="wpmca_sel google_fonts_weight">
+                    <select name="widget_button_fw" class="wpmca_sel google_fonts_weight" ng-model="data.wtopt.widget_button_fw">
                       <option value="">Weight</option>
                       <option value="normal">Normal</option>
                       <option value="bold">Bold</option>
@@ -886,7 +1715,7 @@
                       <option value="800">800</option>
                       <option value="900">900</option>
                     </select>
-                    <select name="widget_button_fst" class="wpmca_sel google_fonts_style">
+                    <select name="widget_button_fst" class="wpmca_sel google_fonts_style" ng-model="data.wtopt.widget_button_fst">
                       <option value="">Style</option>
                       <option value="normal">Normal</option>
                       <option value="italic">Italic</option>
@@ -895,43 +1724,43 @@
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Font Color</label>
-                   <input name="widget_button_fc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["widget_button_fc"]))echo ' value="'.$wpmchimpa["widget_button_fc"].'"';?>/>
+                   <input minicolors name="widget_button_fc" type="text" class="wpmchimp-color-sel" ng-model="data.wtopt.widget_button_fc"/>
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Hover Font Color</label>
-                   <input name="widget_button_fch" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["widget_button_fch"]))echo ' value="'.$wpmchimpa["widget_button_fch"].'"';?>/>
+                   <input minicolors name="widget_button_fch" type="text" class="wpmchimp-color-sel" ng-model="data.wtopt.widget_button_fch"/>
                 </div>
                 <div class="wpmca_group wpmcatxts">      
                   <label>Width</label>
-                  <input type="text" class="wpmchimp_texts" name="widget_button_w"<?php if(isset($wpmchimpa["widget_button_w"]))echo ' value="'.$wpmchimpa["widget_button_w"].'"';?>>
+                  <input type="text" class="wpmchimp_texts" name="widget_button_w" ng-model="data.wtopt.widget_button_w">
                   <span>px</span>
                 </div>
                 <div class="wpmca_group wpmcatxts"> 
                   <label>Height</label>
-                  <input type="text" class="wpmchimp_texts" name="widget_button_h"<?php if(isset($wpmchimpa["widget_button_h"]))echo ' value="'.$wpmchimpa["widget_button_h"].'"';?>>
+                  <input type="text" class="wpmchimp_texts" name="widget_button_h" ng-model="data.wtopt.widget_button_h">
                   <span>px</span>
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Background Color</label>
-                   <input name="widget_button_bc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["widget_button_bc"]))echo ' value="'.$wpmchimpa["widget_button_bc"].'"';?>/>
+                   <input minicolors name="widget_button_bc" type="text" class="wpmchimp-color-sel" ng-model="data.wtopt.widget_button_bc"/>
                 </div>
                 <div class="wpmca_group wpmcacolor">
                   <label>Hover Background Color</label>
-                   <input name="widget_button_bch" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["widget_button_bch"]))echo ' value="'.$wpmchimpa["widget_button_bch"].'"';?>/>
+                   <input minicolors name="widget_button_bch" type="text" class="wpmchimp-color-sel" ng-model="data.wtopt.widget_button_bch"/>
                 </div>
                 <div class="wpmca_group wpmcatxts"> 
                   <label>Border Radius</label>
-                  <input type="text" class="wpmchimp_texts" name="widget_button_br"<?php if(isset($wpmchimpa["widget_button_br"]))echo ' value="'.$wpmchimpa["widget_button_br"].'"';?>>
+                  <input type="text" class="wpmchimp_texts" name="widget_button_br" ng-model="data.wtopt.widget_button_br">
                   <span>px</span>
                 </div>
                 <div class="wpmca_group wpmcatxts"> 
                   <label>Border Width</label>
-                  <input type="text" class="wpmchimp_texts" name="widget_button_bor"<?php if(isset($wpmchimpa["widget_button_bor"]))echo ' value="'.$wpmchimpa["widget_button_bor"].'"';?>>
+                  <input type="text" class="wpmchimp_texts" name="widget_button_bor" ng-model="data.wtopt.widget_button_bor">
                   <span>px</span>
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Border Color</label>
-                   <input name="widget_button_borc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["widget_button_borc"]))echo ' value="'.$wpmchimpa["widget_button_borc"].'"';?>/>
+                   <input minicolors name="widget_button_borc" type="text" class="wpmchimp-color-sel" ng-model="data.wtopt.widget_button_borc"/>
                 </div>
             </div>
 
@@ -941,7 +1770,7 @@
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Theme Color</label>
-                   <input name="widget_spinner_c" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["widget_spinner_c"]))echo ' value="'.$wpmchimpa["widget_spinner_c"].'"';?>/>
+                   <input minicolors name="widget_spinner_c" type="text" class="wpmchimp-color-sel" ng-model="data.wtopt.widget_spinner_c"/>
                 </div>
             </div>
 
@@ -951,13 +1780,13 @@
                     <span class="wpmcahint headhint" data-hint="Customize your Success or Error Message"></span>
                 </div>
                 <div class="wpmca_group">
-                    <select name="widget_status_f" class="wpmca_sel google_fonts">
+                    <select name="widget_status_f" class="wpmca_sel google_fonts" ng-model="data.wtopt.widget_status_f" ng-options="f for f in fonts track by f">
                       <option value="">Font</option>
                     </select>
-                    <select name="widget_status_fs" class="wpmca_sel google_fonts_size" value="20">
+                    <select name="widget_status_fs" class="wpmca_sel google_fonts_size" ng-model="data.wtopt.widget_status_fs" ng-options="f for f in fontsiz track by f">
                         <option value="">Size</option>
                     </select>
-                    <select name="widget_status_fw" class="wpmca_sel google_fonts_weight">
+                    <select name="widget_status_fw" class="wpmca_sel google_fonts_weight" ng-model="data.wtopt.widget_status_fw">
                       <option value="">Weight</option>
                       <option value="normal">Normal</option>
                       <option value="bold">Bold</option>
@@ -973,7 +1802,7 @@
                       <option value="800">800</option>
                       <option value="900">900</option>
                     </select>
-                    <select name="widget_status_fst" class="wpmca_sel google_fonts_style">
+                    <select name="widget_status_fst" class="wpmca_sel google_fonts_style" ng-model="data.wtopt.widget_status_fst">
                       <option value="">Style</option>
                       <option value="normal">Normal</option>
                       <option value="italic">Italic</option>
@@ -982,10 +1811,64 @@
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Font Color</label>
-                   <input name="widget_status_fc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["widget_status_fc"]))echo ' value="'.$wpmchimpa["widget_status_fc"].'"';?>/>
+                   <input minicolors name="widget_status_fc" type="text" class="wpmchimp-color-sel" ng-model="data.wtopt.widget_status_fc"/>
                 </div>
 
             </div>
+
+<div class="wpmca_item extra_opts">
+  <div class="itemhead">
+      <h2>Additional Theme Options</h2>
+  </div>
+  <div class="wpmca_group wpmcacolor widget_bg_c">
+     <label>Widget Background</label>
+     <input minicolors name="widget_bg_c" type="text" class="wpmchimp-color-sel" ng-model="data.wtopt.widget_bg_c"/>
+  </div>
+  <div class="wpmca_group wpmcacb widget_dissoc">
+      <input type="checkbox" name="widget_dissoc" value="1" ng-model="data.wtopt.widget_dissoc" ng-checked="data.wtopt.widget_dissoc">  
+      <label>Disable Social Buttons</label>
+   </div>
+  <div class="wpmca_group wpmcatxt widget_soc_head">      
+    <input type="text" class="wpmchimp_text" spellcheck="false" name="widget_soc_head" required ng-model="data.wtopt.widget_soc_head">
+    <span class="highlighter"></span>
+    <span class="bar"></span>
+    <label>Social Buttons Header</label>
+  </div>
+  <div class="wpmca_group widget_soc_f">
+      <select name="widget_soc_f" class="wpmca_sel google_fonts" ng-model="data.wtopt.widget_soc_f" ng-options="f for f in fonts track by f">
+        <option value="">Font</option>
+      </select>
+      <select name="widget_soc_fs" class="wpmca_sel google_fonts_size" ng-model="data.wtopt.widget_soc_fs" ng-options="f for f in fontsiz track by f">
+          <option value="">Size</option>
+      </select>
+      <select name="widget_soc_fw" class="wpmca_sel google_fonts_weight" ng-model="data.wtopt.widget_soc_fw">
+        <option value="">Weight</option>
+        <option value="normal">Normal</option>
+        <option value="bold">Bold</option>
+        <option value="lighter">Lighter</option>
+        <option value="bolder">Bolder</option>
+        <option value="100">100</option>
+        <option value="200">200</option>
+        <option value="300">300</option>
+        <option value="400">400</option>
+        <option value="500">500</option>
+        <option value="600">600</option>
+        <option value="700">700</option>
+        <option value="800">800</option>
+        <option value="900">900</option>
+      </select>
+      <select name="widget_soc_fst" class="wpmca_sel google_fonts_style" ng-model="data.wtopt.widget_soc_fst">
+        <option value="">Style</option>
+        <option value="normal">Normal</option>
+        <option value="italic">Italic</option>
+        <option value="oblique">oblique</option>
+      </select>
+  </div>
+  <div class="wpmca_group wpmcacolor widget_soc_fc">
+     <label>Social Buttons Header Color</label>
+     <input minicolors name="widget_soc_fc" type="text" class="wpmchimp-color-sel" ng-model="data.wtopt.widget_soc_fc"/>
+  </div>
+</div>
 
         </div>
         <div id="addon" class="wpmca_box">
@@ -1002,14 +1885,39 @@
                     <span class="wpmcahint" data-hint="Enable Add-on"></span>
                 </div>
             </div>
+            <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Topbar Subscription Box</h2>
+                </div>
+                <div class="wpmca_group">
+                    <div class="paper-toggle">
+                        <input type="checkbox" id="topbar_en" name="topbar" value="1" class="wpmcatoggle" <?php if(isset($wpmchimpa["topbar"])) echo "checked";?>/>
+                        <label for="topbar_en">Enable</label>
+                    </div>
+                    <span class="wpmcahint" data-hint="Enable Topbar"></span>
+                </div>
+            </div>
+            <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Flipbox Subscription Box</h2>
+                </div>
+                <div class="wpmca_group">
+                    <div class="paper-toggle">
+                        <input type="checkbox" id="flipbox_en" name="flipbox" value="1" class="wpmcatoggle" <?php if(isset($wpmchimpa["flipbox"])) echo "checked";?>/>
+                        <label for="flipbox_en">Enable</label>
+                    </div>
+                    <span class="wpmcahint" data-hint="Enable Flipbox"></span>
+                </div>
+            </div>
              <div class="wpmca_item">
                 <div class="itemhead">
                     <h2>Select Theme</h2>
                     <span class="wpmcahint headhint" data-hint="Select a theme for addon"></span>
                 </div>
                 <div class="wpmca_group">
-                    <select class="wpmca_sel" style="width: 260px;">
-                      <option value="">Basic</option>
+                    <select class="wpmca_sel" ng-change="themeswitcher('addon')" style="width: 260px;" ng-model="data.addon_theme" name="addon_theme">
+                      <option value="0">Basic</option>
+                      <option value="1">Epsilon</option>
                       <option disabled>Material - BUY PRO</option>
                       <option disabled>Onamy - BUY PRO</option>
                       <option disabled>Smash - BUY PRO</option>
@@ -1017,6 +1925,20 @@
                       <option disabled>Unidesign - BUY PRO</option>
                     </select>
                 </div>
+                  <div class="wpmca_group">
+                    <button class="wpmca_button orange material-design wpmca_vupre" ng-click="vupre($event,$compile)">Live Editor</button>
+                </div>
+             </div>
+             <div class="wpmca_prev liveaddon">
+<div class="wpmca_topbar">
+  <div class="wpmca_round" style="background:#f67a00"></div><div class="wpmca_round" style="background:#ebc71f"></div><div class="wpmca_round" style="background:#31bb37"></div><div class="wpmca_left"></div><div class="wpmca_right"></div><div class="wpmca_long"></div><div class="wpmca_search"></div><div class="wpmca_opts"></div>
+</div>
+<div class="wpmca_viewportbck">
+<div class="wpmca_lineimg"></div>
+<div class="wpmca_divide" style="left:645px"></div>
+</div>
+<div class="wpmca_viewport"></div>
+<div class="roundbutton bak2toprev hiderb material-design"></div>
              </div>
              <div class="wpmca_item">
                 <div class="itemhead">
@@ -1024,20 +1946,20 @@
                 </div>
               
                 <div class="wpmca_group wpmcatxt">      
-                  <input type="text" class="wpmchimp_text" spellcheck="false" name="addon_heading" required<?php if(isset($wpmchimpa["addon_heading"]))echo ' value="'.$wpmchimpa["addon_heading"].'"';?>>
+                  <input type="text" class="wpmchimp_text" spellcheck="false" name="addon_heading" required ng-model="data.atopt.addon_heading">
                   <span class="wpmcahint" data-hint="Heading for the Post Page"></span>
                   <span class="highlighter"></span>
                   <span class="bar"></span>
                   <label>Heading</label>
                 </div>
                 <div class="wpmca_group">
-                    <select name="addon_heading_f" class="wpmca_sel google_fonts">
+                    <select name="addon_heading_f" class="wpmca_sel google_fonts" ng-model="data.atopt.addon_heading_f" ng-options="f for f in fonts track by f">
                       <option value="">Font</option>
                     </select>
-                    <select name="addon_heading_fs" class="wpmca_sel google_fonts_size">
+                    <select name="addon_heading_fs" class="wpmca_sel google_fonts_size" ng-model="data.atopt.addon_heading_fs" ng-options="f for f in fontsiz track by f">
                         <option value="">Size</option>
                     </select>
-                    <select name="addon_heading_fw" class="wpmca_sel google_fonts_weight">
+                    <select name="addon_heading_fw" class="wpmca_sel google_fonts_weight" ng-model="data.atopt.addon_heading_fw">
                       <option value="">Weight</option>
                       <option value="normal">Normal</option>
                       <option value="bold">Bold</option>
@@ -1053,7 +1975,7 @@
                       <option value="800">800</option>
                       <option value="900">900</option>
                     </select>
-                    <select name="addon_heading_fst" class="wpmca_sel google_fonts_style">
+                    <select name="addon_heading_fst" class="wpmca_sel google_fonts_style" ng-model="data.atopt.addon_heading_fst">
                       <option value="">Style</option>
                       <option value="normal">Normal</option>
                       <option value="italic">Italic</option>
@@ -1062,26 +1984,24 @@
                 </div>
                 <div class="wpmca_group wpmcacolor">
                     <label>Font Color</label>
-                    <input name="addon_heading_fc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["addon_heading_fc"]))echo ' value="'.$wpmchimpa["addon_heading_fc"].'"';?>/>
+                    <input minicolors name="addon_heading_fc" type="text" class="wpmchimp-color-sel" ng-model="data.atopt.addon_heading_fc"/>
                 </div>
                 <div class="wpmca_group">
                     <div class="wpmcapara">Message
                          <span class="wpmcahint" data-hint="Message for the Lightbox"></span>
                     </div>
                 <?php 
-                $content='';
-                if(isset($wpmchimpa["addon_msg"]))$content=$wpmchimpa["addon_msg"];
                 $editor_id = 'addon_msg';
                 $settings = array(
                     'media_buttons' => false,
                     'textarea_rows' => 10);
-                wp_editor( $content, $editor_id, $settings ); ?> 
+                wp_editor( '', $editor_id, $settings ); ?> 
                 </div>
                 <div class="wpmca_group">
-                    <select name="addon_msg_f" class="wpmca_sel google_fonts">
+                    <select name="addon_msg_f" class="wpmca_sel google_fonts" ng-model="data.atopt.addon_msg_f" ng-options="f for f in fonts track by f">
                       <option value="">Font</option>
                     </select>
-                    <select name="addon_msg_fs" class="wpmca_sel google_fonts_size" value="20">
+                    <select name="addon_msg_fs" class="wpmca_sel google_fonts_size" ng-model="data.atopt.addon_msg_fs" ng-options="f for f in fontsiz track by f">
                         <option value="">Size</option>
                     </select>
                 </div>
@@ -1091,13 +2011,13 @@
                     <h2>Personalize your Text Box</h2>
                 </div>
                 <div class="wpmca_group">
-                  <select name="addon_tbox_f" class="wpmca_sel google_fonts">
+                  <select name="addon_tbox_f" class="wpmca_sel google_fonts" ng-model="data.atopt.addon_tbox_f" ng-options="f for f in fonts track by f">
                       <option value="">Font</option>
                     </select>
-                    <select name="addon_tbox_fs" class="wpmca_sel google_fonts_size" value="20">
+                    <select name="addon_tbox_fs" class="wpmca_sel google_fonts_size" ng-model="data.atopt.addon_tbox_fs" ng-options="f for f in fontsiz track by f">
                         <option value="">Size</option>
                     </select>
-                    <select name="addon_tbox_fw" class="wpmca_sel google_fonts_weight">
+                    <select name="addon_tbox_fw" class="wpmca_sel google_fonts_weight" ng-model="data.atopt.addon_tbox_fw">
                       <option value="">Weight</option>
                       <option value="normal">Normal</option>
                       <option value="bold">Bold</option>
@@ -1113,7 +2033,7 @@
                       <option value="800">800</option>
                       <option value="900">900</option>
                     </select>
-                    <select name="addon_tbox_fst" class="wpmca_sel google_fonts_style">
+                    <select name="addon_tbox_fst" class="wpmca_sel google_fonts_style" ng-model="data.atopt.addon_tbox_fst">
                       <option value="">Style</option>
                       <option value="normal">Normal</option>
                       <option value="italic">Italic</option>
@@ -1122,26 +2042,30 @@
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Font Color</label>
-                   <input name="addon_tbox_fc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["addon_tbox_fc"]))echo ' value="'.$wpmchimpa["addon_tbox_fc"].'"';?>/>
+                   <input minicolors name="addon_tbox_fc" type="text" class="wpmchimp-color-sel" ng-model="data.atopt.addon_tbox_fc"/>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Background Color</label>
+                   <input minicolors name="addon_tbox_bgc" type="text" class="wpmchimp-color-sel" ng-model="data.atopt.addon_tbox_bgc"/>
                 </div>
                 <div class="wpmca_group wpmcatxts">      
                   <label>Width</label>
-                  <input type="text" class="wpmchimp_texts" name="addon_tbox_w"<?php if(isset($wpmchimpa["addon_tbox_w"]))echo ' value="'.$wpmchimpa["addon_tbox_w"].'"';?>>
+                  <input type="text" class="wpmchimp_texts" name="addon_tbox_w" ng-model="data.atopt.addon_tbox_w">
                   <span>px</span>
                 </div>
                 <div class="wpmca_group wpmcatxts"> 
                   <label>Height</label>
-                  <input type="text" class="wpmchimp_texts" name="addon_tbox_h"<?php if(isset($wpmchimpa["addon_tbox_h"]))echo ' value="'.$wpmchimpa["addon_tbox_h"].'"';?>>
+                  <input type="text" class="wpmchimp_texts" name="addon_tbox_h" ng-model="data.atopt.addon_tbox_h">
                   <span>px</span>
                 </div>
                 <div class="wpmca_group wpmcatxts"> 
                   <label>Border Width</label>
-                  <input type="text" class="wpmchimp_texts" name="addon_tbox_bor"<?php if(isset($wpmchimpa["addon_tbox_bor"]))echo ' value="'.$wpmchimpa["addon_tbox_bor"].'"';?>>
+                  <input type="text" class="wpmchimp_texts" name="addon_tbox_bor" ng-model="data.atopt.addon_tbox_bor">
                   <span>px</span>
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Border Color</label>
-                   <input name="addon_tbox_borc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["addon_tbox_borc"]))echo ' value="'.$wpmchimpa["addon_tbox_borc"].'"';?>/>
+                   <input minicolors name="addon_tbox_borc" type="text" class="wpmchimp-color-sel" ng-model="data.atopt.addon_tbox_borc"/>
                 </div>
             </div>
 
@@ -1149,9 +2073,29 @@
                 <div class="itemhead">
                     <h2>Personalize your Checkbox</h2>
                 </div>
+                <div class="wpmca_group wpmcacb">
+                  <label class="wpmcapara">Checkbox Theme</label>
+                  <div class="wpmca_compac p1">
+                    <input id="ac1" type="radio" name="addon_check_shade" value="1" ng-model="data.atopt.addon_check_shade">
+                    <label for="ac1">Light <div class="checkbdemo litet"></div></label>
+                  </div>
+                  <div class="wpmca_compac">
+                    <input id="ac2" type="radio" name="addon_check_shade" value="2" ng-model="data.atopt.addon_check_shade">
+                    <label for="ac2">Dark <div class="checkbdemo darkt"></div></label> 
+                  </div>
+                  <div style="clear:both"></div>
+               </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Theme Color</label>
-                   <input name="addon_check_c" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["addon_check_c"]))echo ' value="'.$wpmchimpa["addon_check_c"].'"';?>/>
+                   <input minicolors name="addon_check_c" type="text" class="wpmchimp-color-sel" ng-model="data.atopt.addon_check_c"/>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Border Color</label>
+                   <input minicolors name="addon_check_borc" type="text" class="wpmchimp-color-sel" ng-model="data.atopt.addon_check_borc"/>
+                </div>
+                <div class="wpmca_group wpmcacolor">
+                   <label>Font Color</label>
+                   <input minicolors name="addon_check_fc" type="text" class="wpmchimp-color-sel" ng-model="data.atopt.addon_check_fc"/>
                 </div>
             </div>
             <div class="wpmca_item">
@@ -1159,19 +2103,19 @@
                     <h2>Personalize your Button</h2>
                 </div>
                 <div class="wpmca_group wpmcatxt">      
-                  <input type="text" class="wpmchimp_text" spellcheck="false" name="addon_button" required<?php if(isset($wpmchimpa["addon_button"]))echo ' value="'.$wpmchimpa["addon_button"].'"';?>>
+                  <input type="text" class="wpmchimp_text" spellcheck="false" name="addon_button" required ng-model="data.atopt.addon_button">
                   <span class="highlighter"></span>
                   <span class="bar"></span>
                   <label>Button Text</label>
                 </div>
                 <div class="wpmca_group">
-                    <select name="addon_button_f" class="wpmca_sel google_fonts">
+                    <select name="addon_button_f" class="wpmca_sel google_fonts" ng-model="data.atopt.addon_button_f" ng-options="f for f in fonts track by f">
                       <option value="">Font</option>
                     </select>
-                    <select name="addon_button_fs" class="wpmca_sel google_fonts_size" value="20">
+                    <select name="addon_button_fs" class="wpmca_sel google_fonts_size" ng-model="data.atopt.addon_button_fs" ng-options="f for f in fontsiz track by f">
                         <option value="">Size</option>
                     </select>
-                    <select name="addon_button_fw" class="wpmca_sel google_fonts_weight">
+                    <select name="addon_button_fw" class="wpmca_sel google_fonts_weight" ng-model="data.atopt.addon_button_fw">
                       <option value="">Weight</option>
                       <option value="normal">Normal</option>
                       <option value="bold">Bold</option>
@@ -1187,7 +2131,7 @@
                       <option value="800">800</option>
                       <option value="900">900</option>
                     </select>
-                    <select name="addon_button_fst" class="wpmca_sel google_fonts_style">
+                    <select name="addon_button_fst" class="wpmca_sel google_fonts_style" ng-model="data.atopt.addon_button_fst">
                       <option value="">Style</option>
                       <option value="normal">Normal</option>
                       <option value="italic">Italic</option>
@@ -1196,43 +2140,43 @@
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Font Color</label>
-                   <input name="addon_button_fc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["addon_button_fc"]))echo ' value="'.$wpmchimpa["addon_button_fc"].'"';?>/>
+                   <input minicolors name="addon_button_fc" type="text" class="wpmchimp-color-sel" ng-model="data.atopt.addon_button_fc"/>
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Hover Font Color</label>
-                   <input name="addon_button_fch" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["addon_button_fch"]))echo ' value="'.$wpmchimpa["addon_button_fch"].'"';?>/>
+                   <input minicolors name="addon_button_fch" type="text" class="wpmchimp-color-sel" ng-model="data.atopt.addon_button_fch"/>
                 </div>
                 <div class="wpmca_group wpmcatxts">      
                   <label>Width</label>
-                  <input type="text" class="wpmchimp_texts" name="addon_button_w"<?php if(isset($wpmchimpa["addon_button_w"]))echo ' value="'.$wpmchimpa["addon_button_w"].'"';?>>
+                  <input type="text" class="wpmchimp_texts" name="addon_button_w" ng-model="data.atopt.addon_button_w">
                   <span>px</span>
                 </div>
                 <div class="wpmca_group wpmcatxts"> 
                   <label>Height</label>
-                  <input type="text" class="wpmchimp_texts" name="addon_button_h"<?php if(isset($wpmchimpa["addon_button_h"]))echo ' value="'.$wpmchimpa["addon_button_h"].'"';?>>
+                  <input type="text" class="wpmchimp_texts" name="addon_button_h" ng-model="data.atopt.addon_button_h">
                   <span>px</span>
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Background Color</label>
-                   <input name="addon_button_bc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["addon_button_bc"]))echo ' value="'.$wpmchimpa["addon_button_bc"].'"';?>/>
+                   <input minicolors name="addon_button_bc" type="text" class="wpmchimp-color-sel" ng-model="data.atopt.addon_button_bc"/>
                 </div>
                 <div class="wpmca_group wpmcacolor">
                   <label>Hover Background Color</label>
-                   <input name="addon_button_bch" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["addon_button_bch"]))echo ' value="'.$wpmchimpa["addon_button_bch"].'"';?>/>
+                   <input minicolors name="addon_button_bch" type="text" class="wpmchimp-color-sel" ng-model="data.atopt.addon_button_bch"/>
                 </div>
                 <div class="wpmca_group wpmcatxts"> 
                   <label>Border Radius</label>
-                  <input type="text" class="wpmchimp_texts" name="addon_button_br"<?php if(isset($wpmchimpa["addon_button_br"]))echo ' value="'.$wpmchimpa["addon_button_br"].'"';?>>
+                  <input type="text" class="wpmchimp_texts" name="addon_button_br" ng-model="data.atopt.addon_button_br">
                   <span>px</span>
                 </div>
                 <div class="wpmca_group wpmcatxts"> 
                   <label>Border Width</label>
-                  <input type="text" class="wpmchimp_texts" name="addon_button_bor"<?php if(isset($wpmchimpa["addon_button_bor"]))echo ' value="'.$wpmchimpa["addon_button_bor"].'"';?>>
+                  <input type="text" class="wpmchimp_texts" name="addon_button_bor" ng-model="data.atopt.addon_button_bor">
                   <span>px</span>
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Border Color</label>
-                   <input name="addon_button_borc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["addon_button_borc"]))echo ' value="'.$wpmchimpa["addon_button_borc"].'"';?>/>
+                   <input minicolors name="addon_button_borc" type="text" class="wpmchimp-color-sel" ng-model="data.atopt.addon_button_borc"/>
                 </div>
             </div>
 
@@ -1242,24 +2186,22 @@
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Theme Color</label>
-                   <input name="addon_spinner_c" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["addon_spinner_c"]))echo ' value="'.$wpmchimpa["addon_spinner_c"].'"';?>/>
+                   <input minicolors name="addon_spinner_c" type="text" class="wpmchimp-color-sel" ng-model="data.atopt.addon_spinner_c"/>
                 </div>
             </div>
-
-
             <div class="wpmca_item">
                 <div class="itemhead">
                     <h2>Personalize your Status Message</h2>
                     <span class="wpmcahint headhint" data-hint="Customize your Success or Error Message"></span>
                 </div>
                 <div class="wpmca_group">
-                    <select name="addon_status_f" class="wpmca_sel google_fonts">
+                    <select name="addon_status_f" class="wpmca_sel google_fonts" ng-model="data.atopt.addon_status_f" ng-options="f for f in fonts track by f">
                       <option value="">Font</option>
                     </select>
-                    <select name="addon_status_fs" class="wpmca_sel google_fonts_size" value="20">
+                    <select name="addon_status_fs" class="wpmca_sel google_fonts_size" ng-model="data.atopt.addon_status_fs" ng-options="f for f in fontsiz track by f">
                         <option value="">Size</option>
                     </select>
-                    <select name="addon_status_fw" class="wpmca_sel google_fonts_weight">
+                    <select name="addon_status_fw" class="wpmca_sel google_fonts_weight" ng-model="data.atopt.addon_status_fw">
                       <option value="">Weight</option>
                       <option value="normal">Normal</option>
                       <option value="bold">Bold</option>
@@ -1275,7 +2217,7 @@
                       <option value="800">800</option>
                       <option value="900">900</option>
                     </select>
-                    <select name="addon_status_fst" class="wpmca_sel google_fonts_style">
+                    <select name="addon_status_fst" class="wpmca_sel google_fonts_style" ng-model="data.atopt.addon_status_fst">
                       <option value="">Style</option>
                       <option value="normal">Normal</option>
                       <option value="italic">Italic</option>
@@ -1284,20 +2226,64 @@
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Font Color</label>
-                   <input name="addon_status_fc" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["addon_status_fc"]))echo ' value="'.$wpmchimpa["addon_status_fc"].'"';?>/>
+                   <input minicolors name="addon_status_fc" type="text" class="wpmchimp-color-sel" ng-model="data.atopt.addon_status_fc"/>
                 </div>
 
             </div>
 
-            <div class="wpmca_item">
-                <div class="itemhead">
-                    <h2>Personalize the Background</h2>
-                </div>
-                <div class="wpmca_group wpmcacolor">
-                   <label>Theme Color</label>
-                   <input name="addon_bg_c" type="text" class="wpmchimp-color-sel"<?php if(isset($wpmchimpa["addon_bg_c"]))echo ' value="'.$wpmchimpa["addon_bg_c"].'"';?>/>
-                </div>
-            </div>
+            <div class="wpmca_item extra_opts">
+  <div class="itemhead">
+      <h2>Additional Theme Options</h2>
+  </div>
+  <div class="wpmca_group wpmcacolor addon_bg_c">
+     <label>Addon Background</label>
+     <input minicolors name="addon_bg_c" type="text" class="wpmchimp-color-sel" ng-model="data.atopt.addon_bg_c"/>
+  </div>
+  <div class="wpmca_group wpmcacb addon_dissoc">
+      <input type="checkbox" name="addon_dissoc" value="1" ng-model="data.atopt.addon_dissoc" ng-checked="data.atopt.addon_dissoc">  
+      <label>Disable Social Buttons</label>
+   </div>
+  <div class="wpmca_group wpmcatxt addon_soc_head">      
+    <input type="text" class="wpmchimp_text" spellcheck="false" name="addon_soc_head" required ng-model="data.atopt.addon_soc_head">
+    <span class="highlighter"></span>
+    <span class="bar"></span>
+    <label>Social Buttons Header</label>
+  </div>
+  <div class="wpmca_group addon_soc_f">
+      <select name="addon_soc_f" class="wpmca_sel google_fonts" ng-model="data.atopt.addon_soc_f" ng-options="f for f in fonts track by f">
+        <option value="">Font</option>
+      </select>
+      <select name="addon_soc_fs" class="wpmca_sel google_fonts_size" ng-model="data.atopt.addon_soc_fs" ng-options="f for f in fontsiz track by f">
+          <option value="">Size</option>
+      </select>
+      <select name="addon_soc_fw" class="wpmca_sel google_fonts_weight" ng-model="data.atopt.addon_soc_fw">
+        <option value="">Weight</option>
+        <option value="normal">Normal</option>
+        <option value="bold">Bold</option>
+        <option value="lighter">Lighter</option>
+        <option value="bolder">Bolder</option>
+        <option value="100">100</option>
+        <option value="200">200</option>
+        <option value="300">300</option>
+        <option value="400">400</option>
+        <option value="500">500</option>
+        <option value="600">600</option>
+        <option value="700">700</option>
+        <option value="800">800</option>
+        <option value="900">900</option>
+      </select>
+      <select name="addon_soc_fst" class="wpmca_sel google_fonts_style" ng-model="data.atopt.addon_soc_fst">
+        <option value="">Style</option>
+        <option value="normal">Normal</option>
+        <option value="italic">Italic</option>
+        <option value="oblique">oblique</option>
+      </select>
+  </div>
+  <div class="wpmca_group wpmcacolor addon_soc_fc">
+     <label>Social Buttons Header Color</label>
+     <input minicolors name="addon_soc_fc" type="text" class="wpmchimp-color-sel" ng-model="data.atopt.addon_soc_fc"/>
+  </div>
+</div>
             <div class="wpmca_item">
                 <div class="itemhead">
                     <h2>Filter by Device</h2>
@@ -1330,8 +2316,35 @@
                     <label>Posts</label>
                  </div>
             </div>
+            <div class="wpmca_item">
+                <div class="itemhead">
+                    <h2>Behaviour</h2>
+                    <span class="wpmcahint headhint" data-hint="Behaviour of the Addon"></span>
+                </div>
+                <div class="wpmca_group wpmcacb">
+                  <label class="wpmcapara">Orientation</label>
+                  <div class="wpmca_compac p1">
+                    <input id="ao1" type="radio" name="addon_orient" value="top"  <?php if(isset($wpmchimpa["addon_orient"]) && $wpmchimpa["addon_orient"] == 'top') echo "checked";?>>
+                    <label for="ao1">Top <div class="orientvdemo topo"></div></label>
+                  </div>
+                  <div class="wpmca_compac">
+                    <input id="ao2" type="radio" name="addon_orient" value="mid" <?php if(isset($wpmchimpa["addon_orient"]) && $wpmchimpa["addon_orient"] == 'mid') echo "checked";?>>
+                    <label for="ao2">Mid <div class="orientvdemo mido"></div></label> 
+                  </div>
+                  <div class="wpmca_compac">
+                    <input id="ao3" type="radio" name="addon_orient" value="bot" <?php if(isset($wpmchimpa["addon_orient"]) && $wpmchimpa["addon_orient"] == 'bot') echo "checked";?>>
+                    <label for="ao3">Bottom <div class="orientvdemo boto"></div></label> 
+                  </div>
+                  <div style="clear:both"></div>
+               </div>
+                 <div class="wpmca_group wpmcacb">
+                    <input type="checkbox" value="1" name="addon_scode"<?php if(isset($wpmchimpa["addon_scode"]))echo ' checked';?>>  
+                    <label>Enable ShortCode [chimpmate]</label>
+                    <span class="wpmcahint" data-hint="Enable Short Code"></span>
+                 </div>
+              </div>
         </div>
-        <div id="statistics" class="wpmca_box">
+        <!-- <div id="statistics" class="wpmca_box">
             <div class="wpmca_item">
                 <div class="itemhead">
                     <h2>Graphs and Logs</h2>
@@ -1347,11 +2360,11 @@
             </div>
           </div>
             
-        </div>
+        </div> -->
         <div id="advanced" class="wpmca_box">
             <div class="wpmca_item">
                 <div class="itemhead">
-                    <h2>Show your love <span class="show_love"></span> Follow Us!</h2>
+                    <h2>Follow Us to get Instant Updates! <span class="show_love"></span></h2>
                 </div>
                  <div class="wpmca_group">
                     <div class="wpmc_social" style="margin-left:120px;">
@@ -1383,20 +2396,29 @@
                     <h2>Typography Live Preview</h2>
                 </div>
                 <div class="wpmca_group">
+                  <style type="text/css">
+                    #wpmca_preview p{
+                      color:{{democolor}};
+                      font-family:{{demofont | livepf}};
+                      font-size:{{demofonts}}px;
+                      font-weight:{{demofontw}};
+                      font-style:{{demofontfs}}
+                    }
+                  </style>
                   <span id="wpmca_preview">
                   <p>THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG</p>
                   <p>the quick brown fox jumps over the lazy dog</p>
                   </span>
                 </div>
                 <div class="wpmca_group">
-                    <select class="wpmca_sel google_fonts live_font">
+                    <select class="wpmca_sel google_fonts" ng-model="demofont" ng-options="f for f in fonts track by f">
                       <option value="">Font</option>
                       
                     </select>
-                    <select class="wpmca_sel google_fonts_size live_font" value="20">
+                    <select class="wpmca_sel google_fonts_size" value="20" ng-model="demofonts" ng-options="f for f in fontsiz track by f">
                         <option value="">Size</option>
                     </select>
-                    <select class="wpmca_sel google_fonts_weight live_font">
+                    <select class="wpmca_sel google_fonts_weight" ng-model="demofontw">
                       <option value="">Weight</option>
                       <option value="normal">Normal</option>
                       <option value="bold">Bold</option>
@@ -1412,16 +2434,16 @@
                       <option value="800">800</option>
                       <option value="900">900</option>
                     </select>
-                    <select class="wpmca_sel google_fonts_style live_font">
+                    <select class="wpmca_sel google_fonts_style" ng-model="demofontfs">
                       <option value="">Style</option>
                       <option value="normal">Normal</option>
                       <option value="italic">Italic</option>
                       <option value="oblique">oblique</option>
                     </select>
                 </div>
-                <div class="wpmca_group">
-                    <input type="text" value="#000" class="wpmccolor" />
-                </div>
+                  <div class="wpmca_group wpmcacolor">
+                     <input minicolors type="text" class="wpmchimp-color-sel" ng-model="democolor"/>
+                  </div>
             </div>
             <div class="wpmca_item">
                 <div class="itemhead">
@@ -1484,7 +2506,7 @@
                     <div class="featbox_h blue"><span style="color:#fff">PRO</span></div>
                     </div>
                   <div class="fl_row even">
-                    <div class="feat">Lightbox, Widget, On Page(Add-on)</div>
+                    <div class="feat">Lightbox, Slider, Widget, Add-on, Topbar, Flipbox</div>
                     <div class="featbox avail grey"></div>
                     <div class="featbox avail blue"></div>
                   </div>
@@ -1519,67 +2541,67 @@
                     <div class="featbox avail blue"></div>
                   </div>
                   <div class="fl_row odd">
+                    <div class="feat">Live Editor</div>
+                    <div class="featbox avail grey"></div>
+                    <div class="featbox avail blue"></div>
+                  </div>
+                  <div class="fl_row even">
                     <div class="feat">Search Engine Target</div>
                     <div class="featbox avail grey"></div>
                     <div class="featbox avail blue"></div>
                   </div>
-                  <div class="fl_row even">
+                  <div class="fl_row odd">
                     <div class="feat">User Status Based Filter</div>
                     <div class="featbox avail grey"></div>
                     <div class="featbox avail blue"></div>
                   </div>
-                  <div class="fl_row odd">
+                  <div class="fl_row even">
                     <div class="feat">Reappear Delay(Cookie)</div>
                     <div class="featbox avail grey"></div>
                     <div class="featbox avail blue"></div>
                   </div>
-                  <div class="fl_row even">
+                  <div class="fl_row odd">
                     <div class="feat">Scroll Toggle Detection </div>
                     <div class="featbox avail grey"></div>
                     <div class="featbox avail blue"></div>
                   </div>
-                  <div class="fl_row odd">
+                  <div class="fl_row even">
                     <div class="feat">Fully Responsible</div>
                     <div class="featbox avail grey"></div>
                     <div class="featbox avail blue"></div>
                   </div>
-                  <div class="fl_row even">
+                  <div class="fl_row odd">
                     <div class="feat">Multi-Device Filter</div>
                     <div class="featbox avail grey"></div>
                     <div class="featbox avail blue"></div>
                   </div>
-                  <div class="fl_row odd">
+                  <div class="fl_row even">
                     <div class="feat">Filter By Page Type</div>
                     <div class="featbox avail grey"></div>
                     <div class="featbox avail blue"></div>
                   </div>
-                  <div class="fl_row even">
+                  <div class="fl_row odd">
                     <div class="feat">Lightbox Open Delay </div>
                     <div class="featbox avail grey"></div>
                     <div class="featbox avail blue"></div>
                   </div>
-                  <div class="fl_row odd">
+                  <div class="fl_row even">
                     <div class="feat">Inactivity based events</div>
                     <div class="featbox avail grey"></div>
                     <div class="featbox avail blue"></div>
                   </div>
-                  <div class="fl_row even">
+                  <div class="fl_row odd">
                     <div class="feat">One Click Bakup and Restore</div>
                     <div class="featbox avail grey"></div>
                     <div class="featbox avail blue"></div>
                   </div>
-                  <div class="fl_row odd">
+                  <div class="fl_row even">
                     <div class="feat">Easy to Configuration (No coding required!)</div>
                     <div class="featbox avail grey"></div>
                     <div class="featbox avail blue"></div>
                   </div>
-                  <div class="fl_row even">
-                    <div class="feat">Premium Themes</div>
-                    <div class="featbox pro grey"></div>
-                    <div class="featbox avail blue"></div>
-                  </div>
                   <div class="fl_row odd">
-                    <div class="feat">Gradient Button Generator</div>
+                    <div class="feat">Premium Themes</div>
                     <div class="featbox pro grey"></div>
                     <div class="featbox avail blue"></div>
                   </div>
@@ -1589,7 +2611,7 @@
                     <div class="featbox avail blue"></div>
                   </div>
                   <div class="fl_row odd">
-                    <div class="feat">Statistics Graphs and Logs</div>
+                    <div class="feat">Instant Analytics</div>
                     <div class="featbox pro grey"></div>
                     <div class="featbox avail blue"></div>
                   </div>

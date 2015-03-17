@@ -5,8 +5,8 @@
  * @package   ChimpMate - WordPress MailChimp Assistant
  * @author    Voltroid<care@voltroid.com>
  * @license   GPL-2.0+
- * @link      http://voltroid.com/wordpress/plugins/wpmailchimp
- * @copyright 2014 Voltroid
+ * @link      http://voltroid.com/chimpmate
+ * @copyright 2015 Voltroid
  */
 
 /**
@@ -15,7 +15,7 @@
  * @author    Voltroid<care@voltroid.com>
  * 
  */
-class ChimipMate_WPMC_Assistant_Admin {
+class ChimpMate_WPMC_Assistant_Admin {
 
 	/**
 	 * Instance of this class.
@@ -55,7 +55,7 @@ class ChimipMate_WPMC_Assistant_Admin {
 		 * @TODO:
 		 *
 		 */
-		$plugin = ChimipMate_WPMC_Assistant::get_instance();
+		$plugin = ChimpMate_WPMC_Assistant::get_instance();
 		$this->plugin_slug = $plugin->get_plugin_slug();
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
@@ -74,10 +74,11 @@ class ChimipMate_WPMC_Assistant_Admin {
 
 		add_action('wp_ajax_wpmchimpa_load_list', array( $this, 'wpmchimpa_load_list' ) );
  		add_action('wp_ajax_wpmchimpa_sel_list', array( $this, 'wpmchimpa_sel_list' ) );
+ 		add_action('wp_ajax_wpmchimpa_prev_ajax', array( $this, 'wpmchimpa_prev' ) );
+ 		add_action('wp_ajax_wpmchimpa_themeswitch_ajax', array( $this, 'wpmchimpa_themeswitch' ) );
 	
  		add_filter( 'wp_default_editor', create_function('', 'return "tinymce";') );
 	}
-
 	/**
 	 * ajax call to update settings
 	 * @since    1.0.0
@@ -86,7 +87,7 @@ class ChimipMate_WPMC_Assistant_Admin {
 	public function wpmchimpa_update_setting()
 	{
 		$_POST = stripslashes_deep( $_POST );
-		$settings_array = array_filter($_POST);
+		$settings_array = array_filter($_POST,"self::myFilter");
 		$list_options = json_decode(str_replace('\"', '"', $settings_array['list_record']));
 		unset($settings_array['list_record']);
 		unset($settings_array['action']);
@@ -122,12 +123,43 @@ class ChimipMate_WPMC_Assistant_Admin {
 			$res=curl_exec($curl);
 			curl_close($curl);
 		}
+		$ot=$wpmchimpa['theme'];
+		unset($ot['l'.$settings_array['litebox_theme']]);
+		unset($ot['s'.$settings_array['slider_theme']]);
+		unset($ot['w'.$settings_array['widget_theme']]);
+		unset($ot['a'.$settings_array['addon_theme']]);
+		$ex = array('litebox_theme','addon_theme','widget_theme','lite_desktop','lite_tablet','lite_mobile','lite_homepage','lite_page','lite_post','lite_category','lite_search','lite_404error','lite_behave_time','lite_behave_time_inac','lite_behave_scroll','lite_behave_cookie','lite_close_time','lite_close_bck','addon_desktop','addon_tablet','addon_mobile','addon_page','addon_post','slider_theme','slider_desktop','slider_tablet','slider_mobile','slider_homepage','slider_page','slider_post','slider_category','slider_search','slider_404error','slider_orient','slider_close_bck','slider_behave_time','slider_behave_time_inac','slider_trigger_scroll','addon_orient','addon_scode');
+		foreach ($settings_array as $key => $value) {
+			if(!in_array($key, $ex)){
+				if(strpos($key,'lite_') === 0){
+					$ot['l'.$settings_array['litebox_theme']][$key]=$value;
+					unset($settings_array[$key]);
+				}
+				if(strpos($key,'slider_') === 0){
+					$ot['s'.$settings_array['slider_theme']][$key]=$value;
+					unset($settings_array[$key]);
+				}
+				else if(strpos($key,'widget_') === 0){
+					$ot['w'.$settings_array['widget_theme']][$key]=$value;
+					unset($settings_array[$key]);
+				}
+				else if(strpos($key,'addon_') === 0){
+					$ot['a'.$settings_array['addon_theme']][$key]=$value;
+					unset($settings_array[$key]);
+				}
+			}
+		}
+		$settings_array['theme']=$ot;
 		$settings_array['list_record']= $list_options;
 		$json = json_encode($settings_array);
 		update_option('wpmchimpa_options',$json);
 		print_r('1');
 		die();
 	}
+
+	function myFilter($var){
+  return ($var !== NULL && $var !== FALSE && $var !== '');
+}
 	/**
 	 * ajax call for 1 Click Backup and Restore
 	 * @since    1.0.0
@@ -264,8 +296,10 @@ class ChimipMate_WPMC_Assistant_Admin {
 		$screen = get_current_screen();
 		if ( $this->plugin_screen_hook_suffix == $screen->id ) {
 			wp_enqueue_style( 'wp-color-picker' );
-			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( 'assets/css/admin.php', __FILE__ ), array(), ChimipMate_WPMC_Assistant::VERSION );
-		}
+			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( 'assets/css/admin.php', __FILE__ ), array(), ChimpMate_WPMC_Assistant::VERSION );
+			wp_register_style('googleFonts', 'http://fonts.googleapis.com/css?family=Roboto:300');
+            wp_enqueue_style( 'googleFonts');
+        }
 
 	}
 
@@ -286,16 +320,24 @@ class ChimipMate_WPMC_Assistant_Admin {
 		if ( $this->plugin_screen_hook_suffix == $screen->id ) {
 
 			$wpmchimpa = json_decode(get_option('wpmchimpa_options'),true);
+			$theme=$wpmchimpa['theme'];
+			unset($wpmchimpa['theme']);
+			$wpmchimpa['ltopt'] = $theme['l'.$wpmchimpa['litebox_theme']];
+			$wpmchimpa['stopt'] = $theme['s'.$wpmchimpa['slider_theme']];
+			$wpmchimpa['wtopt'] = $theme['w'.$wpmchimpa['widget_theme']];
+			$wpmchimpa['atopt'] = $theme['a'.$wpmchimpa['addon_theme']];
 			$wpmchimpa['plugin_url']=WPMCA_PLUGIN_URL;
 			$wpmchimpa['countries']=json_decode(file_get_contents(WPMCA_PLUGIN_URL.'src/countries.json'),true);
 			$wpmchimpa['goog_fonts']=json_decode(file_get_contents(WPMCA_PLUGIN_URL.'src/google_fonts.json'),true);
+			$wpmchimpa['web_fonts']=ChimpMate_WPMC_Assistant::webfont();
 			wp_enqueue_script('jquery');
-			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'assets/js/admin.php', __FILE__ ), array( 'jquery','wp-color-picker' ), ChimipMate_WPMC_Assistant::VERSION );
+			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'assets/js/admin.php', __FILE__ ), array( 'jquery','wp-color-picker' ), ChimpMate_WPMC_Assistant::VERSION );
 			wp_localize_script( $this->plugin_slug . '-admin-script',  'wpmchimpa_admin_script', array( 'ajaxurl' =>admin_url('admin-ajax.php')));
 			wp_localize_script( $this->plugin_slug . '-admin-script', 'wpmchimpa', $wpmchimpa );
-			wp_enqueue_script( $this->plugin_slug . '-admin-script1', 'http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js', ChimipMate_WPMC_Assistant::VERSION );
-			wp_enqueue_script( $this->plugin_slug . '-admin-script2', 'https://www.google.com/jsapi', ChimipMate_WPMC_Assistant::VERSION );
-			
+			wp_enqueue_script( $this->plugin_slug . '-admin-script1', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js', ChimpMate_WPMC_Assistant::VERSION );
+			wp_enqueue_script( $this->plugin_slug . '-admin-script2', 'http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js', ChimpMate_WPMC_Assistant::VERSION );
+			wp_enqueue_script( $this->plugin_slug . '-admin-script3', 'https://www.google.com/jsapi', ChimpMate_WPMC_Assistant::VERSION );
+			wp_enqueue_media();
 		}
 
 	}
@@ -374,6 +416,15 @@ if ( ! isset( $this->plugin_screen_hook_suffix ) ) {return;} ?>
 			$links
 		);
 
+	}
+	public function wpmchimpa_prev(){
+		include_once( 'includes/'.$_GET['type'].$_GET['theme'].'.php' );
+		die();
+	}
+	public function wpmchimpa_themeswitch(){
+		$opt= json_decode(get_option('wpmchimpa_options'),true);
+		echo json_encode($opt['theme'][$_GET['type'][0].$_GET['theme']]);
+		die();
 	}
 
 }
