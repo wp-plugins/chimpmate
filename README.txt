@@ -10,7 +10,7 @@ Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-ChimpMate is a MailChimp based email marketing plugin. Professional & Custom designs. Includes Lightbox, Slider, Widget, Add-on, Topbar and Flipbox
+ChimpMate is a MailChimp based email marketing plugin. Professional and Custom designs. Includes Lightbox, Slider, Widget, Add-on, Topbar and Flipbox
 
 == Description ==
 
@@ -48,11 +48,13 @@ Check our [Themes Demo](http://voltroid.com/chimpmate/demo)
 > * Premium Themes
 > * A/B Testing
 > * Instant Analytics
-> * Depart Intent Tecnolag
+> * Unbreakable Content Lock
+> * Depart Intent Tecnology
 > * Cookie Based Lightbox day Customization
 > * Scroll Toggle % Custamization
+> * Slider Behaviour
 > * Post/Page Level Targeting 
-> * Country base Targeting
+> * Country based Targeting
 > * Targeting Social Networking Vistors
 > * Targeting URL Shorteners
 > * Targeting Specific URLs 
