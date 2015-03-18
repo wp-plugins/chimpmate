@@ -320,7 +320,7 @@ class ChimpMate_WPMC_Assistant {
 		wp_enqueue_script($this->plugin_slug . '-web-fonts', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js', array(), self::VERSION, true);
 	}
 public function webfont(){
-return ["Georgia, serif","Palatino Linotype, Book Antiqua, Palatino, serif","Times New Roman, Times, serif","Arial, Helvetica, sans-serif","Arial Black, Gadget, sans-serif","Comic Sans MS, cursive, sans-serif","Impact, Charcoal, sans-serif","Lucida Sans Unicode, Lucida Grande, sans-serif","Open Sans, sans-serif","Tahoma, Geneva, sans-serif","Trebuchet MS, Helvetica, sans-serif","Verdana, Geneva, sans-serif","Courier New, Courier, monospace","Lucida Console, Monaco, monospace"];
+return array("Georgia, serif","Palatino Linotype, Book Antiqua, Palatino, serif","Times New Roman, Times, serif","Arial, Helvetica, sans-serif","Arial Black, Gadget, sans-serif","Comic Sans MS, cursive, sans-serif","Impact, Charcoal, sans-serif","Lucida Sans Unicode, Lucida Grande, sans-serif","Open Sans, sans-serif","Tahoma, Geneva, sans-serif","Trebuchet MS, Helvetica, sans-serif","Verdana, Geneva, sans-serif","Courier New, Courier, monospace","Lucida Console, Monaco, monospace");
 }
 	/**
 	 * Show Popup
