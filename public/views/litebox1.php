@@ -33,7 +33,7 @@ min-width: 700px;
 min-height: 350px;
 background: #fff;
 <?php  if(isset($theme["lite_bg_c"])){
-    echo 'background-color:'.$theme["lite_bg_col"].';';
+    echo 'background-color:'.$theme["lite_bg_c"].';';
 }?>
 -webkit-border-radius: 10px;
 -moz-border-radius: 10px;

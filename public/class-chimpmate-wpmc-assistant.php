@@ -293,7 +293,7 @@ class ChimpMate_WPMC_Assistant {
 		$opts = $this->wpmchimpa;
 		unset($opts['theme']);
 
-		$fonts = ["lite_heading_f", "lite_msg_f", "lite_tbox_f", "lite_button_f", "lite_status_f", "lite_tag_f", "lite_soc_f", "slider_heading_f", "slider_msg_f", "slider_tbox_f", "slider_button_f", "slider_status_f", "slider_tag_f", "slider_soc_f", "widget_msg_f", "widget_tbox_f", "widget_button_f", "widget_status_f", "widget_soc_f", "addon_heading_f", "addon_msg_f", "addon_tbox_f", "addon_button_f", "addon_status_f", "addon_soc_f"];
+		$fonts = array("lite_heading_f", "lite_msg_f", "lite_tbox_f", "lite_button_f", "lite_status_f", "lite_tag_f", "lite_soc_f", "slider_heading_f", "slider_msg_f", "slider_tbox_f", "slider_button_f", "slider_status_f", "slider_tag_f", "slider_soc_f", "widget_msg_f", "widget_tbox_f", "widget_button_f", "widget_status_f", "widget_soc_f", "addon_heading_f", "addon_msg_f", "addon_tbox_f", "addon_button_f", "addon_status_f", "addon_soc_f");
 
 		foreach ($fonts as $font) {
 			switch ($font[0]) {

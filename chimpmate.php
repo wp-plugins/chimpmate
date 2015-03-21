@@ -11,7 +11,7 @@
  * Plugin Name:       ChimpMate - WordPress MailChimp Assistant
  * Plugin URI:        http://voltroid.com/chimpmate
  * Description:       Easy to Use MailChimp Plugin
- * Version:           1.1.1
+ * Version:           1.1.2
  * Author:            Voltroid
  * Author URI:        http://voltroid.com
  * Text Domain:       wp-mailchimp-assistant
