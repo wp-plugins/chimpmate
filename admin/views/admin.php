@@ -2636,31 +2636,26 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                     <div class="featbox avail blue"></div>
                   </div>
                   <div class="fl_row even">
-                    <div class="feat">Contry base Trageting </div>
-                    <div class="featbox pro grey"></div>
-                    <div class="featbox avail blue"></div>
-                  </div>
-                  <div class="fl_row odd">
                     <div class="feat">Targeting Social Networking vistors</div>
                     <div class="featbox pro grey"></div>
                     <div class="featbox avail blue"></div>
                   </div>
-                  <div class="fl_row even">
+                  <div class="fl_row odd">
                     <div class="feat">Targeting URL Shoretners </div>
                     <div class="featbox pro grey"></div>
                     <div class="featbox avail blue"></div>
                   </div>
-                  <div class="fl_row odd">
+                  <div class="fl_row even">
                     <div class="feat">Targeting Specific URLs</div>
                     <div class="featbox pro grey"></div>
                     <div class="featbox avail blue"></div>
                   </div>
-                  <div class="fl_row even">
+                  <div class="fl_row odd">
                     <div class="feat">Custom CSS editor</div>
                     <div class="featbox pro grey"></div>
                     <div class="featbox avail blue"></div>
                   </div>
-                  <div class="fl_row odd">
+                  <div class="fl_row even">
                     <div class="feat">Premium Support 24x7</div>
                     <div class="featbox pro grey"></div>
                     <div class="featbox avail blue"></div>
