@@ -366,6 +366,9 @@ border-radius: 50%;
 top: 15px;
 left: 15px;
 position: relative;
+-webkit-box-sizing: inherit;
+-moz-box-sizing: inherit;
+box-sizing: inherit;
 <?php  if(isset($theme["lite_head_col"])){
     echo 'background:'.$theme["lite_head_col"].';';
 }?>

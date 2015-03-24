@@ -54,7 +54,6 @@ Check our [Themes Demo](http://voltroid.com/chimpmate/demo)
 > * Scroll Toggle % Custamization
 > * Slider Behaviour
 > * Post/Page Level Targeting 
-> * Country based Targeting
 > * Targeting Social Networking Vistors
 > * Targeting URL Shorteners
 > * Targeting Specific URLs 

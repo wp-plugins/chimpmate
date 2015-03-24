@@ -327,7 +327,6 @@ class ChimpMate_WPMC_Assistant_Admin {
 			$wpmchimpa['wtopt'] = $theme['w'.$wpmchimpa['widget_theme']];
 			$wpmchimpa['atopt'] = $theme['a'.$wpmchimpa['addon_theme']];
 			$wpmchimpa['plugin_url']=WPMCA_PLUGIN_URL;
-			$wpmchimpa['countries']=json_decode(file_get_contents(WPMCA_PLUGIN_URL.'src/countries.json'),true);
 			$wpmchimpa['goog_fonts']=json_decode(file_get_contents(WPMCA_PLUGIN_URL.'src/google_fonts.json'),true);
 			$wpmchimpa['web_fonts']=ChimpMate_WPMC_Assistant::webfont();
 			wp_enqueue_script('jquery');

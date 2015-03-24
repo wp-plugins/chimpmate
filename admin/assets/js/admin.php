@@ -211,14 +211,6 @@ function sel_list_func(){
 	});
 }
 
- $.each(wpmchimpa.countries, function(index, value){
-			$('#incl').append('<option disabled value="'+value.code+'">'+value.name+'</option>');
-		});
- $('#incl').multipleSelect({
-    width: '300px',placeholder: "Exclude Countries", selectAll: false
-});
-
-
 $('.wpmchimp-range-sel').change(function(e) {  
         $(this).next().find('.rangeslider__handle').attr('data-rsval',$(this).val());
 }).rangeslider({
