@@ -13,7 +13,7 @@ if(isset($theme['widget_heading']))
   padding-bottom: 10px;
   <?php 
   if(isset($theme["widget_bg_c"])){
-    echo 'background-color:'.$theme['widget_bg_col'].';';
+    echo 'background-color:'.$theme['widget_bg_c'].';';
   }?>
 }
 #<?php echo $wpmcw_id; ?> p,#<?php echo $wpmcw_id; ?> p *{

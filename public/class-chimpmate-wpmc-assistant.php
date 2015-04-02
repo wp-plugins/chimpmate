@@ -23,7 +23,7 @@ class ChimpMate_WPMC_Assistant {
 	 *
 	 * @var      string
 	 */
-	const VERSION = '1.1';
+	const VERSION = '1.1.3';
 
 	/**
 	 * @since    1.0.0
@@ -74,7 +74,7 @@ class ChimpMate_WPMC_Assistant {
 			add_action( 'widgets_init', create_function( '', 'register_widget("ChimpMate_WPMC_Assistant_Widget");' ) );
 		}
 	}
-	public function wpmchimp_update_db_check(){
+	public static function wpmchimp_update_db_check(){
 		if( !get_option( 'wpmchimpa_version' ) || get_option('wpmchimpa_version') != self::VERSION) {
 			update_option('wpmchimpa_version',self::VERSION);
 			self::wpmchimp_update_procedure();

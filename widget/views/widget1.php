@@ -11,7 +11,7 @@ if(isset($theme['widget_heading']))
 width: 100%;
 background: #fff;
 <?php  if(isset($theme["widget_bg_c"])){
-    echo 'background-color:'.$theme["widget_bg_col"].';';
+    echo 'background-color:'.$theme["widget_bg_c"].';';
 }?>
 -webkit-border-radius: 10px;
 -moz-border-radius: 10px;

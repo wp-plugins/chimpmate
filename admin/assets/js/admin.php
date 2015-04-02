@@ -147,7 +147,7 @@ function group_opt(data){
 		for (var i = 0; i < data.groups.length; i++) {
 			response += '<span class="bulletted">'+data.groups[i].group_name+'</span>';
 			for (var j = 0; j < data.groups[i].groups.length; j++) { 
-				response += '<div class="group wpmcacb p2"><input type="checkbox" class="sel_groups" name="sel_groups[]" value="'+data.groups[i].groups[j].id+'"><label>'+data.groups[i].groups[j].gname+'</label></div>';
+				response += '<div class="group wpmcacb p2"><label><input type="checkbox" class="sel_groups" name="sel_groups[]" value="'+data.groups[i].groups[j].id+'"><div class="mcheckbox"></div>'+data.groups[i].groups[j].gname+'</label></div>';
 			}
 		}
 		response += '<div class="group"><button class="wpmca_button wpmca_sel_button green material-design" id="wpmca_sel_group">Select groups</button></div>';

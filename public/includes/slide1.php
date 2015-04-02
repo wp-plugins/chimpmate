@@ -560,6 +560,7 @@ echo 'color:'.$theme["slider_status_fc"].';';
 
 .wpmchimpas-trig{	
 top:40%;
+margin: 0 3px;
 <?php
 if(isset($theme["slider_trigger_top"])){
 echo 'top:'.$theme["slider_trigger_top"].'%;';
@@ -570,9 +571,9 @@ echo 'top:'.$theme["slider_trigger_top"].'%;';
 background: #0066CB;
 width:50px;
 height:50px;
--webkit-border-radius: 0 5px 5px 0;
--moz-border-radius: 0 5px 5px 0;
-border-radius: 0 5px 5px 0;
+-webkit-border-radius:1px;
+-moz-border-radius:1px;
+border-radius:1px;
 <?php
 if(isset($theme["slider_trigger_bg"])){
 echo 'background:'.$theme["slider_trigger_bg"].';';
@@ -584,11 +585,6 @@ echo 'background:'.$theme["slider_trigger_bg"].';';
 -ms-transform: translateX(-50px);
 -o-transform: translateX(-50px);
 transform: translateX(-50px);
-}
-.wpmchimpas-trig.right .wpmchimpas-trigc{
--webkit-border-radius: 5px 0 0 5px;
--moz-border-radius: 5px 0 0 5px;
-border-radius: 5px 0 0 5px;
 }
 .wpmchimpas-trig.right.scrollhide{
 -webkit-transform: translateX(50px);

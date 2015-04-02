@@ -409,7 +409,8 @@ button.wpmca_button.button_header{
 button.wpmca_button {
 	border: none;
 	color: #fff;
-  width: 150px;
+  	box-shadow:0 2px 1px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.3);
+width: 150px;
   height: 40px;
   overflow: hidden;
   padding: 0;
@@ -423,8 +424,12 @@ button.wpmca_button {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  -webkit-transition:  box-shadow 0.3s;
+  transition:  box-shadow 0.3s;
 }
-
+button.wpmca_button:hover{
+	box-shadow:0 2px 3px rgba(0,0,0,0.1), 0 4px 8px rgba(0,0,0,0.3);
+}
 .wpmca_home {
 	margin-left: -20px;
 	width: 100%;
@@ -681,8 +686,12 @@ content: "";
 	float: right;
 	margin: 8px;
 	height: 35px;
+box-shadow:0 2px 1px #3165BA, 0 1px 3px #3165BA;
 }
 
+.wpmca_home .wpmca_toolbar button:hover{
+box-shadow:0 2px 3px #3165BA, 0 4px 8px #3165BA;
+}
 .wpmca_home .wpmca_content  {
     box-shadow: inset 0px 5px 6px -3px rgba(0,  0,  0,  0.4);
     padding-top: 50px;
@@ -695,11 +704,7 @@ content: "";
     background: white;
     width: 500px;
     margin: 0 auto 2em;
-    -webkit-box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
-    -moz-box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
-    -ms-box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
-    -o-box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
-    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     padding: 0 40px 30px 40px;
     -moz-transition: height 1s ease-in-out, left 1.5s ease-in-out;
     -webkit-transition: height 1s ease-in-out, left 1.5s ease-in-out;
@@ -1352,7 +1357,7 @@ margin: 10px 20px;
 }
 
 
-
+/*
 .wpmcacb input[type=checkbox] {
   border: 2px solid #030303;
   appearance: none;
@@ -1437,6 +1442,37 @@ margin: 10px 20px;
 .wpmca_group.wpmcacb .wpmca_compac label{
 top:0;
 }
+
+*/
+
+.wpmcacb input[type=checkbox] {
+  display: none;
+}
+.wpmcacb input[type=checkbox] ~ .mcheckbox {
+  margin-right: 10px;
+  box-sizing: border-box;
+  display: inline-block;
+  top: 3px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid;
+  border-radius: 2px;
+  background-repeat: no-repeat;
+  border-color: black;
+  cursor: pointer;
+  position: relative;
+  -webkit-transition: all 0.1s ease;
+  -moz-transition: all 0.1s ease;
+  -ms-transition: all 0.1s ease;
+  -o-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+}
+.wpmcacb input[type=checkbox]:checked ~ .mcheckbox {
+  border-color: #4caf50;
+  background-image: linear-gradient(135deg, rgba(76, 175, 80, 0) 50%, #4caf50 50%), linear-gradient(135deg, #4caf50 50%, rgba(76, 175, 80, 0) 50%), linear-gradient(45deg, rgba(76, 175, 80, 0) 50%, #4caf50 50%), linear-gradient(45deg, #4caf50 50%, rgba(76, 175, 80, 0) 50%), linear-gradient(135deg, #4caf50 50%, rgba(76, 175, 80, 0) 50%), linear-gradient(45deg, rgba(76, 175, 80, 0) 50%, #4caf50 50%), linear-gradient(#4caf50, #4caf50);
+  background-position: 50% 3px, 5px -5px, -11px -5px, -9px 0px, -6px -2px, 0px -12px, 40px 0px;
+}
+
 .checkbdemo{
 display: inline-block;
 width: 22px;

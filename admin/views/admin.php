@@ -243,23 +243,23 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                 </div>
                  
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="loggedin" value="1" <?php if(isset($wpmchimpa["loggedin"])) echo "checked";?>>  
-                    <label>Logged-In</label>
+                    <label><input type="checkbox" name="loggedin" value="1" <?php if(isset($wpmchimpa["loggedin"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Logged-In</label>
                  </div>
 
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="notloggedin" value="1" <?php if(isset($wpmchimpa["notloggedin"])) echo "checked";?>>  
-                    <label>Not Logged-In</label>
+                    <label><input type="checkbox" name="notloggedin" value="1" <?php if(isset($wpmchimpa["notloggedin"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Not Logged-In</label>
                  </div>
 
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="commented" value="1" <?php if(isset($wpmchimpa["commented"])) echo "checked";?>>  
-                    <label>Commented</label>
+                    <label><input type="checkbox" name="commented" value="1" <?php if(isset($wpmchimpa["commented"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Commented</label>
                  </div>
 
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="notcommented" value="1" <?php if(isset($wpmchimpa["notcommented"])) echo "checked";?>>  
-                    <label>Not Commented</label>
+                    <label><input type="checkbox" name="notcommented" value="1" <?php if(isset($wpmchimpa["notcommented"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Not Commented</label>
                  </div>
             </div>
 
@@ -269,8 +269,8 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                     <span class="wpmcahint headhint" data-hint="Analyze referrer link"></span>
                 </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="searchengine" value="1" <?php if(isset($wpmchimpa["searchengine"])) echo "checked";?>>  
-                    <label>Search Engine</label>
+                    <label><input type="checkbox" name="searchengine" value="1" <?php if(isset($wpmchimpa["searchengine"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Search Engine</label>
                  </div>
                  <!-- <div class="wpmca_group wpmcacb">
                     <input type="checkbox" class="premium" readonly>  
@@ -311,8 +311,8 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                   <label>Redirect to URL</label>
                 </div>
                  <div class="wpmca_group wpmcacb p3">
-                    <input type="checkbox" name="suc_url_tab" value="1">  
-                    <label>Open in new tab</label>
+                    <label><input type="checkbox" name="suc_url_tab" value="1">  
+                    <div class="mcheckbox"></div>Open in new tab</label>
                  </div>
             </div>
 
@@ -333,8 +333,8 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                     <span class="wpmcahint headhint" data-hint="Get Product Update &amp; News. It's secure and spam free..."></span>
                 </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="get_email_update" value="1" <?php if(isset($wpmchimpa["get_email_update"])) echo "checked";?>>  
-                    <label>Get Email Updates</label>
+                    <label><input type="checkbox" name="get_email_update" value="1" <?php if(isset($wpmchimpa["get_email_update"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Get Email Updates</label>
                  </div>
                <div class="wpmca_group wpmcatxt">      
                   <input type="text" class="wpmchimp_text" required name="email_update"<?php if(isset($wpmchimpa["email_update"]))echo ' value="'.$wpmchimpa["email_update"].'"';?>>
@@ -342,8 +342,8 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                   <label>Email Address</label>
                 </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="share_text" value="1" <?php if(isset($wpmchimpa["share_text"])) echo "checked";?>>  
-                    <label>Keep Share Text Link enabled to make us happy :) </label>
+                    <label><input type="checkbox" name="share_text" value="1" <?php if(isset($wpmchimpa["share_text"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Keep Share Text Link enabled to make us happy :) </label>
                     <span class="wpmcahint" data-hint="You can disable it if you wish :("></span>
                  </div>
             </div>
@@ -690,8 +690,8 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                 </div>
 
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="lite_tag_en" value="1" ng-model="data.ltopt.lite_tag_en" ng-checked="data.ltopt.lite_tag_en">  
-                    <label>Enable</label>
+                    <label><input type="checkbox" name="lite_tag_en" value="1" ng-model="data.ltopt.lite_tag_en" ng-checked="data.ltopt.lite_tag_en">  
+                    <div class="mcheckbox"></div>Enable</label>
                  </div>                 
                 <div class="wpmca_group wpmcatxt"> 
                   <input type="text" class="wpmchimp_text" spellcheck="false" name="lite_tag" required  ng-model="data.ltopt.lite_tag">
@@ -749,12 +749,12 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
      <input type="range" min="0" max="100" name="lite_bg_op" class="wpmchimp-range-sel" ng-model="data.ltopt.lite_bg_op" <?php echo ' value="'.(isset($ltheme["lite_bg_op"])? $ltheme["lite_bg_op"]:'40').'"';?>/>
   </div>
   <div class="wpmca_group wpmcacb lite_dislogo">
-      <input type="checkbox" name="lite_dislogo" value="1" ng-model="data.ltopt.lite_dislogo" ng-checked="data.ltopt.lite_dislogo">  
-      <label>Disable Logo Head</label>
+      <label><input type="checkbox" name="lite_dislogo" value="1" ng-model="data.ltopt.lite_dislogo" ng-checked="data.ltopt.lite_dislogo">  
+      <div class="mcheckbox"></div>Disable Logo Head</label>
   </div>
   <div class="wpmca_group wpmcacb lite_dissoc">
-      <input type="checkbox" name="lite_dissoc" value="1" ng-model="data.ltopt.lite_dissoc" ng-checked="data.ltopt.lite_dissoc">  
-      <label>Disable Social Buttons</label>
+      <label><input type="checkbox" name="lite_dissoc" value="1" ng-model="data.ltopt.lite_dissoc" ng-checked="data.ltopt.lite_dissoc">  
+      <div class="mcheckbox"></div>Disable Social Buttons</label>
    </div>
   <div class="wpmca_group wpmcatxt lite_img1">      
     <input type="text" class="wpmchimp_text" spellcheck="false" name="lite_img1" required ng-model="data.ltopt.lite_img1">
@@ -825,16 +825,16 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                     <span class="wpmcahint headhint" data-hint="Show Subscription form if the user visits from?"></span>
                 </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="lite_desktop" value="1" <?php if(isset($wpmchimpa["lite_desktop"])) echo "checked";?>>  
-                    <label>Desktop</label>
+                    <label><input type="checkbox" name="lite_desktop" value="1" <?php if(isset($wpmchimpa["lite_desktop"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Desktop</label>
                  </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="lite_tablet" value="1" <?php if(isset($wpmchimpa["lite_tablet"])) echo "checked";?>>  
-                    <label>Tablet</label>
+                    <label><input type="checkbox" name="lite_tablet" value="1" <?php if(isset($wpmchimpa["lite_tablet"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Tablet</label>
                  </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="lite_mobile" value="1" <?php if(isset($wpmchimpa["lite_mobile"])) echo "checked";?>>  
-                    <label>Mobile</label>
+                    <label><input type="checkbox" name="lite_mobile" value="1" <?php if(isset($wpmchimpa["lite_mobile"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Mobile</label>
                  </div>
             </div>
             <div class="wpmca_item">
@@ -843,28 +843,28 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                     <span class="wpmcahint headhint" data-hint="Show Subscription form if the user visits?"></span>
                 </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="lite_homepage" value="1" <?php if(isset($wpmchimpa["lite_homepage"])) echo "checked";?>>  
-                    <label>Home Page</label>
+                    <label><input type="checkbox" name="lite_homepage" value="1" <?php if(isset($wpmchimpa["lite_homepage"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Home Page</label>
                  </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="lite_page" value="1" <?php if(isset($wpmchimpa["lite_page"])) echo "checked";?>>  
-                    <label>Pages</label>
+                    <label><input type="checkbox" name="lite_page" value="1" <?php if(isset($wpmchimpa["lite_page"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Pages</label>
                  </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="lite_post" value="1" <?php if(isset($wpmchimpa["lite_post"])) echo "checked";?>>  
-                    <label>Posts</label>
+                    <label><input type="checkbox" name="lite_post" value="1" <?php if(isset($wpmchimpa["lite_post"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Posts</label>
                  </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="lite_category" value="1" <?php if(isset($wpmchimpa["lite_category"])) echo "checked";?>>  
-                    <label>Categories/Archives</label>
+                    <label><input type="checkbox" name="lite_category" value="1" <?php if(isset($wpmchimpa["lite_category"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Categories/Archives</label>
                  </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="lite_search" value="1" <?php if(isset($wpmchimpa["lite_search"])) echo "checked";?>>  
-                    <label>Search</label>
+                    <label><input type="checkbox" name="lite_search" value="1" <?php if(isset($wpmchimpa["lite_search"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Search</label>
                  </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="lite_404error" value="1" <?php if(isset($wpmchimpa["lite_404error"])) echo "checked";?>>  
-                    <label>404 Error</label>
+                    <label><input type="checkbox" name="lite_404error" value="1" <?php if(isset($wpmchimpa["lite_404error"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>404 Error</label>
                  </div>
             </div>
             <!-- <div class="wpmca_item">
@@ -897,12 +897,12 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                   <label>Appear after</label>
                   <input type="text" class="wpmchimp_texts" name="lite_behave_time"<?php if(isset($wpmchimpa["lite_behave_time"]))echo ' value="'.$wpmchimpa["lite_behave_time"].'"';?>>
                   <span>seconds</span>
-                  <input type="checkbox" style="margin-left: 10px;" name="lite_behave_time_inac" value="1" <?php if(isset($wpmchimpa["lite_behave_time_inac"])) echo "checked";?>>  
-                  <label>of Inactivity</label>
+                  <label><input type="checkbox" style="margin-left: 10px;" name="lite_behave_time_inac" value="1" <?php if(isset($wpmchimpa["lite_behave_time_inac"])) echo "checked";?>>  
+                  <div class="mcheckbox"></div>of Inactivity</label>
                 </div>
                 <div class="wpmca_group wpmcatxts wpmcacb"> 
-                  <input type="checkbox" name="lite_behave_scroll" value="1" <?php if(isset($wpmchimpa["lite_behave_scroll"])) echo "checked";?>>  
-                  <label>Appear after</label>
+                  <label><input type="checkbox" name="lite_behave_scroll" value="1" <?php if(isset($wpmchimpa["lite_behave_scroll"])) echo "checked";?>>  
+                  <div class="mcheckbox"></div>Appear after</label>
                   <input type="text" class="wpmchimp_texts premium" readonly value="50">
                   <span>% of the page scrolled</span>
                 </div>
@@ -911,8 +911,8 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                     <label>Depart Intent </label>
                  </div> -->
                 <div class="wpmca_group wpmcatxts wpmcacb"> 
-                  <input type="checkbox" name="lite_behave_cookie" value="1" <?php if(isset($wpmchimpa["lite_behave_cookie"])) echo "checked";?>>  
-                  <label>Reappear after</label>
+                  <label><input type="checkbox" name="lite_behave_cookie" value="1" <?php if(isset($wpmchimpa["lite_behave_cookie"])) echo "checked";?>>  
+                  <div class="mcheckbox"></div>Reappear after</label>
                   <input type="text" class="wpmchimp_texts premium" value="1" readonly>
                   <span>day using Cookie</span>
                 </div>
@@ -928,8 +928,8 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                   <span>seconds of inactivity</span>
                 </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" value="1" name="lite_close_bck"<?php if(isset($wpmchimpa["lite_close_bck"]))echo ' checked';?>>  
-                    <label>Close when Litebox background is clicked</label>
+                    <label><input type="checkbox" value="1" name="lite_close_bck"<?php if(isset($wpmchimpa["lite_close_bck"]))echo ' checked';?>>  
+                    <div class="mcheckbox"></div>Close when Litebox background is clicked</label>
                     <span class="wpmcahint" data-hint="If not selected, visitors need to click close button to exit the lightbox"></span>
                  </div>
               </div>
@@ -1245,8 +1245,8 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                  <input type="range" min="0" max="100" name="slider_trigger_top" class="wpmchimp-range-sel" ng-model="data.stopt.slider_trigger_top" <?php echo ' value="'.(isset($stheme["slider_trigger_top"])? $stheme["slider_trigger_top"]:'40').'"';?>/>
               </div>
               <div class="wpmca_group wpmcatxts wpmcacb"> 
-                <input type="checkbox" name="slider_trigger_scroll" value="1" <?php if(isset($wpmchimpa["slider_trigger_scroll"])) echo "checked";?>>  
-                <label>Appear after</label>
+                <label><input type="checkbox" name="slider_trigger_scroll" value="1" <?php if(isset($wpmchimpa["slider_trigger_scroll"])) echo "checked";?>>  
+                <div class="mcheckbox"></div>Appear after</label>
                 <input type="text" class="wpmchimp_texts premium" readonly value="50">
                 <span>% of the page scrolled</span>
               </div>
@@ -1300,8 +1300,8 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                 </div>
 
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="slider_tag_en" value="1" ng-model="data.ltopt.lite_dissoc" ng-checked="data.ltopt.lite_dissoc">  
-                    <label>Enable</label>
+                    <label><input type="checkbox" name="slider_tag_en" value="1" ng-model="data.ltopt.lite_dissoc" ng-checked="data.ltopt.lite_dissoc">  
+                    <div class="mcheckbox"></div>Enable</label>
                  </div>                 
                 <div class="wpmca_group wpmcatxt"> 
                   <input type="text" class="wpmchimp_text" spellcheck="false" name="slider_tag" required  ng-model="data.stopt.slider_tag">
@@ -1351,8 +1351,8 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
       <h2>Additional Theme Options</h2>
   </div>
   <div class="wpmca_group wpmcacb slider_dissoc">
-      <input type="checkbox" name="slider_dissoc" value="1" ng-model="data.stopt.slider_dissoc" ng-checked="data.stopt.slider_dissoc">  
-      <label>Disable Social Buttons</label>
+      <label><input type="checkbox" name="slider_dissoc" value="1" ng-model="data.stopt.slider_dissoc" ng-checked="data.stopt.slider_dissoc">  
+      <div class="mcheckbox"></div>Disable Social Buttons</label>
    </div>
   <div class="wpmca_group wpmcacolor slider_canvas_c">
      <label>Canvas Color</label>
@@ -1411,16 +1411,16 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                     <span class="wpmcahint headhint" data-hint="Show Subscription form if the user visits from?"></span>
                 </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="slider_desktop" value="1" <?php if(isset($wpmchimpa["slider_desktop"])) echo "checked";?>>  
-                    <label>Desktop</label>
+                    <label><input type="checkbox" name="slider_desktop" value="1" <?php if(isset($wpmchimpa["slider_desktop"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Desktop</label>
                  </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="slider_tablet" value="1" <?php if(isset($wpmchimpa["slider_tablet"])) echo "checked";?>>  
-                    <label>Tablet</label>
+                    <label><input type="checkbox" name="slider_tablet" value="1" <?php if(isset($wpmchimpa["slider_tablet"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Tablet</label>
                  </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="slider_mobile" value="1" <?php if(isset($wpmchimpa["slider_mobile"])) echo "checked";?>>  
-                    <label>Mobile</label>
+                    <label><input type="checkbox" name="slider_mobile" value="1" <?php if(isset($wpmchimpa["slider_mobile"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Mobile</label>
                  </div>
             </div>
             <div class="wpmca_item">
@@ -1429,28 +1429,28 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                     <span class="wpmcahint headhint" data-hint="Show Subscription form if the user visits?"></span>
                 </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="slider_homepage" value="1" <?php if(isset($wpmchimpa["slider_homepage"])) echo "checked";?>>  
-                    <label>Home Page</label>
+                    <label><input type="checkbox" name="slider_homepage" value="1" <?php if(isset($wpmchimpa["slider_homepage"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Home Page</label>
                  </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="slider_page" value="1" <?php if(isset($wpmchimpa["slider_page"])) echo "checked";?>>  
-                    <label>Pages</label>
+                    <label><input type="checkbox" name="slider_page" value="1" <?php if(isset($wpmchimpa["slider_page"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Pages</label>
                  </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="slider_post" value="1" <?php if(isset($wpmchimpa["slider_post"])) echo "checked";?>>  
-                    <label>Posts</label>
+                    <label><input type="checkbox" name="slider_post" value="1" <?php if(isset($wpmchimpa["slider_post"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Posts</label>
                  </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="slider_category" value="1" <?php if(isset($wpmchimpa["slider_category"])) echo "checked";?>>  
-                    <label>Categories/Archives</label>
+                    <label><input type="checkbox" name="slider_category" value="1" <?php if(isset($wpmchimpa["slider_category"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Categories/Archives</label>
                  </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="slider_search" value="1" <?php if(isset($wpmchimpa["slider_search"])) echo "checked";?>>  
-                    <label>Search</label>
+                    <label><input type="checkbox" name="slider_search" value="1" <?php if(isset($wpmchimpa["slider_search"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Search</label>
                  </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="slider_404error" value="1" <?php if(isset($wpmchimpa["slider_404error"])) echo "checked";?>>  
-                    <label>404 Error</label>
+                    <label><input type="checkbox" name="slider_404error" value="1" <?php if(isset($wpmchimpa["slider_404error"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>404 Error</label>
                  </div>
             </div>
             <!-- <div class="wpmca_item">
@@ -1500,16 +1500,16 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                   <label>Appear after</label>
                   <input type="text" class="wpmchimp_texts" name="slider_behave_time"<?php if(isset($wpmchimpa["slider_behave_time"]))echo ' value="'.$wpmchimpa["slider_behave_time"].'"';?>>
                   <span>seconds</span>
-                  <input type="checkbox" style="margin-left: 10px;" name="slider_behave_time_inac" value="1" <?php if(isset($wpmchimpa["slider_behave_time_inac"])) echo "checked";?>>  
-                  <label>of Inactivity</label>
+                  <label><input type="checkbox" style="margin-left: 10px;" name="slider_behave_time_inac" value="1" <?php if(isset($wpmchimpa["slider_behave_time_inac"])) echo "checked";?>>  
+                  <div class="mcheckbox"></div>of Inactivity</label>
                 </div>
                  <!-- <div class="wpmca_group wpmcacb">
                     <input type="checkbox" class="premium" readonly>  
                     <label>Depart Intent </label>
                  </div> -->
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" value="1" name="slider_close_bck"<?php if(isset($wpmchimpa["slider_close_bck"]))echo ' checked';?>>  
-                    <label>Close when Slider background is clicked</label>
+                    <label><input type="checkbox" value="1" name="slider_close_bck"<?php if(isset($wpmchimpa["slider_close_bck"]))echo ' checked';?>>  
+                    <div class="mcheckbox"></div>Close when Slider background is clicked</label>
                     <span class="wpmcahint" data-hint="If not selected, visitors need to click close button to exit the slider"></span>
                  </div>
               </div>
@@ -1825,8 +1825,8 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
      <input minicolors name="widget_bg_c" type="text" class="wpmchimp-color-sel" ng-model="data.wtopt.widget_bg_c"/>
   </div>
   <div class="wpmca_group wpmcacb widget_dissoc">
-      <input type="checkbox" name="widget_dissoc" value="1" ng-model="data.wtopt.widget_dissoc" ng-checked="data.wtopt.widget_dissoc">  
-      <label>Disable Social Buttons</label>
+      <label><input type="checkbox" name="widget_dissoc" value="1" ng-model="data.wtopt.widget_dissoc" ng-checked="data.wtopt.widget_dissoc">  
+      <div class="mcheckbox"></div>Disable Social Buttons</label>
    </div>
   <div class="wpmca_group wpmcatxt widget_soc_head">      
     <input type="text" class="wpmchimp_text" spellcheck="false" name="widget_soc_head" required ng-model="data.wtopt.widget_soc_head">
@@ -2240,8 +2240,8 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
      <input minicolors name="addon_bg_c" type="text" class="wpmchimp-color-sel" ng-model="data.atopt.addon_bg_c"/>
   </div>
   <div class="wpmca_group wpmcacb addon_dissoc">
-      <input type="checkbox" name="addon_dissoc" value="1" ng-model="data.atopt.addon_dissoc" ng-checked="data.atopt.addon_dissoc">  
-      <label>Disable Social Buttons</label>
+      <label><input type="checkbox" name="addon_dissoc" value="1" ng-model="data.atopt.addon_dissoc" ng-checked="data.atopt.addon_dissoc">  
+      <div class="mcheckbox"></div>Disable Social Buttons</label>
    </div>
   <div class="wpmca_group wpmcatxt addon_soc_head">      
     <input type="text" class="wpmchimp_text" spellcheck="false" name="addon_soc_head" required ng-model="data.atopt.addon_soc_head">
@@ -2290,16 +2290,16 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                     <span class="wpmcahint headhint" data-hint="Show Subscription form if the user visits from?"></span>
                 </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="addon_desktop" value="1" <?php if(isset($wpmchimpa["addon_desktop"])) echo "checked";?>>  
-                    <label>Desktop</label>
+                    <label><input type="checkbox" name="addon_desktop" value="1" <?php if(isset($wpmchimpa["addon_desktop"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Desktop</label>
                  </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="addon_tablet" value="1" <?php if(isset($wpmchimpa["addon_tablet"])) echo "checked";?>>  
-                    <label>Tablet</label>
+                    <label><input type="checkbox" name="addon_tablet" value="1" <?php if(isset($wpmchimpa["addon_tablet"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Tablet</label>
                  </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="addon_mobile" value="1" <?php if(isset($wpmchimpa["addon_mobile"])) echo "checked";?>>  
-                    <label>Mobile</label>
+                    <label><input type="checkbox" name="addon_mobile" value="1" <?php if(isset($wpmchimpa["addon_mobile"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Mobile</label>
                  </div>
             </div>
             <div class="wpmca_item">
@@ -2308,12 +2308,12 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                     <span class="wpmcahint headhint" data-hint="Show Subscription form if the user visits?"></span>
                 </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="addon_page" value="1" <?php if(isset($wpmchimpa["addon_page"])) echo "checked";?>>  
-                    <label>Pages</label>
+                    <label><input type="checkbox" name="addon_page" value="1" <?php if(isset($wpmchimpa["addon_page"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Pages</label>
                  </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" name="addon_post" value="1" <?php if(isset($wpmchimpa["addon_post"])) echo "checked";?>>  
-                    <label>Posts</label>
+                    <label><input type="checkbox" name="addon_post" value="1" <?php if(isset($wpmchimpa["addon_post"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Posts</label>
                  </div>
             </div>
             <div class="wpmca_item">
@@ -2338,8 +2338,8 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                   <div style="clear:both"></div>
                </div>
                  <div class="wpmca_group wpmcacb">
-                    <input type="checkbox" value="1" name="addon_scode"<?php if(isset($wpmchimpa["addon_scode"]))echo ' checked';?>>  
-                    <label>Enable ShortCode [chimpmate]</label>
+                    <label><input type="checkbox" value="1" name="addon_scode"<?php if(isset($wpmchimpa["addon_scode"]))echo ' checked';?>>  
+                    <div class="mcheckbox"></div>Enable ShortCode [chimpmate]</label>
                     <span class="wpmcahint" data-hint="Enable Short Code"></span>
                  </div>
               </div>

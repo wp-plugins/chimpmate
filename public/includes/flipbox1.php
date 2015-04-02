@@ -5,30 +5,27 @@ $theme = $wpmchimpa['theme']['a1'];
 .wpmchimpaf{
   position:fixed;z-index: 99999;
   display: inline-block;
-  width: 360px;
+  width: 320px;
 background: #fff;
 box-shadow: 0 0 20px rgba(0,0,0,.2);
 bottom: 10px;
 right: 10px;
 overflow: hidden;
+-webkit-transition: -webkit-transform 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+transition: transform 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86);
   <?php 
     if(isset($theme["addon_bg_c"])){
         echo 'background:'.$theme["addon_bg_c"].';';
     }
   ?>
 }
-.wpmchimpaf,.wpmchimpaf > *,.wpmchimpaf-close h3{
--webkit-transition: all 0.4s ease;
--moz-transition: all 0.4s ease;
--ms-transition: all 0.4s ease;
--o-transition: all 0.4s ease;
-transition: all 0.4s ease;
+.wpmchimpaf.wpmchimpaf-close{
+-webkit-transform: translateX(500px);
+-moz-transform: translateX(500px);
+-ms-transform: translateX(500px);
+-o-transform: translateX(500px);
+transform: translateX(500px);
 }
-
-.wpmchimpaf.wpmchimpaf-close .wpmchimpaf-cont{
-max-height: 0;
-}
-
 .wpmchimpaf .wpmchimpaf-head{
   width: 100%;
 }
@@ -69,7 +66,7 @@ echo 'font-family:'.str_replace("|ng","",$theme["addon_msg_f"]).';';
   max-height: 500px;
 }
 .wpmchimpaf form{
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 .wpmchimpaf input[type="email"],.wpmchimpaf input[type="text"] {
         display: inline-block;
@@ -78,7 +75,7 @@ echo 'font-family:'.str_replace("|ng","",$theme["addon_msg_f"]).';';
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
     border-radius: 5px;
-    width: 90%;
+    width: 100%;
     background: #f8fafa;
     margin-bottom: 10px;
   margin-right: 5px;
@@ -322,29 +319,25 @@ content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWA
 opacity: 0.5;
 }
 .wpmchimpaf .wpmchimpaf-close-button {
-display: inline-block;
-width: 2em;
-height: 2em;
-right: 10px;
-top:-4px;
-position: absolute;
-cursor:pointer;
+  display: inline-block;
+  width: 17px;
+  height: 30px;
+  right: 20px;
+  top: 10px;
+  position: absolute;
+  cursor: pointer;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .wpmchimpaf .wpmchimpaf-close-button::before {
-    content: "_";
-    font-size: 30px;
-    font-weight: 600;
-    color: #959595;
+  content: "\00D7";
+  font-size: 30px;
+  font-weight: 100;
+  color: #959595;
   }
 .wpmchimpaf .wpmchimpaf-close-button:hover:before {
     color: #000;
-}
-.wpmchimpaf.wpmchimpaf-close .wpmchimpaf-close-button {
-  top:11px;
-}
-.wpmchimpaf.wpmchimpaf-close .wpmchimpaf-close-button::before {
-    content: "+";
 }
 .wpmchimpaf .wpmchimpa-signal{
   display: none;

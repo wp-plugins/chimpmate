@@ -235,14 +235,15 @@ display: block;
 #wpmchimpas-trig{
 width: 50px;
 height: 50px;
+margin: 0 3px;
 position: absolute;
 display: block;
 left: 500px;
+-webkit-border-radius:1px;
+-moz-border-radius:1px;
+border-radius:1px;
 top:{{data.stopt.slider_trigger_top ||'50'}}%;
 background: {{data.stopt.slider_trigger_bg || '#0066CB'}};
--webkit-border-radius: 0 5px 5px 0;
--moz-border-radius: 0 5px 5px 0;
-border-radius: 0 5px 5px 0;
 }
 #wpmchimpas-trig:before{ 
 content:{{getIcon('m2',32,data.stopt.slider_trigger_c||'#fff')}};

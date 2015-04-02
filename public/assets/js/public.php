@@ -27,9 +27,6 @@ var privateMethods = {
 		    });
 		    $body.addClass(bodyClass);
 			$('.wpmchimpas').addClass('wpmchimpas-open');
-		    setTimeout(function() {
-		    	$('.wpmchimpas').css('z-index',1);
-			}, speed);
 		} else {
 			$body.unbind('mousewheel DOMMouseScroll', freezeCon);
 			$('.wpmchimpas-cont').unbind('mousewheel DOMMouseScroll', scrollCon);
@@ -41,7 +38,6 @@ var privateMethods = {
 		        $body.removeClass(bodyClass).removeAttr('style');
 		    }, speed);
 		    $('.wpmchimpas').removeClass('wpmchimpas-open');
-		    $('.wpmchimpas').css('z-index',-1);
 		}
     }
 };
@@ -194,14 +190,17 @@ if(isset(wpmchimpa.addon)){
 
 	$('.wpmchimpat-close-button').click(function(){$('.wpmchimpat').addClass('wpmchimpat-close')});
 
+	var flipclosed=0;
 	$('.wpmchimpaf-close-button').click(function(){
 	if($('.wpmchimpaf').hasClass('wpmchimpaf-close'))
 		$('.wpmchimpaf').removeClass('wpmchimpaf-close');
 	else
 		$('.wpmchimpaf').addClass('wpmchimpaf-close');
+		flipclosed=1;
 	});
 
 	$(document).scroll(function() {
+		if(flipclosed)return;
 		if($(window).scrollTop() >= $(document).height()/2)
 			$('.wpmchimpaf').removeClass('wpmchimpaf-close');
 		else

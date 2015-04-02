@@ -7,17 +7,23 @@ $theme = $wpmchimpa['theme']['a0'];
 	display: inline-block;
 	width: 320px;
 	background: #000;
-bottom: 0;
-right: 25px;
+bottom: 10px;
+right: 10px;
 padding-bottom: 35px
-  <?php 
+-webkit-transition: -webkit-transform 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+transition: transform 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+ <?php 
         if(isset($theme["addon_bg_c"])){
             echo 'background:'.$theme["addon_bg_c"].';';
         }
     ?>
 }
 .wpmchimpaf.wpmchimpaf-close{
-display: none
+-webkit-transform: translateX(500px);
+-moz-transform: translateX(500px);
+-ms-transform: translateX(500px);
+-o-transform: translateX(500px);
+transform: translateX(500px);
 }
 .wpmchimpaf .wpmchimpaf-head{
   width: 100%;
@@ -48,6 +54,14 @@ text-align: center;
             echo 'color:'.$theme["addon_heading_fc"].';';
         }
     ?>
+}
+
+.wpmchimpaf p,.wpmchimpaf p * {
+  margin-bottom: 10px;
+  color: #fff;
+<?php if(isset($theme["addon_msg_f"])){
+echo 'font-family:'.str_replace("|ng","",$theme["addon_msg_f"]).';';
+}?>
 }
 .wpmchimpaf .wpmchimpaf-trig{
   content:<?php echo ChimpMate_WPMC_Assistant::getIcon('up1',20,(isset($theme["addon_heading_fc"]))?$theme["addon_heading_fc"]:'#fff',100);?>;
@@ -466,13 +480,14 @@ opacity:0;
 }
 }
 </style>
-
+<div class="wpmchimpaf-tray">
 <div class="wpmchimpa-reset wpmchimpaf wpmchimpaf-close">
   <div class="wpmchimpaf-head">
     <?php echo isset($theme['addon_heading'])?'<h3>'.$theme['addon_heading'].'</h3>' : '<h3>Subscribe Now</h3>';?>
     <div class="wpmchimpaf-close-button"></div>
   </div>
   <div class="wpmchimpaf-cont">
+  <p><?php if(isset($theme['addon_msg'])) echo $theme['addon_msg'];?></p>
   <form action="" method="post">
   <?php if(isset($wpmchimpa['namebox'])){
     if(isset($wpmchimpa['labelnb'])) $nl = $wpmchimpa['labelnb'];
@@ -508,4 +523,5 @@ opacity:0;
 	</form>
 	<div class="wpmchimpa-feedback"></div>
   </div>
+</div>
 </div>

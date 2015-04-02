@@ -105,8 +105,8 @@ background: -o-linear-gradient(left, #62bc33 0%,#8bd331 100%);
 background: -ms-linear-gradient(left, #62bc33 0%,#8bd331 100%);
 background: linear-gradient(to right, #62bc33 0%,#8bd331 100%);"}}
 width: {{data.ltopt.lite_button_w}}px;
-height: {{data.ltopt.lite_button_h||'40'}}px;
-line-height: {{data.ltopt.lite_button_h||'40'}}px;
+height: {{data.ltopt.lite_button_h||'45'}}px;
+line-height: {{data.ltopt.lite_button_h||'45'}}px;
 border: {{data.ltopt.lite_button_bor||'0'}}px solid {{data.ltopt.lite_button_borc}};
 }
 #wpmchimpa .wpmchimpa-subs-button:hover {
