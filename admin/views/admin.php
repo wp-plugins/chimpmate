@@ -371,11 +371,12 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                     <select class="wpmca_sel" ng-change="themeswitcher('lightbox')" style="width: 260px;" ng-model="data.litebox_theme" name="litebox_theme">
                       <option value="0">Basic</option>
                       <option value="1">Epsilon</option>
-                      <option value="2" disabled>Material - BUY PRO</option>
-                      <option value="3" disabled>Onamy - BUY PRO</option>
-                      <option value="4" disabled>Smash - BUY PRO</option>
-                      <option value="5" disabled>Glow - BUY PRO</option>
-                      <option value="6" disabled>Unidesign - BUY PRO</option>
+                      <option disabled>Material - BUY PRO</option>
+                      <option disabled>Material Lite - BUY PRO</option>
+                      <option disabled>Onamy - BUY PRO</option>
+                      <option disabled>Smash - BUY PRO</option>
+                      <option disabled>Glow - BUY PRO</option>
+                      <option disabled>Unidesign - BUY PRO</option>
                     </select>
                   </div>
                   <div class="wpmca_group">
@@ -957,11 +958,12 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                     <select class="wpmca_sel" ng-change="themeswitcher('slider')" style="width: 260px;" ng-model="data.slider_theme" name="slider_theme">
                       <option value="0">Basic</option>
                       <option value="1">Epsilon</option>
-                      <option value="2" disabled>Material - BUY PRO</option>
-                      <option value="3" disabled>Onamy - BUY PRO</option>
-                      <option value="4" disabled>Smash - BUY PRO</option>
-                      <option value="5" disabled>Glow - BUY PRO</option>
-                      <option value="6" disabled>Unidesign - BUY PRO</option>
+                      <option disabled>Material - BUY PRO</option>
+                      <option disabled>Material Lite - BUY PRO</option>
+                      <option disabled>Onamy - BUY PRO</option>
+                      <option disabled>Smash - BUY PRO</option>
+                      <option disabled>Glow - BUY PRO</option>
+                      <option disabled>Unidesign - BUY PRO</option>
                     </select>
                   </div>
                   <div class="wpmca_group">
@@ -1537,6 +1539,7 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                       <option value="0">Basic</option>
                       <option value="1">Epsilon</option>
                       <option disabled>Material - BUY PRO</option>
+                      <option disabled>Material Lite - BUY PRO</option>
                       <option disabled>Onamy - BUY PRO</option>
                       <option disabled>Smash - BUY PRO</option>
                       <option disabled>Glow - BUY PRO</option>
@@ -1919,6 +1922,7 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                       <option value="0">Basic</option>
                       <option value="1">Epsilon</option>
                       <option disabled>Material - BUY PRO</option>
+                      <option disabled>Material Lite - BUY PRO</option>
                       <option disabled>Onamy - BUY PRO</option>
                       <option disabled>Smash - BUY PRO</option>
                       <option disabled>Glow - BUY PRO</option>
