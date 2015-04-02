@@ -759,7 +759,7 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
   <div class="wpmca_group wpmcatxt lite_img1">      
     <input type="text" class="wpmchimp_text" spellcheck="false" name="lite_img1" required ng-model="data.ltopt.lite_img1">
     <button class="wpmca_button green material-design wpmc_media_uploader">Select Image</button>
-    <span class="wpmcahint" data-hint="Upload Image or Enter base64 of image with dimension 120x120(px)"></span>
+    <span class="wpmcahint" data-hint="Upload Image or Enter base64 of image with dimension 170x170(px)"></span>
     <span class="highlighter"></span>
     <span class="bar"></span>
     <label>Featured Image URL</label>
