@@ -1,5 +1,6 @@
 <?php 
 $theme = $wpmchimpa['theme']['s0'];
+$this->extrascript(0);
 ?>
 <style type="text/css">
 	
@@ -137,7 +138,7 @@ content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWA
  opacity: 0.5;
 }
 
-.wpmchimpas input[type="email"],.wpmchimpas input[type="text"] {
+.wpmchimpas input[type="text"] {
     display: inline-block;
     width:55%;
     background:#fff;
@@ -189,6 +190,31 @@ content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWA
     ?>
 }
 
+.wpmchimpas input[type="text"].wpmcerror{
+  border-color: red;
+}
+.wpmchimpas .wpmcinfierr{
+  display: block;
+  height: 22px;
+  line-height: 18px;
+  margin-top: -12px;
+  font-size: 11px;
+  color: red;
+  <?php
+    if(isset($theme["slider_status_f"])){
+      echo 'font-family:'.str_replace("|ng","",$theme["slider_status_f"]).';';
+    }
+    if(isset($theme["slider_status_fw"])){
+        echo 'font-weight:'.$theme["slider_status_fw"].';';
+    }
+    if(isset($theme["slider_status_fst"])){
+        echo 'font-style:'.$theme["slider_status_fst"].';';
+    }
+    if(isset($theme["slider_status_fc"])){
+        echo 'color:'.$theme["slider_status_fc"].';';
+    }
+  ?>
+}
 .wpmchimpas input[type="email"]:focus,.wpmchimpas input[type="text"]:focus {
     border:2px solid #ddd;
     <?php 
@@ -302,13 +328,16 @@ content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWA
         }
       ?>
 }
-
+.wpmchimpas .wpmchimpa-signalc {
+height: 40px;
+top: 4px;
+margin-top: 10px;
+}
 .wpmchimpas .wpmchimpa-signal {
     display: none;
     border: 3px solid #fff;
-    margin: 10px auto;
+    margin: 0 auto;
 left: 0;
-top: 4px;
     border-radius: 30px;
     -webkit-border-radius: 30px;
     -moz-border-radius: 30px;
@@ -332,7 +361,8 @@ top: 4px;
 }
 .wpmchimpas .wpmchimpa-feedback{
   clear:both;
-  top: 7px;
+  margin-top:-14px;
+  height: 14px; 
 position: relative;
   <?php
         if(isset($theme["slider_status_f"])){
@@ -352,6 +382,9 @@ position: relative;
         }
       ?>
 }
+.wpmchimpas .wpmchimpa-feedback.wpmchimpa-done{
+margin-top: 14px;
+}  
 @-webkit-keyframes pulsates {
     0% {
        -webkit-transform:scale(.1);
@@ -503,17 +536,14 @@ position: absolute;
   <div class="wpmchimpas-cont">
   <div class="wpmchimpas-scroller">
     <div class="wpmchimpas-resp">
-    <div class="wpmchimpas-inner">
+    <div class="wpmchimpas-inner wpmchimpselector">
      
 <h3><?php if(isset($theme['slider_heading'])) echo $theme['slider_heading'];?></h3>
 	<p><?php if(isset($theme['slider_msg'])) echo $theme['slider_msg'];?></p>
-	<form action="" method="post" class="wpmchimpa-reset">
-  <?php if(isset($wpmchimpa['namebox'])){
-    if(isset($wpmchimpa['labelnb'])) $nl = $wpmchimpa['labelnb'];
-     else $nl = 'Name';
-    echo '<input type="text" name="name" class="wpmchimpa_name" placeholder="'.$nl.'" required/>'; 
-  } ?>
-		<input type="email" name="email" class="wpmchimpa_email" placeholder="<?php if(isset($wpmchimpa['labeleb'])) echo $wpmchimpa['labeleb'];else echo 'Email address';?>" required/>
+	<form action="" method="post" class="wpmchimpa-reset wpmchimpa-mainc">
+                    <?php if(isset($wpmchimpa['namebox']))echo'<input type="text" name="name" wpmcfield="name" wpmcreq="false" placeholder="'.(isset($wpmchimpa['labelnb'])?$wpmchimpa['labelnb']:'Name').'"/>';?>
+                    <input type="text" name="email" wpmcfield="email" wpmcreq="true" placeholder="<?php echo (isset($wpmchimpa['labeleb']))?$wpmchimpa['labeleb']:'Email address';?>" required/>
+                    <div class="wpmcinfierr" wpmcerr="email"></div>
 		<input type="hidden" name="action" value="wpmchimpa_add_email_ajax"/>
 		<?php 
 		if(isset($wpmchimpa['list_record']['groups'])){
@@ -536,7 +566,7 @@ position: absolute;
     		echo '</div>';
 		}
 		?>
-		<div class="wpmchimpa-subs-button"></div>
+    <div class="wpmchimpa-subs-button" wpmcpre="wpmcpre0" wpmcpost="wpmcpost0"></div>
     <?php if(isset($theme['slider_tag_en'])){
         if(isset($theme['slider_tag'])) $tagtxt= $theme['slider_tag'];
        else $tagtxt='Secure and Spam free...';
@@ -545,9 +575,9 @@ position: absolute;
           $ref= ' href="http://voltroid.com/chimpmate/"';
         echo '<div class="wpmchimpa-tag"><a'.$ref.'></a>'.$tagtxt.'</div>';
         }?>
-    <div class="wpmchimpa-signal"></div>
+    <div class="wpmchimpa-signalc"><div class="wpmchimpa-signal"></div></div>
 	</form>
-	<div class="wpmchimpa-feedback"></div>
+	<div class="wpmchimpa-feedback" wpmcerr="gen"></div>
 
     </div>
   </div>

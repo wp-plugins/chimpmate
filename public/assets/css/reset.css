@@ -38,6 +38,7 @@
     color: #000;
     background: 0;
     vertical-align: baseline;
+    float: none;
 }
 
 .wpmchimpa-reset table {
@@ -95,6 +96,7 @@
     clear:both;
     text-decoration:none;
     text-shadow:none;
+    float: none;
 }
 
 .wpmchimpa-reset input:focus,

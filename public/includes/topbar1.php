@@ -1,5 +1,6 @@
 <?php 
 $theme = $wpmchimpa['theme']['a0'];
+$this->extrascript(1);
 ?>
 <style type="text/css">
 .wpmchimpat{
@@ -52,7 +53,7 @@ visibility: hidden;
         }
     ?>
 }
-.wpmchimpat input[type="email"],.wpmchimpat input[type="text"] {
+.wpmchimpat input[type="text"] {
     display: inline-block;
     <?php if(isset($wpmchimpa['namebox']))echo 'width:21%;';else echo 'width:42%;'; ?>
     background: #f8fafa;
@@ -92,7 +93,10 @@ visibility: hidden;
     ?>
 }
 
-.wpmchimpat input[type="email"]:focus,.wpmchimpat input[type="text"]:focus {
+.wpmchimpat input[type="text"].wpmcerror{
+  border-color: red;
+}
+.wpmchimpat input[type="text"]:focus {
     
     <?php 
         if(isset($theme["addon_tbox_bor"]) && isset($theme["addon_tbox_borc"])){
@@ -375,20 +379,18 @@ right:60px;
 }
 </style>
 
-<div class="wpmchimpa-reset wpmchimpat">
+<div class="wpmchimpa-reset wpmchimpat wpmchimpselector">
     <form action="" method="post">
     <div class="wpmchimpat-cont">
-  <?php if(isset($theme['addon_heading'])) echo '<h3>'.$theme['addon_heading'].'</h3>'; if(isset($wpmchimpa['namebox'])){
-    if(isset($wpmchimpa['labelnb'])) $nl = $wpmchimpa['labelnb'];
-     else $nl = 'Name';
-    echo '<input type="text" name="name" class="wpmchimpa_name" placeholder="'.$nl.'" required/>'; 
-  }?>
-        <input type="email" name="email" class="wpmchimpa_email" placeholder="<?php if(isset($wpmchimpa['labeleb'])) echo $wpmchimpa['labeleb'];else echo 'Email address';?>" required/>
-        <div class="wpmchimpa-subs-button"></div>
+  <?php if(isset($theme['addon_heading'])) echo '<h3>'.$theme['addon_heading'].'</h3>';
+  if(isset($wpmchimpa['namebox']))echo'<input type="text" name="name" wpmcfield="name" wpmcreq="false" placeholder="'.(isset($wpmchimpa['labelnb'])?$wpmchimpa['labelnb']:'Name').'"/>';?>
+  <input type="text" name="email" wpmcfield="email" wpmcreq="true" wpmcerrs="true" wpmcerrs="true" placeholder="<?php echo (isset($wpmchimpa['labeleb']))?$wpmchimpa['labeleb']:'Email address';?>" required/>
+  
+       <div class="wpmchimpa-subs-button" wpmcpre="wpmcpre1" wpmcpost="wpmcpost1"></div>
      </div>
    <div class="wpmchimpa-signal"></div>
         <input type="hidden" name="action" value="wpmchimpa_add_email_ajax"/>
     <div class="wpmchimpat-close-button"></div>
     </form>
-    <div class="wpmchimpa-feedback"></div>
+    <div class="wpmchimpa-feedback" wpmcerr="gen"></div>
 </div>

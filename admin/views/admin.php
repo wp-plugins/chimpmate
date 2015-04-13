@@ -190,6 +190,12 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                     <span class="wpmcahint headhint" data-hint="Set Respective Error Messages"></span>
                 </div>
                 <div class="wpmca_group wpmcatxt">      
+                  <input type="text" class="wpmchimp_text" spellcheck="false" name="errorrf" required<?php if(isset($wpmchimpa["errorrf"]))echo ' value="'.$wpmchimpa["errorrf"].'"';?>>
+                  <span class="highlighter"></span>
+                  <span class="bar"></span>
+                  <label>Required Field</label>
+                </div>
+                <div class="wpmca_group wpmcatxt">      
                   <input type="text" class="wpmchimp_text" spellcheck="false" name="errorfe" required<?php if(isset($wpmchimpa["errorfe"]))echo ' value="'.$wpmchimpa["errorfe"].'"';?>>
                   <span class="highlighter"></span>
                   <span class="bar"></span>

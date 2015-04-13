@@ -1,5 +1,6 @@
 <?php 
 $theme = $wpmchimpa['theme']['a0'];
+$this->extrascript(0);
 ?>
 
 <style type="text/css">
@@ -136,7 +137,7 @@ content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWA
  opacity: 0.5;
 }
 
-.wpmchimpab input[type="email"],.wpmchimpab input[type="text"] {
+.wpmchimpab input[type="text"] {
     display: inline-block;
     width:55%;
     background:#fff;
@@ -188,6 +189,31 @@ content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWA
     ?>
 }
 
+.wpmchimpab input[type="text"].wpmcerror{
+  border-color: red;
+}
+.wpmchimpab .wpmcinfierr{
+  display: block;
+  height: 16px;
+  line-height: 14px;
+  margin-top: -12px;
+  font-size: 10px;
+  color: red;
+  <?php
+    if(isset($theme["addon_status_f"])){
+      echo 'font-family:'.str_replace("|ng","",$theme["addon_status_f"]).';';
+    }
+    if(isset($theme["addon_status_fw"])){
+        echo 'font-weight:'.$theme["addon_status_fw"].';';
+    }
+    if(isset($theme["addon_status_fst"])){
+        echo 'font-style:'.$theme["addon_status_fst"].';';
+    }
+    if(isset($theme["addon_status_fc"])){
+        echo 'color:'.$theme["addon_status_fc"].';';
+    }
+  ?>
+}
 .wpmchimpab input[type="email"]:focus,.wpmchimpab input[type="text"]:focus {
     border:2px solid #ddd;
     <?php 
@@ -336,7 +362,7 @@ top: 4px;
 }
 .wpmchimpab .wpmchimpa-feedback{
   clear:both;
-  top: 7px;
+  margin-top: 16px;
 position: relative;
   <?php
         if(isset($theme["addon_status_f"])){
@@ -434,17 +460,14 @@ position: relative;
     }
 } 
 </style>
-<div class="wpmchimpa-reset wpmchimpab">
+<div class="wpmchimpa-reset wpmchimpab wpmchimpselector">
 	<h3><?php if(isset($theme['addon_heading'])) echo $theme['addon_heading'];?></h3>
 	<p><?php if(isset($theme['addon_msg'])) echo $theme['addon_msg'];?></p>
 	<form action="" method="post">
-  <?php if(isset($wpmchimpa['namebox'])){
-    if(isset($wpmchimpa['labelnb'])) $nl = $wpmchimpa['labelnb'];
-     else $nl = 'Name';
-    echo '<input type="text" name="name" class="wpmchimpa_name" placeholder="'.$nl.'" required/>'; 
-  } ?>
-		<input type="email" name="email" class="wpmchimpa_email" placeholder="<?php if(isset($wpmchimpa['labeleb'])) echo $wpmchimpa['labeleb'];else echo 'Email address';?>" required/>
-		<div class="wpmchimpa-subs-button"></div>
+      <?php if(isset($wpmchimpa['namebox']))echo'<input type="text" name="name" wpmcfield="name" wpmcreq="false" placeholder="'.(isset($wpmchimpa['labelnb'])?$wpmchimpa['labelnb']:'Name').'"/>';?>
+      <input type="text" name="email" wpmcfield="email" wpmcreq="true" wpmcerrs="true" placeholder="<?php echo (isset($wpmchimpa['labeleb']))?$wpmchimpa['labeleb']:'Email address';?>" required/>
+      <div class="wpmcinfierr" wpmcerr="email"></div>
+      <div class="wpmchimpa-subs-button" wpmcpre="wpmcpre0" wpmcpost="wpmcpost0"></div>
     <div class="wpmchimpa-signal-cont"><div class="wpmchimpa-signal"></div></div>
 		<input type="hidden" name="action" value="wpmchimpa_add_email_ajax"/>
 		<?php 
@@ -469,5 +492,5 @@ position: relative;
 		}
 		?>
 	</form>
-	<div class="wpmchimpa-feedback"></div>
+	<div class="wpmchimpa-feedback" wpmcerr="gen"></div>
 </div>

@@ -1,5 +1,6 @@
 <?php 
 $theme = $wpmchimpa['theme']['l0'];
+$this->extrascript(0);
 ?><style>
 
 .wpmchimpa-overlay-bg {
@@ -99,7 +100,7 @@ width: 100%;
     position: relative;
 }
 
-#wpmchimpa input[type="email"],#wpmchimpa input[type="text"] {
+#wpmchimpa input[type="text"] {
     font-size: 16px;
     font-weight:500;
     display: block;
@@ -151,7 +152,32 @@ width: 100%;
     ?>
 }
 
-#wpmchimpa input[type="email"]:focus,#wpmchimpa input[type="text"]:focus {
+#wpmchimpa input[type="text"].wpmcerror{
+  border-color: red;
+}
+#wpmchimpa .wpmcinfierr{
+  display: block;
+  height: 22px;
+  line-height: 18px;
+  margin-top: -12px;
+  font-size: 11px;
+  color: red;
+  <?php
+    if(isset($theme["lite_status_f"])){
+      echo 'font-family:'.str_replace("|ng","",$theme["lite_status_f"]).';';
+    }
+    if(isset($theme["lite_status_fw"])){
+        echo 'font-weight:'.$theme["lite_status_fw"].';';
+    }
+    if(isset($theme["lite_status_fst"])){
+        echo 'font-style:'.$theme["lite_status_fst"].';';
+    }
+    if(isset($theme["lite_status_fc"])){
+        echo 'color:'.$theme["lite_status_fc"].';';
+    }
+  ?>
+}
+#wpmchimpa input[type="text"]:focus {
     border:2px solid #ddd;
     <?php 
         if(isset($theme["lite_tbox_bor"]) && isset($theme["lite_tbox_borc"])){
@@ -267,7 +293,8 @@ width: 100%;
 }
 #wpmchimpa .wpmchimpa-feedback {
     color: #fff;
-    margin-top: 10px;
+    margin-top: -14px;
+      height: 14px;
      <?php
         if(isset($theme["lite_status_f"])){
           echo 'font-family:'.str_replace("|ng","",$theme["lite_status_f"]).';';
@@ -348,6 +375,9 @@ display: inline-block;
 .wpmchimpa-overlay-bg .wpmchimpa-close-button:hover::before {
       background-color: #7e7e7e;
     }
+.wpmchimpa-overlay-bg #wpmchimpa .wpmchimpa-signalc {
+height: 40px;
+}
 .wpmchimpa-overlay-bg #wpmchimpa .wpmchimpa-signal {
     display: none;
     border:3px solid #fff;
@@ -649,21 +679,18 @@ font-size: 10px;
     }
 }
 </style>
-			<div class="wpmchimpa-reset wpmchimpa-overlay-bg">
+			<div class="wpmchimpa-reset wpmchimpa-overlay-bg wpmchimpselector">
 				<div id="wpmchimpa-main">
 					<div class="wpmchimpa-wrapper">
 						<div id="wpmchimpa-newsletterform">
 			    			<div class="wpmchimpa" id="wpmchimpa">
 			        			<?php if(isset($theme['lite_heading'])) echo '<h3>'.$theme['lite_heading'].'</h3>';?>
 			        			<?php if(isset($theme['lite_msg'])) echo '<p>'.$theme['lite_msg'].'</p>';?>
-			        			<form action="" method="post">
-			           				<?php if(isset($wpmchimpa['namebox'])){
-                            if(isset($wpmchimpa['labelnb'])) $nl = $wpmchimpa['labelnb'];
-                            else $nl = 'Name';
-                            echo '<input type="text" name="name" class="wpmchimpa_name" placeholder="'.$nl.'" required/>'; 
-                         } ?>
-			            			<input type="email" name="email" class="wpmchimpa_email" placeholder="<?php if(isset($wpmchimpa['labeleb'])) echo $wpmchimpa['labeleb'];else echo 'Email address';?>" required/>
-			           				<input type="hidden" name="action" value="wpmchimpa_add_email_ajax"/>
+			        			<form action="" method="post" class="wpmchimpa-mainc">
+                    <?php if(isset($wpmchimpa['namebox']))echo'<input type="text" name="name" wpmcfield="name" wpmcreq="false" placeholder="'.(isset($wpmchimpa['labelnb'])?$wpmchimpa['labelnb']:'Name').'"/>';?>
+                    <input type="text" name="email" wpmcfield="email" wpmcreq="true" placeholder="<?php echo (isset($wpmchimpa['labeleb']))?$wpmchimpa['labeleb']:'Email address';?>" required/>
+                    <div class="wpmcinfierr" wpmcerr="email"></div>
+                    <input type="hidden" name="action" value="wpmchimpa_add_email_ajax"/>
 			            			<?php 
 			            			if(isset($wpmchimpa['list_record']['groups'])){
 			            				$group_record = array();
@@ -685,7 +712,7 @@ font-size: 10px;
 			            				}
 			            			}
 			            			?>
-			            			<div class="wpmchimpa-subs-button"></div>
+			            			<div class="wpmchimpa-subs-button" wpmcpre="wpmcpre0" wpmcpost="wpmcpost0"></div>
                         <?php if(isset($theme['lite_tag_en'])){
                           if(isset($theme['lite_tag'])) $tagtxt= $theme['lite_tag'];
                           else $tagtxt='Secure and Spam free...';
@@ -694,9 +721,9 @@ font-size: 10px;
                             $ref= ' href="http://voltroid.com/chimpmate/"';
                           echo '<div class="wpmchimpa-tag"><a'.$ref.'></a>'.$tagtxt.'</div>';
                           }?>
-                    <div class="wpmchimpa-signal"></div>
+                    <div class="wpmchimpa-signalc"><div class="wpmchimpa-signal"></div></div>
 			            		</form>
-			        			<div class="wpmchimpa-feedback"></div>
+			        			<div class="wpmchimpa-feedback" wpmcerr="gen"></div>
 			    			</div>
 						</div>
 					</div>

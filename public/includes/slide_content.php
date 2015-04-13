@@ -1,14 +1,17 @@
 <style type="text/css">
 html {
     height: 0;
-    overflow-x: hidden;
+    position: relative;
+    <?php if(is_admin_bar_showing())echo 'top: -32px;'?>
 }
 body {
 min-height: 100%;
 height: auto !important;
 overflow-x: hidden !important;
 z-index: -1;
-position: relative;
+<?php if(is_admin_bar_showing())echo 'padding-top: 32px;';
+if (!(isset($_SERVER['HTTP_USER_AGENT']) && ((strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false) || (strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') !== false))))
+    echo 'position:relative;';?>
 }body:before {display: none;}
 #wpmchimpas {
 visibility: hidden;

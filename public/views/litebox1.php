@@ -1,5 +1,6 @@
 <?php 
 $theme = $wpmchimpa['theme']['l1'];
+$this->extrascript(1);
 ?><style type="text/css">
 .wpmchimpa-overlay-bg {
     display: none;
@@ -18,16 +19,17 @@ $theme = $wpmchimpa['theme']['l1'];
     position: fixed!important;
 }
 .wpmchimpa-overlay-bg #wpmchimpa-main *{
+ -webkit-transition: all 0.5s ease;
  transition: all 0.5s ease;
 }
+.wpmchimpa-overlay-bg .wpmchimpa-mainc{
+    height:100%;}
 .wpmchimpa-overlay-bg #wpmchimpa-main {
     position: fixed;
 top: 50%;
 left: 50%;
 -webkit-transform: translate(-50%, -50%);
--moz-transform: translate(-50%, -50%);
 -ms-transform: translate(-50%, -50%);
--o-transform: translate(-50%, -50%);
 transform: translate(-50%, -50%);
 min-width: 700px;
 min-height: 350px;
@@ -35,8 +37,6 @@ background: #fff;
 <?php  if(isset($theme["lite_bg_c"])){
     echo 'background-color:'.$theme["lite_bg_c"].';';
 }?>
--webkit-border-radius: 10px;
--moz-border-radius: 10px;
 border-radius: 10px;
 }
 #wpmchimpa-main .wpmchimpa-leftpane{
@@ -52,6 +52,7 @@ padding: 0 50px 0 250px;
 display: inline-block;
 }
 #wpmchimpa h3{
+ -webkit-backface-visibility: hidden;
     line-height: 36px;
     margin: 40px 0 20px;
     color: #454545;
@@ -76,23 +77,20 @@ display: inline-block;
     ?>
 }
 #wpmchimpa p,#wpmchimpa p * {
+ -webkit-backface-visibility: hidden;
+    margin-bottom: 10px;
 <?php if(isset($theme["lite_msg_f"])){
   echo 'font-family:'.str_replace("|ng","",$theme["lite_msg_f"]).';';
 }if(isset($theme["lite_msg_fs"])){
     echo 'font-size:'.$theme["lite_msg_fs"].'px;';
 }?>
 }
-#wpmchimpa input[type="text"],
-#wpmchimpa input[type="email"]{
-    margin: 10px 0;
+#wpmchimpa input[type="text"]{
+    margin-bottom: 18px;
     width: 380px;
     height: 62px;
     background: #f8fafa;
     padding: 0 20px;
-   -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
     border-radius: 5px;
     border: 1px solid #e4e9e9;
     color: #353535;
@@ -129,7 +127,31 @@ display: inline-block;
         }
     ?>
 }
-
+#wpmchimpa input[type="text"].wpmcerror{
+  border-color: red;
+}
+#wpmchimpa .wpmcinfierr{
+  display: block;
+  height: 18px;
+  line-height: 18px;
+  margin-top: -18px;
+  font-size: 11px;
+  color: red;
+  <?php
+    if(isset($theme["lite_status_f"])){
+      echo 'font-family:'.str_replace("|ng","",$theme["lite_status_f"]).';';
+    }
+    if(isset($theme["lite_status_fw"])){
+        echo 'font-weight:'.$theme["lite_status_fw"].';';
+    }
+    if(isset($theme["lite_status_fst"])){
+        echo 'font-style:'.$theme["lite_status_fst"].';';
+    }
+    if(isset($theme["lite_status_fc"])){
+        echo 'color:'.$theme["lite_status_fc"].';';
+    }
+  ?>
+}
 #wpmchimpa .wpmchimpa-groups{
   display: block;
 }
@@ -237,7 +259,7 @@ content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWA
 line-height: 56px;
     text-align: center;
     cursor: pointer;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
      <?php
         if(isset($theme["lite_button_f"])){
           echo 'font-family:'.str_replace("|ng","",$theme["lite_button_f"]).';';
@@ -510,7 +532,10 @@ font-size: 14px;
 #wpmchimpa-main.lsoconly .wpmchimpa-social .wpmchimpa-soc.wpmchimpa-ms::after {
     content:"Outlook";
 }
-
+#wpmchimpa-main .wpmchimpa-signalc{
+  height: 40px;
+  width: 40px;
+}
 #wpmchimpa-main .wpmchimpa-signal {
   -webkit-animation: animate 1.5s linear infinite;
   -moz-animation: animate 1.5s linear infinite;
@@ -522,7 +547,6 @@ font-size: 14px;
   width: 40px;
   position: absolute;
  display: none;
-bottom: 5px;
 left: calc(80px + 50%);
 }
 @-webkit-keyframes animate {
@@ -655,12 +679,14 @@ top: -30px;
 text-align: center;
 position: relative;
 font-size: 18px;
+height: 18px;
 <?php
 if(isset($theme["lite_status_f"])){
   echo 'font-family:'.str_replace("|ng","",$theme["lite_status_f"]).';';
 }
 if(isset($theme["lite_status_fs"])){
     echo 'font-size:'.$theme["lite_status_fs"].'px;';
+    echo 'height:'.$theme["lite_status_fs"].'px;';
 }
 if(isset($theme["lite_status_fw"])){
     echo 'font-weight:'.$theme["lite_status_fw"].';';
@@ -680,7 +706,7 @@ top: 20px;
 #wpmchimpa-main .wpmchimpa-tag{
 color:#000;
 font-size: 10px;
-top: -45px;
+top: -15px;
 text-align: center;
 position: relative;
 <?php
@@ -858,7 +884,7 @@ and (orientation : portrait) {
   transform:scale(0.5) translate(-50%, -50%);
   width: 480px;
 }
-#wpmchimpa input[type="text"], #wpmchimpa input[type="email"]{
+#wpmchimpa input[type="text"]{
   height: 54px;
 }
 #wpmchimpa h3{
@@ -879,7 +905,8 @@ and (orientation : landscape) {
 </style>
 
 <div class="wpmchimpa-reset wpmchimpa-overlay-bg wpmchimpselector">
-	<div id="wpmchimpa-main" class="
+	<div class="wpmchimpa-mainc">
+  <div id="wpmchimpa-main" class="
 	<?php if(isset($theme['lite_dislogo']) && isset($theme['lite_dissoc']))echo 'woleft';
 	else if(isset($theme['lite_dislogo'])) echo 'lsoconly';
 	else if(isset($theme['lite_dissoc'])) echo 'limgonly';	?>">
@@ -895,13 +922,10 @@ and (orientation : landscape) {
 			<div class="wpmchimpa" id="wpmchimpa">
     			<?php if(isset($theme['lite_heading'])) echo '<h3>'.$theme['lite_heading'].'</h3>';?>
 			    <?php if(isset($theme['lite_msg'])) echo '<p>'.$theme['lite_msg'].'</p>';?>
-    			<form action="" method="post">
-              <?php if(isset($wpmchimpa['namebox'])){
-                  if(isset($wpmchimpa['labelnb'])) $nl = $wpmchimpa['labelnb'];
-                  else $nl = 'Name';
-                      echo '<input type="text" name="name" class="wpmchimpa_name" placeholder="'.$nl.'" required/>'; 
-                } ?>
-        			<input type="email" name="email" class="wpmchimpa_email" placeholder="<?php if(isset($wpmchimpa['labeleb'])) echo $wpmchimpa['labeleb'];else echo 'Email address';?>" required/>
+    			<form action="" method="post"> 
+              <?php if(isset($wpmchimpa['namebox']))echo'<input type="text" name="name" wpmcfield="name" wpmcreq="false" placeholder="'.(isset($wpmchimpa['labelnb'])?$wpmchimpa['labelnb']:'Name').'"/>';?>
+        			<input type="text" name="email" wpmcfield="email" wpmcreq="true" placeholder="<?php echo (isset($wpmchimpa['labeleb']))?$wpmchimpa['labeleb']:'Email address';?>" required/>
+              <div class="wpmcinfierr" wpmcerr="email"></div>
        				<input type="hidden" name="action" value="wpmchimpa_add_email_ajax"/>
         			<?php 
         			if(isset($wpmchimpa['list_record']['groups'])){
@@ -925,7 +949,7 @@ and (orientation : landscape) {
         			}
         			?>
                     <br>
-        			<div class="wpmchimpa-subs-button"></div>
+        			<div class="wpmchimpa-subs-button" wpmcpre="wpmcpre1" wpmcpost="wpmcpost1"></div>
               <?php if(isset($theme['lite_tag_en'])){
               if(isset($theme['lite_tag'])) $tagtxt= $theme['lite_tag'];
               else $tagtxt='Secure and Spam free...';
@@ -934,11 +958,12 @@ and (orientation : landscape) {
                 $ref= ' href="http://voltroid.com/chimpmate/"';
               echo '<div class="wpmchimpa-tag"><a'.$ref.'></a>'.$tagtxt.'</div>';
               }?>
-    				<div class="wpmchimpa-signal"></div>
+    				<div class="wpmchimpa-signalc"><div class="wpmchimpa-signal"></div></div>
         		</form>
-    			<div class="wpmchimpa-feedback"></div>
+    			<div class="wpmchimpa-feedback" wpmcerr="gen"></div>
 			</div>
 		</div>
         <div class="wpmchimpa-close-button"></div>
 	</div>
+  </div>
 </div>

@@ -76,6 +76,8 @@ class ChimpMate_WPMC_Assistant_Admin {
  		add_action('wp_ajax_wpmchimpa_sel_list', array( $this, 'wpmchimpa_sel_list' ) );
  		add_action('wp_ajax_wpmchimpa_prev_ajax', array( $this, 'wpmchimpa_prev' ) );
  		add_action('wp_ajax_wpmchimpa_themeswitch_ajax', array( $this, 'wpmchimpa_themeswitch' ) );
+ 		add_action('wp_ajax_wpmchimpa_admincss', array( $this, 'wpmchimpa_admincss' ) );
+ 		add_action('wp_ajax_wpmchimpa_adminjs', array( $this, 'wpmchimpa_adminjs' ) );
 	
  		add_filter( 'wp_default_editor', create_function('', 'return "tinymce";') );
 	}
@@ -296,7 +298,7 @@ class ChimpMate_WPMC_Assistant_Admin {
 		$screen = get_current_screen();
 		if ( $this->plugin_screen_hook_suffix == $screen->id ) {
 			wp_enqueue_style( 'wp-color-picker' );
-			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( 'assets/css/admin.php', __FILE__ ), array(), ChimpMate_WPMC_Assistant::VERSION );
+			wp_enqueue_style( $this->plugin_slug .'-admin-styles', admin_url('admin-ajax.php').'?action=wpmchimpa_admincss', array(), ChimpMate_WPMC_Assistant::VERSION );
 			wp_register_style('googleFonts', 'http://fonts.googleapis.com/css?family=Roboto:300');
             wp_enqueue_style( 'googleFonts');
         }
@@ -330,7 +332,7 @@ class ChimpMate_WPMC_Assistant_Admin {
 			$wpmchimpa['goog_fonts']=json_decode(file_get_contents(WPMCA_PLUGIN_URL.'src/google_fonts.json'),true);
 			$wpmchimpa['web_fonts']=ChimpMate_WPMC_Assistant::webfont();
 			wp_enqueue_script('jquery');
-			wp_enqueue_script( $this->plugin_slug . '-admin-script', plugins_url( 'assets/js/admin.php', __FILE__ ), array( 'jquery','wp-color-picker' ), ChimpMate_WPMC_Assistant::VERSION );
+			wp_enqueue_script( $this->plugin_slug . '-admin-script', admin_url('admin-ajax.php').'?action=wpmchimpa_adminjs', array( 'jquery','wp-color-picker' ), ChimpMate_WPMC_Assistant::VERSION );
 			wp_localize_script( $this->plugin_slug . '-admin-script',  'wpmchimpa_admin_script', array( 'ajaxurl' =>admin_url('admin-ajax.php')));
 			wp_localize_script( $this->plugin_slug . '-admin-script', 'wpmchimpa', $wpmchimpa );
 			wp_enqueue_script( $this->plugin_slug . '-admin-script1', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js', ChimpMate_WPMC_Assistant::VERSION );
@@ -340,6 +342,14 @@ class ChimpMate_WPMC_Assistant_Admin {
 		}
 
 	}
+public function wpmchimpa_admincss(){
+include_once( 'assets/css/admin.php' );
+die();
+}
+public function wpmchimpa_adminjs(){
+include_once( 'assets/js/admin.php' );
+die();
+}
 	/**
 	 * voltroid admin panel icon
 	 * @since    1.0.0

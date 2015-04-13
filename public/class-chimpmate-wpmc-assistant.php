@@ -23,7 +23,7 @@ class ChimpMate_WPMC_Assistant {
 	 *
 	 * @var      string
 	 */
-	const VERSION = '1.1.3';
+	const VERSION = '1.1.4';
 
 	/**
 	 * @since    1.0.0
@@ -66,6 +66,12 @@ class ChimpMate_WPMC_Assistant {
 
 		add_action('wp_ajax_wpmchimpa_setcookie_ajax',  array( $this, 'wpmchimpa_setcookie' ));
 		add_action('wp_ajax_nopriv_wpmchimpa_setcookie_ajax',  array( $this, 'wpmchimpa_setcookie' ));
+
+ 		add_action('wp_ajax_wpmchimpa_publiccss', array( $this, 'wpmchimpa_publiccss' ) );
+ 		add_action('wp_ajax_wpmchimpa_publicjs', array( $this, 'wpmchimpa_publicjs' ) );
+
+ 		add_action('wp_ajax_nopriv_wpmchimpa_publiccss', array( $this, 'wpmchimpa_publiccss' ) );
+ 		add_action('wp_ajax_nopriv_wpmchimpa_publicjs', array( $this, 'wpmchimpa_publicjs' ) );
 
 		add_filter('the_content', array( $this, 'addon_adder'));
 
@@ -279,7 +285,7 @@ class ChimpMate_WPMC_Assistant {
 	 */
 	public function enqueue_styles() {
 		wp_enqueue_style( $this->plugin_slug . '-plugin-styles1', plugins_url( 'assets/css/reset.css', __FILE__ ), array(), self::VERSION );
-		wp_enqueue_style( $this->plugin_slug . '-plugin-styles', plugins_url( 'assets/css/public.php', __FILE__ ), array(), self::VERSION );
+		wp_enqueue_style( $this->plugin_slug . '-plugin-styles', admin_url('admin-ajax.php').'?action=wpmchimpa_publiccss', array(), self::VERSION );
 	}
 
 	/**
@@ -314,11 +320,19 @@ class ChimpMate_WPMC_Assistant {
 		}
 		$opts['ajax_url'] = site_url( '/wp-admin/admin-ajax.php');
 		wp_enqueue_script('jquery');
-		wp_enqueue_script( $this->plugin_slug . '-plugin-script', plugins_url( 'assets/js/public.php', __FILE__ ), array( 'jquery' ), self::VERSION );
+		wp_enqueue_script( $this->plugin_slug . '-plugin-script', admin_url('admin-ajax.php').'?action=wpmchimpa_publicjs', array( 'jquery' ), self::VERSION );
 		wp_localize_script( $this->plugin_slug . '-plugin-script',  'ChimpMate_WPMC_Assistant_plugin_script'.'ajax', array( 'ajaxurl' =>admin_url('admin-ajax.php')));
 		wp_localize_script( $this->plugin_slug . '-plugin-script', 'wpmchimpa', $opts );
 		wp_enqueue_script($this->plugin_slug . '-web-fonts', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js', array(), self::VERSION, true);
 	}
+public function wpmchimpa_publiccss(){
+include_once( 'assets/css/public.php' );
+die();
+}
+public function wpmchimpa_publicjs(){
+include_once( 'assets/js/public.php' );
+die();
+}
 public function webfont(){
 return array("Georgia, serif","Palatino Linotype, Book Antiqua, Palatino, serif","Times New Roman, Times, serif","Arial, Helvetica, sans-serif","Arial Black, Gadget, sans-serif","Comic Sans MS, cursive, sans-serif","Impact, Charcoal, sans-serif","Lucida Sans Unicode, Lucida Grande, sans-serif","Open Sans, sans-serif","Tahoma, Geneva, sans-serif","Trebuchet MS, Helvetica, sans-serif","Verdana, Geneva, sans-serif","Courier New, Courier, monospace","Lucida Console, Monaco, monospace");
 }
@@ -550,21 +564,22 @@ function wpmchimpa_referral() {
 		}
 		$result = $MailChimp->call('lists/subscribe', $options);
 		if( $result['status'] === 'error' ) {
-		    if($result['code']=== 214){
-		    	if(isset($settings['erroras']))
-		    		$errmsg = $settings['erroras'];
-		    	else $errmsg = $_POST['email'] . " is already subscribed to Newsletters.";
+			echo $result['code'];
+		    // if($result['code']=== 214){
+		    // 	if(isset($settings['erroras']))
+		    // 		$errmsg = $settings['erroras'];
+		    // 	else $errmsg = $_POST['email'] . " is already subscribed to Newsletters.";
 		    	
-		    }
-		    else{
-		    	if(isset($settings['errorue']))
-		    		$errmsg = $settings['errorue'];
-		    	else $errmsg = "An unknown error occurred processing your request.  Please try again later.";	    	
-		    }
-		    echo $errmsg.$result['code'];
+		    // }
+		    // else{
+		    // 	if(isset($settings['errorue']))
+		    // 		$errmsg = $settings['errorue'];
+		    // 	else $errmsg = "An unknown error occurred processing your request.  Please try again later.";	    	
+		    // }
+		    // echo $errmsg.$result['code'];
 		}
 		else{
-			echo '1';
+			echo 1;
 		}
 	    die();
 	}
@@ -670,6 +685,122 @@ function addon_scode($atts, $content = null) {
 		}
 		$str.='</svg>';
 		return "url('data:image/svg+xml;base64,".base64_encode($str)."')";
+	}
+	public function extrascript($t) {
+		if(!isset($this->exscr[$t])){
+			$this->exscr[$t] = 1;
+			switch ($t) {
+				case 0:?>
+<script type="text/javascript">
+jQuery(function ($) {
+  wpmcpre0 = function (f){
+  	console.log(f);
+  	$(f).find('[wpmcerr="gen"]').html('');
+  	$(f).find('input[type="text"]').each(function(){
+  		$(f).find('[wpmcerr="gen"]').html('');
+  		err = wpmcvalid($(this).attr('wpmcfield'),$(this).attr('wpmcreq'),this.value);
+  		if(err){
+  			$(this).addClass('wpmcerror');
+  			if($(this).attr('wpmcerrs') == 'true'){
+  				$(this).addClass('wpmcerrora');
+  				$this = $(this);
+			  	setTimeout(function() {
+			  		$this.removeClass('wpmcerrora');
+			  	}, 500);
+  			}
+  			$(f).find('[wpmcerr="'+$(this).attr('wpmcfield')+'"]').html(err);
+  		}
+  		else{
+  			$(this).removeClass('wpmcerror');
+  			$(f).find('[wpmcerr="'+$(this).attr('wpmcfield')+'"]').html('');
+  		}
+  	});
+  	if($(f).find('.wpmcerror').length){
+	  	$('.wpmchimpa-mainc').addClass('wpmcerrora');
+	  	setTimeout(function() {
+	  		$('.wpmchimpa-mainc').removeClass('wpmcerrora');
+	  	}, 500);
+	  	return false;
+  	}
+  	$(f).find('.wpmchimpa-signal').fadeIn();
+  	return true;
+  }
+  wpmcpost0 =  function (f,d){
+  	$(f).find('.wpmchimpa-signal').hide();
+  	if(d == '1'){
+  		if(wpmcsucurl()){$('.wpmchimpa-overlay-bg').hide();return false;}
+  		if(wpmchimpa.suc_sub == 'suc_msg' && wpmcisset(wpmchimpa.suc_msg)){
+  			$(f).find('form').fadeOut(function () {
+  				$(f).find('[wpmcerr="gen"]').addClass('wpmchimpa-done').html(wpmchimpa.suc_msg);
+  			});
+			return false;
+		}
+  	}
+  	if(d == 214)$(f).find('[wpmcerr="gen"]').html(errmsg[2]);
+  	else $(f).find('[wpmcerr="gen"]').html(errmsg[3]);
+  }
+});
+</script>
+<?php
+break;
+				case 1:
+?>
+<script type="text/javascript">
+jQuery(function ($) {
+  wpmcpre1 = function (f){
+  	console.log(f);
+  	$(f).find('[wpmcerr="gen"]').html('');
+  	$(f).find('input[type="text"]').each(function(){
+  		$(f).find('[wpmcerr="gen"]').html('');
+  		err = wpmcvalid($(this).attr('wpmcfield'),$(this).attr('wpmcreq'),this.value);
+  		if(err){
+  			$(this).addClass('wpmcerror');
+  			if($(this).attr('wpmcerrs') == 'true'){
+  				$(this).addClass('wpmcerrora');
+  				$this = $(this);
+			  	setTimeout(function() {
+			  		$this.removeClass('wpmcerrora');
+			  	}, 500);
+  			}
+  			$(f).find('[wpmcerr="'+$(this).attr('wpmcfield')+'"]').html(err);
+  		}
+  		else{
+  			$(this).removeClass('wpmcerror');
+  			$(f).find('[wpmcerr="'+$(this).attr('wpmcfield')+'"]').html('');
+  		}
+  	});
+  	if($(f).find('.wpmcerror').length){
+	  	$('.wpmchimpa-mainc').addClass('wpmcerrora');
+	  	setTimeout(function() {
+	  		$('.wpmchimpa-mainc').removeClass('wpmcerrora');
+	  	}, 500);
+	  	return false;
+  	}
+  	$(f).find('.wpmchimpa-signal').fadeIn();
+  	return true;
+  }
+  wpmcpost1 =  function (f,d){
+  	$(f).find('.wpmchimpa-signal').fadeOut();
+  	if(d == '1'){
+  		if(wpmcsucurl()){$('.wpmchimpa-overlay-bg').hide();return false;}
+  		if(wpmchimpa.suc_sub == 'suc_msg' && wpmcisset(wpmchimpa.suc_msg)){
+  			$(f).find('form').fadeOut(function () {
+  				$(f).find('[wpmcerr="gen"]').addClass('wpmchimpa-done').html(wpmchimpa.suc_msg);
+  			});
+			return false;
+		}
+  	}
+  	if(d == 214)$(f).find('[wpmcerr="gen"]').html(errmsg[2]);
+  	else $(f).find('[wpmcerr="gen"]').html(errmsg[3]);
+  }
+});
+</script>
+<?php
+					break;
+				default:
+					break;
+			}
+		}
 	}
 }
 

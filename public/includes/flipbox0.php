@@ -1,5 +1,6 @@
 <?php 
 $theme = $wpmchimpa['theme']['a0'];
+$this->extrascript(0);
 ?>
 <style type="text/css">
 .wpmchimpaf{
@@ -116,6 +117,31 @@ cursor: pointer;
     ?>
 }
 
+.wpmchimpaf input[type="text"].wpmcerror{
+  border-color: red;
+}
+.wpmchimpaf .wpmcinfierr{
+  display: block;
+  height: 16px;
+  line-height: 14px;
+  margin-top: -12px;
+  font-size: 10px;
+  color: red;
+  <?php
+    if(isset($theme["addon_status_f"])){
+      echo 'font-family:'.str_replace("|ng","",$theme["addon_status_f"]).';';
+    }
+    if(isset($theme["addon_status_fw"])){
+        echo 'font-weight:'.$theme["addon_status_fw"].';';
+    }
+    if(isset($theme["addon_status_fst"])){
+        echo 'font-style:'.$theme["addon_status_fst"].';';
+    }
+    if(isset($theme["addon_status_fc"])){
+        echo 'color:'.$theme["addon_status_fc"].';';
+    }
+  ?>
+}
 .wpmchimpaf input[type="email"]:focus,.wpmchimpaf input[type="text"]:focus {
     border:2px solid #ddd;
     <?php 
@@ -215,10 +241,10 @@ cursor: pointer;
 
 .wpmchimpaf .wpmchimpa-feedback{
   clear:both;
-  top: 15px;
 position: relative;
 color: #fff;
-margin: -14px;
+height: 14px;
+  margin-top: -26px;
   <?php
         if(isset($theme["addon_status_f"])){
           echo 'font-family:'.str_replace("|ng","",$theme["addon_status_f"]).';';
@@ -239,7 +265,7 @@ margin: -14px;
 }
 
 .wpmchimpaf .wpmchimpa-groups{
-  display: block;
+  display: inline-block;
 }
 .wpmchimpaf .wpmchimpa-item{
   float:left;
@@ -383,6 +409,10 @@ transition: all 0.5s ease;
 .wpmchimpaf .wpmchimpaf-close-button:hover::before {
       background-color: #7e7e7e;
     }
+.wpmchimpaf .wpmchimpa-signalc{
+  height: 40px;
+  margin-top: 5px;
+} 
 .wpmchimpaf .wpmchimpa-signal {
 display: none;
 border:3px solid #fff;
@@ -392,7 +422,7 @@ border:3px solid #fff;
 -o-border-radius:30px;
 border-radius:30px;
 height:20px;
-margin: 25px auto -33px;
+margin: 0 auto;
 opacity:0;
 width:20px;
 top:12px;
@@ -481,7 +511,7 @@ opacity:0;
 }
 </style>
 <div class="wpmchimpaf-tray">
-<div class="wpmchimpa-reset wpmchimpaf wpmchimpaf-close">
+<div class="wpmchimpa-reset wpmchimpaf wpmchimpaf-close wpmchimpselector">
   <div class="wpmchimpaf-head">
     <?php echo isset($theme['addon_heading'])?'<h3>'.$theme['addon_heading'].'</h3>' : '<h3>Subscribe Now</h3>';?>
     <div class="wpmchimpaf-close-button"></div>
@@ -489,14 +519,10 @@ opacity:0;
   <div class="wpmchimpaf-cont">
   <p><?php if(isset($theme['addon_msg'])) echo $theme['addon_msg'];?></p>
   <form action="" method="post">
-  <?php if(isset($wpmchimpa['namebox'])){
-    if(isset($wpmchimpa['labelnb'])) $nl = $wpmchimpa['labelnb'];
-     else $nl = 'Name';
-    echo '<input type="text" name="name" class="wpmchimpa_name" placeholder="'.$nl.'" required/>'; 
-  }
-  else if(isset($theme['addon_heading'])) echo '<h3>'.$theme['addon_heading'].'</h3>'; ?>
-		<input type="email" name="email" class="wpmchimpa_email" placeholder="<?php if(isset($wpmchimpa['labeleb'])) echo $wpmchimpa['labeleb'];else echo 'Email address';?>" required/>
-		<div class="wpmchimpa-subs-button"></div>
+      <?php if(isset($wpmchimpa['namebox']))echo'<input type="text" name="name" wpmcfield="name" wpmcreq="false" placeholder="'.(isset($wpmchimpa['labelnb'])?$wpmchimpa['labelnb']:'Name').'"/>';?>
+      <input type="text" name="email" wpmcfield="email" wpmcreq="true" wpmcerrs="true" placeholder="<?php echo (isset($wpmchimpa['labeleb']))?$wpmchimpa['labeleb']:'Email address';?>" required/>
+      <div class="wpmcinfierr" wpmcerr="email"></div>
+  <div class="wpmchimpa-subs-button" wpmcpre="wpmcpre0" wpmcpost="wpmcpost0"></div>
     <?php 
     if(isset($wpmchimpa['list_record']['groups'])){
       $group_record = array();
@@ -518,10 +544,10 @@ opacity:0;
         echo '</div>';
     }
     ?>
-   <div class="wpmchimpa-signal"></div>
+   <div class="wpmchimpa-signalc"><div class="wpmchimpa-signal"></div></div>
 		<input type="hidden" name="action" value="wpmchimpa_add_email_ajax"/>
 	</form>
-	<div class="wpmchimpa-feedback"></div>
+	<div class="wpmchimpa-feedback" wpmcerr="gen"></div>
   </div>
 </div>
 </div>

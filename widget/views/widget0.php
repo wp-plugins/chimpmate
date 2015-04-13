@@ -1,5 +1,7 @@
 <?php
 $theme = $wpmchimpa['theme']['w0'];
+$plugin = ChimpMate_WPMC_Assistant::get_instance();
+$plugin->extrascript(0);
 $wpmcw_id = "wpmchimpaw-".rand(1,1000);
 echo '<div class="widget-text wp_widget_plugin_box">';
 if(isset($theme['widget_heading']))
@@ -29,7 +31,7 @@ line-height: 20px;
     ?>
 }
 #<?php echo $wpmcw_id; ?> .wpmchimpa-groups{
-  display: block;
+  display: inline-block;
 }
 #<?php echo $wpmcw_id; ?> .wpmchimpa-item{
   float:left;
@@ -113,7 +115,7 @@ content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWA
  opacity: 0.5;
 }
 #<?php echo $wpmcw_id; ?> form{overflow: hidden}
-#<?php echo $wpmcw_id; ?> input[type="email"], #<?php echo $wpmcw_id; ?> input[type="text"] {
+#<?php echo $wpmcw_id; ?> input[type="text"] {
   text-align: center;
   outline:0;
   border-radius: 1px;
@@ -159,6 +161,31 @@ content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWA
     ?>
 }
 
+#<?php echo $wpmcw_id;?> input[type="text"].wpmcerror{
+  border-color: red;
+}
+#<?php echo $wpmcw_id;?> .wpmcinfierr{
+  display: block;
+  height: 10px;
+  line-height: 10px;
+  margin-top: -10px;
+  font-size: 10px;
+  color: red;
+  <?php
+    if(isset($theme["widget_status_f"])){
+      echo 'font-family:'.str_replace("|ng","",$theme["widget_status_f"]).';';
+    }
+    if(isset($theme["widget_status_fw"])){
+        echo 'font-weight:'.$theme["widget_status_fw"].';';
+    }
+    if(isset($theme["widget_status_fst"])){
+        echo 'font-style:'.$theme["widget_status_fst"].';';
+    }
+    if(isset($theme["widget_status_fc"])){
+        echo 'color:'.$theme["widget_status_fc"].';';
+    }
+  ?>
+}
 #<?php echo $wpmcw_id; ?> .wpmchimpa-subs-button{
   margin: 12px 0;
   width: 100%;
@@ -263,6 +290,8 @@ content: '<?php if(isset($theme['widget_button'])) echo $theme['widget_button'];
       ?>
 }
 #<?php echo $wpmcw_id; ?> .wpmchimpa-feedback {
+  height: 14px;
+  margin-top: -20px;
 <?php
         if(isset($theme["widget_status_f"])){
           echo 'font-family:'.str_replace("|ng","",$theme["widget_status_f"]).';';
@@ -283,6 +312,13 @@ content: '<?php if(isset($theme['widget_button'])) echo $theme['widget_button'];
 
 
 }
+#<?php echo $wpmcw_id; ?> .wpmchimpa-feedback.wpmchimpa-done{
+margin-top: 14px;
+}
+#<?php echo $wpmcw_id; ?> .wpmchimpa-signalc {
+height: 40px;
+margin-top: 10px;
+}
 #<?php echo $wpmcw_id; ?> .wpmchimpa-signal {
     display: none;
     border: 3px solid #000;
@@ -293,7 +329,7 @@ content: '<?php if(isset($theme['widget_button'])) echo $theme['widget_button'];
     -o-border-radius: 30px;
     height: 30px;
     opacity: 0;
-    margin:10px auto;
+    margin:0 auto;
     position: relative;
     width: 30px;
     vertical-align: middle;
@@ -375,16 +411,13 @@ content: '<?php if(isset($theme['widget_button'])) echo $theme['widget_button'];
     }
 }
  </style>
-<div class="wpmchimpa-reset" id="<?php echo $wpmcw_id; ?>">
+<div class="wpmchimpa-reset wpmchimpselector" id="<?php echo $wpmcw_id; ?>">
 	<p><?php if(isset($theme['widget_msg'])) echo $theme['widget_msg'];?></p>
 	<form action="" method="post">
-  <?php if(isset($wpmchimpa['namebox'])){
-     if(isset($wpmchimpa['labelnb'])) $nl = $wpmchimpa['labelnb'];
-     else $nl = 'Name';
-     echo '<input type="text" name="name" class="wpmchimpa_name" placeholder="'.$nl.'" required/>'; 
-    } ?>
-		<input type="email" name="email" class="wpmchimpa_email" placeholder="<?php if(isset($wpmchimpa['labeleb'])) echo $wpmchimpa['labeleb'];else echo 'Email address';?>" required/>
-		<div class="wpmchimpa-subs-button"></div>
+      <?php if(isset($wpmchimpa['namebox']))echo'<input type="text" name="name" wpmcfield="name" wpmcreq="false" placeholder="'.(isset($wpmchimpa['labelnb'])?$wpmchimpa['labelnb']:'Name').'"/>';?>
+      <input type="text" name="email" wpmcfield="email" wpmcreq="true" wpmcerrs="true" placeholder="<?php echo (isset($wpmchimpa['labeleb']))?$wpmchimpa['labeleb']:'Email address';?>" required/>
+      <div class="wpmcinfierr" wpmcerr="email"></div>
+      <div class="wpmchimpa-subs-button" wpmcpre="wpmcpre0" wpmcpost="wpmcpost0"></div>
     <input type="hidden" name="action" value="wpmchimpa_add_email_ajax"/>
 		<?php 
 		if(isset($wpmchimpa['list_record']['groups'])){
@@ -407,7 +440,7 @@ content: '<?php if(isset($theme['widget_button'])) echo $theme['widget_button'];
     		echo '</div>';
 		}
 		?>
-	<div class="wpmchimpa-signal"></div>
+	<div class="wpmchimpa-signalc"><div class="wpmchimpa-signal"></div></div>
 	</form>
-	<div class="wpmchimpa-feedback"></div>
+	<div class="wpmchimpa-feedback" wpmcerr="gen"></div>
 </div> </div>
