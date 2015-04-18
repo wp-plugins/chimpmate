@@ -23,7 +23,7 @@ class ChimpMate_WPMC_Assistant {
 	 *
 	 * @var      string
 	 */
-	const VERSION = '1.1.4';
+	const VERSION = '1.1.5';
 
 	/**
 	 * @since    1.0.0
@@ -66,12 +66,6 @@ class ChimpMate_WPMC_Assistant {
 
 		add_action('wp_ajax_wpmchimpa_setcookie_ajax',  array( $this, 'wpmchimpa_setcookie' ));
 		add_action('wp_ajax_nopriv_wpmchimpa_setcookie_ajax',  array( $this, 'wpmchimpa_setcookie' ));
-
- 		add_action('wp_ajax_wpmchimpa_publiccss', array( $this, 'wpmchimpa_publiccss' ) );
- 		add_action('wp_ajax_wpmchimpa_publicjs', array( $this, 'wpmchimpa_publicjs' ) );
-
- 		add_action('wp_ajax_nopriv_wpmchimpa_publiccss', array( $this, 'wpmchimpa_publiccss' ) );
- 		add_action('wp_ajax_nopriv_wpmchimpa_publicjs', array( $this, 'wpmchimpa_publicjs' ) );
 
 		add_filter('the_content', array( $this, 'addon_adder'));
 
@@ -285,20 +279,7 @@ class ChimpMate_WPMC_Assistant {
 	 */
 	public function enqueue_styles() {
 		wp_enqueue_style( $this->plugin_slug . '-plugin-styles1', plugins_url( 'assets/css/reset.css', __FILE__ ), array(), self::VERSION );
-		wp_enqueue_style( $this->plugin_slug . '-plugin-styles', admin_url('admin-ajax.php').'?action=wpmchimpa_publiccss', array(), self::VERSION );
-	}
-
-	/**
-	 * Register and enqueues public-facing JavaScript files.
-	 *
-	 * @since    1.0.4
-	 */
-	public function enqueue_scripts() {
-		
 		$goo_fonts =array();
-		$opts = $this->wpmchimpa;
-		unset($opts['theme']);
-
 		$fonts = array("lite_heading_f", "lite_msg_f", "lite_tbox_f", "lite_button_f", "lite_status_f", "lite_tag_f", "lite_soc_f", "slider_heading_f", "slider_msg_f", "slider_tbox_f", "slider_button_f", "slider_status_f", "slider_tag_f", "slider_soc_f", "widget_msg_f", "widget_tbox_f", "widget_button_f", "widget_status_f", "widget_soc_f", "addon_heading_f", "addon_msg_f", "addon_tbox_f", "addon_button_f", "addon_status_f", "addon_soc_f");
 
 		foreach ($fonts as $font) {
@@ -315,24 +296,29 @@ class ChimpMate_WPMC_Assistant {
 			if (isset($this->wpmchimpa['theme'][$font[0].$t][$font]) && !in_array($this->wpmchimpa['theme'][$font[0].$t][$font], $this->webfont()))array_push($goo_fonts, $this->wpmchimpa['theme'][$font[0].$t][$font]);
 		}
 		if(!empty($goo_fonts)){
-				$goo = json_encode($goo_fonts);
-				$opts['goo'] = $goo;
+			$goo = implode('|', array_values(array_unique($goo_fonts)));
+			wp_register_style($this->plugin_slug . '-googleFonts', 'http://fonts.googleapis.com/css?family='.$goo, array(), self::VERSION);
+            wp_enqueue_style( $this->plugin_slug . '-googleFonts');
 		}
-		$opts['ajax_url'] = site_url( '/wp-admin/admin-ajax.php');
-		wp_enqueue_script('jquery');
-		wp_enqueue_script( $this->plugin_slug . '-plugin-script', admin_url('admin-ajax.php').'?action=wpmchimpa_publicjs', array( 'jquery' ), self::VERSION );
-		wp_localize_script( $this->plugin_slug . '-plugin-script',  'ChimpMate_WPMC_Assistant_plugin_script'.'ajax', array( 'ajaxurl' =>admin_url('admin-ajax.php')));
-		wp_localize_script( $this->plugin_slug . '-plugin-script', 'wpmchimpa', $opts );
-		wp_enqueue_script($this->plugin_slug . '-web-fonts', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js', array(), self::VERSION, true);
+		wp_enqueue_style( $this->plugin_slug . '-plugin-styles', WPMCA_PLUGIN_URL. 'public/assets/css/public.css' , array(), self::VERSION );
 	}
-public function wpmchimpa_publiccss(){
-include_once( 'assets/css/public.php' );
-die();
-}
-public function wpmchimpa_publicjs(){
-include_once( 'assets/js/public.php' );
-die();
-}
+
+	/**
+	 * Register and enqueues public-facing JavaScript files.
+	 *
+	 * @since    1.0.4
+	 */
+	public function enqueue_scripts() {
+		
+		
+		$opts = $this->wpmchimpa;
+		unset($opts['theme'],$opts['api_key']);
+		$opts['ajax_url'] = admin_url('admin-ajax.php');
+		wp_enqueue_script('jquery');
+		wp_enqueue_script( $this->plugin_slug . '-plugin-script', WPMCA_PLUGIN_URL. 'public/assets/js/public.js', array( 'jquery' ), self::VERSION );
+		wp_localize_script( $this->plugin_slug . '-plugin-script', 'wpmchimpa', $opts );
+	}
+
 public function webfont(){
 return array("Georgia, serif","Palatino Linotype, Book Antiqua, Palatino, serif","Times New Roman, Times, serif","Arial, Helvetica, sans-serif","Arial Black, Gadget, sans-serif","Comic Sans MS, cursive, sans-serif","Impact, Charcoal, sans-serif","Lucida Sans Unicode, Lucida Grande, sans-serif","Open Sans, sans-serif","Tahoma, Geneva, sans-serif","Trebuchet MS, Helvetica, sans-serif","Verdana, Geneva, sans-serif","Courier New, Courier, monospace","Lucida Console, Monaco, monospace");
 }

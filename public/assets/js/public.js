@@ -1,4 +1,3 @@
-<?php header('Content-Type: application/javascript');?>
 ;(function( $ ){
   var csldMoving = false,
     csldOpened = false;
@@ -178,14 +177,6 @@ $.fn.csld = function(options) {
 };
 	
 	$(function () {
-
-if (wpmcisset(wpmchimpa.goo)) {		
-WebFont.load({
-    google: {
-      families: JSON.parse(wpmchimpa.goo)
-    }
-  });
-}
 
 if(wpmcisset(wpmchimpa.addon)){
 	if(wpmcisset(wpmchimpa.addon_desktop)) var desk = true;

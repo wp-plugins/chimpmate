@@ -1,5 +1,4 @@
-<?php header('Content-Type: text/css');
-?>
+
 .wpmcerrora{
   -webkit-animation: wpmcshake .5s linear;
   animation: wpmcshake .5s linear;
