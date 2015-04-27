@@ -78,6 +78,18 @@ $this->extrascript(0);
   margin-right: 10px;
   color: #686868;
   <?php
+        if(isset($theme["addon_check_f"])){
+          echo 'font-family:'.str_replace("|ng","",$theme["addon_check_f"]).';';
+        }
+        if(isset($theme["addon_check_fs"])){
+            echo 'font-size:'.$theme["addon_check_fs"].'px;';
+        }
+        if(isset($theme["addon_check_fw"])){
+            echo 'font-weight:'.$theme["addon_check_fw"].';';
+        }
+        if(isset($theme["addon_check_fst"])){
+            echo 'font-style:'.$theme["addon_check_fst"].';';
+        }
         if(isset($theme["addon_check_fc"])){
             echo 'color:'.$theme["addon_check_fc"].';';
         }
@@ -208,9 +220,6 @@ content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWA
     }
     if(isset($theme["addon_status_fst"])){
         echo 'font-style:'.$theme["addon_status_fst"].';';
-    }
-    if(isset($theme["addon_status_fc"])){
-        echo 'color:'.$theme["addon_status_fc"].';';
     }
   ?>
 }

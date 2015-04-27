@@ -38,7 +38,7 @@ text-align: center;
 }
 #<?php echo $wpmcw_id;?> input[type="text"]{
     margin-bottom: 10px;
-    width: 90%;
+    width: 100%;
     height: 45px;
     background: #f8fafa;
     padding: 0 20px;
@@ -102,9 +102,6 @@ text-align: center;
     if(isset($theme["widget_status_fst"])){
         echo 'font-style:'.$theme["widget_status_fst"].';';
     }
-    if(isset($theme["widget_status_fc"])){
-        echo 'color:'.$theme["widget_status_fc"].';';
-    }
   ?>
 }
 #<?php echo $wpmcw_id;?> .wpmchimpa-groups{
@@ -132,6 +129,18 @@ text-align: center;
   line-height: 25px;
   min-width: 100px;
   <?php
+        if(isset($theme["widget_check_f"])){
+          echo 'font-family:'.str_replace("|ng","",$theme["widget_check_f"]).';';
+        }
+        if(isset($theme["widget_check_fs"])){
+            echo 'font-size:'.$theme["widget_check_fs"].'px;';
+        }
+        if(isset($theme["widget_check_fw"])){
+            echo 'font-weight:'.$theme["widget_check_fw"].';';
+        }
+        if(isset($theme["widget_check_fst"])){
+            echo 'font-style:'.$theme["widget_check_fst"].';';
+        }
         if(isset($theme["widget_check_fc"])){
             echo 'color:'.$theme["widget_check_fc"].';';
         }
@@ -205,7 +214,7 @@ content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWA
     -webkit-border-radius: 3px;
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
-    width: 90%;
+    width: 100%;
 	padding: 0 22px;
     color: #fff;
     font-size: 22px;

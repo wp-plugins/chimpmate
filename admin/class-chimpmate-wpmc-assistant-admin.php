@@ -191,7 +191,7 @@ class ChimpMate_WPMC_Assistant_Admin {
 	public function wpmchimpa_load_list(){
 		$_POST = stripslashes_deep( $_POST );
 		$api = $_POST['api_key'];
-		$MailChimp = new \WPMChimpA\MailChimp($api);
+		$MailChimp = new ChimpMate_WPMC_MailChimp($api);
 		$result=$MailChimp->call('lists/list');
 	    if($result['total'] == 0){
 	   		$lists =array("stat" => "0");
@@ -253,7 +253,7 @@ class ChimpMate_WPMC_Assistant_Admin {
 		$_POST = stripslashes_deep( $_POST );
 		$api = $_POST['api_key'];
 		$list= $_POST['sel_list'];
-		$MailChimp = new \WPMChimpA\MailChimp($api);
+		$MailChimp = new ChimpMate_WPMC_MailChimp($api);
 		$groups = json_decode($this->retrieve_groups($list,$MailChimp));
 		$result=$MailChimp->call('lists/list',
 			array("filters" => array("list_id" => $list)));

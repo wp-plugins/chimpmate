@@ -272,7 +272,7 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
             <div class="wpmca_item">
                 <div class="itemhead">
                     <h2>Referrer</h2>
-                    <span class="wpmcahint headhint" data-hint="Analyze referrer link"></span>
+                    <span class="wpmcahint headhint" data-hint="Only a visitor from those selected website categories, can view the Lightbox/Slider"></span>
                 </div>
                  <div class="wpmca_group wpmcacb">
                     <label><input type="checkbox" name="searchengine" value="1" <?php if(isset($wpmchimpa["searchengine"])) echo "checked";?>>  
@@ -552,6 +552,36 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                 <div class="wpmca_group wpmcacolor">
                    <label>Border Color</label>
                    <input minicolors name="lite_check_borc" type="text" class="wpmchimp-color-sel" ng-model="data.ltopt.lite_check_borc"/>
+                </div>
+                <div class="wpmca_group">
+                  <select name="lite_check_f" class="wpmca_sel google_fonts" ng-model="data.ltopt.lite_check_f" ng-options="f for f in fonts track by f">
+                      <option value="">Font</option>
+                    </select>
+                    <select name="lite_check_fs" class="wpmca_sel google_fonts_size" ng-model="data.ltopt.lite_check_fs" ng-options="f for f in fontsiz track by f">
+                        <option value="">Size</option>
+                    </select>
+                    <select name="lite_check_fw" class="wpmca_sel google_fonts_weight" ng-model="data.ltopt.lite_check_fw">
+                      <option value="">Weight</option>
+                      <option value="normal">Normal</option>
+                      <option value="bold">Bold</option>
+                      <option value="lighter">Lighter</option>
+                      <option value="bolder">Bolder</option>
+                      <option value="100">100</option>
+                      <option value="200">200</option>
+                      <option value="300">300</option>
+                      <option value="400">400</option>
+                      <option value="500">500</option>
+                      <option value="600">600</option>
+                      <option value="700">700</option>
+                      <option value="800">800</option>
+                      <option value="900">900</option>
+                    </select>
+                    <select name="lite_check_fst" class="wpmca_sel google_fonts_style" ng-model="data.ltopt.lite_check_fst">
+                      <option value="">Style</option>
+                      <option value="normal">Normal</option>
+                      <option value="italic">Italic</option>
+                      <option value="oblique">oblique</option>
+                    </select>
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Font Color</label>
@@ -1140,6 +1170,36 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                    <label>Border Color</label>
                    <input minicolors name="slider_check_borc" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_check_borc"/>
                 </div>
+                <div class="wpmca_group">
+                  <select name="slider_check_f" class="wpmca_sel google_fonts" ng-model="data.ltopt.slider_check_f" ng-options="f for f in fonts track by f">
+                      <option value="">Font</option>
+                    </select>
+                    <select name="slider_check_fs" class="wpmca_sel google_fonts_size" ng-model="data.ltopt.slider_check_fs" ng-options="f for f in fontsiz track by f">
+                        <option value="">Size</option>
+                    </select>
+                    <select name="slider_check_fw" class="wpmca_sel google_fonts_weight" ng-model="data.ltopt.slider_check_fw">
+                      <option value="">Weight</option>
+                      <option value="normal">Normal</option>
+                      <option value="bold">Bold</option>
+                      <option value="lighter">Lighter</option>
+                      <option value="bolder">Bolder</option>
+                      <option value="100">100</option>
+                      <option value="200">200</option>
+                      <option value="300">300</option>
+                      <option value="400">400</option>
+                      <option value="500">500</option>
+                      <option value="600">600</option>
+                      <option value="700">700</option>
+                      <option value="800">800</option>
+                      <option value="900">900</option>
+                    </select>
+                    <select name="slider_check_fst" class="wpmca_sel google_fonts_style" ng-model="data.ltopt.slider_check_fst">
+                      <option value="">Style</option>
+                      <option value="normal">Normal</option>
+                      <option value="italic">Italic</option>
+                      <option value="oblique">oblique</option>
+                    </select>
+                </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Font Color</label>
                    <input minicolors name="slider_check_fc" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_check_fc"/>
@@ -1686,6 +1746,36 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                    <label>Border Color</label>
                    <input minicolors name="widget_check_borc" type="text" class="wpmchimp-color-sel" ng-model="data.wtopt.widget_check_borc"/>
                 </div>
+                <div class="wpmca_group">
+                  <select name="widget_check_f" class="wpmca_sel google_fonts" ng-model="data.ltopt.widget_check_f" ng-options="f for f in fonts track by f">
+                      <option value="">Font</option>
+                    </select>
+                    <select name="widget_check_fs" class="wpmca_sel google_fonts_size" ng-model="data.ltopt.widget_check_fs" ng-options="f for f in fontsiz track by f">
+                        <option value="">Size</option>
+                    </select>
+                    <select name="widget_check_fw" class="wpmca_sel google_fonts_weight" ng-model="data.ltopt.widget_check_fw">
+                      <option value="">Weight</option>
+                      <option value="normal">Normal</option>
+                      <option value="bold">Bold</option>
+                      <option value="lighter">Lighter</option>
+                      <option value="bolder">Bolder</option>
+                      <option value="100">100</option>
+                      <option value="200">200</option>
+                      <option value="300">300</option>
+                      <option value="400">400</option>
+                      <option value="500">500</option>
+                      <option value="600">600</option>
+                      <option value="700">700</option>
+                      <option value="800">800</option>
+                      <option value="900">900</option>
+                    </select>
+                    <select name="widget_check_fst" class="wpmca_sel google_fonts_style" ng-model="data.ltopt.widget_check_fst">
+                      <option value="">Style</option>
+                      <option value="normal">Normal</option>
+                      <option value="italic">Italic</option>
+                      <option value="oblique">oblique</option>
+                    </select>
+                </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Font Color</label>
                    <input minicolors name="widget_check_fc" type="text" class="wpmchimp-color-sel" ng-model="data.wtopt.widget_check_fc"/>
@@ -2102,6 +2192,36 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                 <div class="wpmca_group wpmcacolor">
                    <label>Border Color</label>
                    <input minicolors name="addon_check_borc" type="text" class="wpmchimp-color-sel" ng-model="data.atopt.addon_check_borc"/>
+                </div>
+                <div class="wpmca_group">
+                  <select name="addon_check_f" class="wpmca_sel google_fonts" ng-model="data.ltopt.addon_check_f" ng-options="f for f in fonts track by f">
+                      <option value="">Font</option>
+                    </select>
+                    <select name="addon_check_fs" class="wpmca_sel google_fonts_size" ng-model="data.ltopt.addon_check_fs" ng-options="f for f in fontsiz track by f">
+                        <option value="">Size</option>
+                    </select>
+                    <select name="addon_check_fw" class="wpmca_sel google_fonts_weight" ng-model="data.ltopt.addon_check_fw">
+                      <option value="">Weight</option>
+                      <option value="normal">Normal</option>
+                      <option value="bold">Bold</option>
+                      <option value="lighter">Lighter</option>
+                      <option value="bolder">Bolder</option>
+                      <option value="100">100</option>
+                      <option value="200">200</option>
+                      <option value="300">300</option>
+                      <option value="400">400</option>
+                      <option value="500">500</option>
+                      <option value="600">600</option>
+                      <option value="700">700</option>
+                      <option value="800">800</option>
+                      <option value="900">900</option>
+                    </select>
+                    <select name="addon_check_fst" class="wpmca_sel google_fonts_style" ng-model="data.ltopt.addon_check_fst">
+                      <option value="">Style</option>
+                      <option value="normal">Normal</option>
+                      <option value="italic">Italic</option>
+                      <option value="oblique">oblique</option>
+                    </select>
                 </div>
                 <div class="wpmca_group wpmcacolor">
                    <label>Font Color</label>

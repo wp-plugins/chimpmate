@@ -108,6 +108,10 @@ transition: all 0.3s ease-in-out;
 }
 #wpmchimpas .slider_check .ctext{
 color: {{data.stopt.slider_check_fc}};
+font-size: {{data.stopt.slider_check_fs}}px;
+font-weight: {{data.stopt.slider_check_fw}};
+font-family: {{data.stopt.slider_check_f | livepf}};
+font-style: {{data.stopt.slider_check_fst}};
 }
 #wpmchimpas .slider_check .cbox.checked{
 background-color: {{data.stopt.slider_check_c}};

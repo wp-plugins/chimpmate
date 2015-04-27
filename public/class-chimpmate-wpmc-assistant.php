@@ -15,15 +15,13 @@
  * @author    Voltroid<care@voltroid.com>
  * 
  */
-require_once( WPMCA_PLUGIN_PATH.'src/MailChimp.php' );
-use \WPMChimpA;
 class ChimpMate_WPMC_Assistant {
 	/**
 	 * @since   1.0.0
 	 *
 	 * @var      string
 	 */
-	const VERSION = '1.1.5';
+	const VERSION = '1.1.6';
 
 	/**
 	 * @since    1.0.0
@@ -280,7 +278,7 @@ class ChimpMate_WPMC_Assistant {
 	public function enqueue_styles() {
 		wp_enqueue_style( $this->plugin_slug . '-plugin-styles1', plugins_url( 'assets/css/reset.css', __FILE__ ), array(), self::VERSION );
 		$goo_fonts =array();
-		$fonts = array("lite_heading_f", "lite_msg_f", "lite_tbox_f", "lite_button_f", "lite_status_f", "lite_tag_f", "lite_soc_f", "slider_heading_f", "slider_msg_f", "slider_tbox_f", "slider_button_f", "slider_status_f", "slider_tag_f", "slider_soc_f", "widget_msg_f", "widget_tbox_f", "widget_button_f", "widget_status_f", "widget_soc_f", "addon_heading_f", "addon_msg_f", "addon_tbox_f", "addon_button_f", "addon_status_f", "addon_soc_f");
+		$fonts = array("lite_heading_f", "lite_msg_f", "lite_tbox_f", "lite_check_f", "lite_button_f", "lite_status_f", "lite_tag_f", "lite_soc_f", "slider_heading_f", "slider_msg_f", "slider_tbox_f", "slider_check_f", "slider_button_f", "slider_status_f", "slider_tag_f", "slider_soc_f", "widget_msg_f", "widget_tbox_f", "widget_check_f", "widget_button_f", "widget_status_f", "widget_soc_f", "addon_heading_f", "addon_msg_f", "addon_tbox_f", "addon_check_f", "addon_button_f", "addon_status_f", "addon_soc_f");
 
 		foreach ($fonts as $font) {
 			switch ($font[0]) {
@@ -519,7 +517,7 @@ function wpmchimpa_referral() {
 		$list = $settings['list_record']['id'];
 		if(empty($api) || empty($list)){ die("Please configure the plugin properly");}
 		if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) { die("Please enter valid email address");}
-		$MailChimp = new \WPMChimpA\MailChimp($api);
+		$MailChimp = new ChimpMate_WPMC_MailChimp($api);
 		$opt_in = $settings['opt_in'];
 		$options =array(
 		                'id'                => $list,
@@ -551,18 +549,6 @@ function wpmchimpa_referral() {
 		$result = $MailChimp->call('lists/subscribe', $options);
 		if( $result['status'] === 'error' ) {
 			echo $result['code'];
-		    // if($result['code']=== 214){
-		    // 	if(isset($settings['erroras']))
-		    // 		$errmsg = $settings['erroras'];
-		    // 	else $errmsg = $_POST['email'] . " is already subscribed to Newsletters.";
-		    	
-		    // }
-		    // else{
-		    // 	if(isset($settings['errorue']))
-		    // 		$errmsg = $settings['errorue'];
-		    // 	else $errmsg = "An unknown error occurred processing your request.  Please try again later.";	    	
-		    // }
-		    // echo $errmsg.$result['code'];
 		}
 		else{
 			echo 1;

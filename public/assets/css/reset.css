@@ -38,6 +38,7 @@
     color: #000;
     background: 0;
     vertical-align: baseline;
+    box-sizing: border-box;
     float: none;
 }
 
@@ -96,6 +97,7 @@
     clear:both;
     text-decoration:none;
     text-shadow:none;
+    box-sizing: border-box;
     float: none;
 }
 

@@ -34,6 +34,10 @@ font-family: {{data.wtopt.widget_msg_f | livepf}};
   top: -5px;
   margin-right: 10px;
   color: {{data.wtopt.widget_check_fc||'#686868'}};
+font-size: {{data.wtopt.widget_check_fs}}px;
+font-weight: {{data.wtopt.widget_check_fw}};
+font-family: {{data.wtopt.widget_check_f | livepf}};
+font-style: {{data.wtopt.widget_check_fst}};
 }
 
 #wpmchimpaw .widget_check .cbox{

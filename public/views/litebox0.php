@@ -172,9 +172,6 @@ width: 100%;
     if(isset($theme["lite_status_fst"])){
         echo 'font-style:'.$theme["lite_status_fst"].';';
     }
-    if(isset($theme["lite_status_fc"])){
-        echo 'color:'.$theme["lite_status_fc"].';';
-    }
   ?>
 }
 #wpmchimpa input[type="text"]:focus {
@@ -431,6 +428,18 @@ height: 40px;
   margin-right: 10px;
   color: #fff;
   <?php
+        if(isset($theme["lite_check_f"])){
+          echo 'font-family:'.str_replace("|ng","",$theme["lite_check_f"]).';';
+        }
+        if(isset($theme["lite_check_fs"])){
+            echo 'font-size:'.$theme["lite_check_fs"].'px;';
+        }
+        if(isset($theme["lite_check_fw"])){
+            echo 'font-weight:'.$theme["lite_check_fw"].';';
+        }
+        if(isset($theme["lite_check_fst"])){
+            echo 'font-style:'.$theme["lite_check_fst"].';';
+        }
         if(isset($theme["lite_check_fc"])){
             echo 'color:'.$theme["lite_check_fc"].';';
         }

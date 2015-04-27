@@ -104,6 +104,10 @@ transition: all 0.3s ease-in-out;
 }
 #wpmchimpaw .addon_check .ctext{
 color: {{data.atopt.addon_check_fc}};
+font-size: {{data.atopt.addon_check_fs}}px;
+font-weight: {{data.atopt.addon_check_fw}};
+font-family: {{data.atopt.addon_check_f | livepf}};
+font-style: {{data.atopt.addon_check_fst}};
 }
 #wpmchimpaw .addon_check .cbox.checked{
 background-color: {{data.atopt.addon_check_c}};

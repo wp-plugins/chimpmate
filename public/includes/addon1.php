@@ -63,7 +63,7 @@ min-width: 250px;
 }
 .wpmchimpab input[type="text"]{
     margin-bottom: 18px;
-    width: 90%;
+    width: 100%;
     height: 45px;
     background: #f8fafa;
     padding: 0 20px;
@@ -128,9 +128,6 @@ min-width: 250px;
     if(isset($theme["addon_status_fst"])){
         echo 'font-style:'.$theme["addon_status_fst"].';';
     }
-    if(isset($theme["addon_status_fc"])){
-        echo 'color:'.$theme["addon_status_fc"].';';
-    }
   ?>
 }
 .wpmchimpab .wpmchimpa-groups{
@@ -158,6 +155,18 @@ min-width: 250px;
   line-height: 25px;
   min-width: 100px;
   <?php
+        if(isset($theme["addon_check_f"])){
+          echo 'font-family:'.str_replace("|ng","",$theme["addon_check_f"]).';';
+        }
+        if(isset($theme["addon_check_fs"])){
+            echo 'font-size:'.$theme["addon_check_fs"].'px;';
+        }
+        if(isset($theme["addon_check_fw"])){
+            echo 'font-weight:'.$theme["addon_check_fw"].';';
+        }
+        if(isset($theme["addon_check_fst"])){
+            echo 'font-style:'.$theme["addon_check_fst"].';';
+        }
         if(isset($theme["addon_check_fc"])){
             echo 'color:'.$theme["addon_check_fc"].';';
         }
@@ -231,7 +240,7 @@ content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWA
     -webkit-border-radius: 3px;
     -ms-border-radius: 3px;
     -o-border-radius: 3px;
-    width: 90%;
+    width: 100%;
 	padding: 0 22px;
     color: #fff;
     font-size: 22px;

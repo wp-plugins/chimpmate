@@ -73,7 +73,7 @@ echo 'font-family:'.str_replace("|ng","",$theme["addon_msg_f"]).';';
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
     border-radius: 5px;
-    width: calc(100% - 30px);
+    width: 100%;
     background: #f8fafa;
     margin-bottom: 10px;
   margin-right: 5px;
@@ -128,9 +128,6 @@ echo 'font-family:'.str_replace("|ng","",$theme["addon_msg_f"]).';';
     }
     if(isset($theme["addon_status_fst"])){
         echo 'font-style:'.$theme["addon_status_fst"].';';
-    }
-    if(isset($theme["addon_status_fc"])){
-        echo 'color:'.$theme["addon_status_fc"].';';
     }
   ?>
 }
@@ -277,8 +274,20 @@ padding-left: 2px;
 line-height: 25px;
 min-width: 100px;
 <?php
-if(isset($theme["slider_check_fc"])){
-echo 'color:'.$theme["slider_check_fc"].';';
+        if(isset($theme["addon_check_f"])){
+          echo 'font-family:'.str_replace("|ng","",$theme["addon_check_f"]).';';
+        }
+        if(isset($theme["addon_check_fs"])){
+            echo 'font-size:'.$theme["addon_check_fs"].'px;';
+        }
+        if(isset($theme["addon_check_fw"])){
+            echo 'font-weight:'.$theme["addon_check_fw"].';';
+        }
+        if(isset($theme["addon_check_fst"])){
+            echo 'font-style:'.$theme["addon_check_fst"].';';
+        }
+if(isset($theme["addon_check_fc"])){
+echo 'color:'.$theme["addon_check_fc"].';';
 }
 ?>
 }
@@ -313,8 +322,8 @@ border-radius: 3px;
 -webkit-transition: all 0.3s ease-in-out;
 transition: all 0.3s ease-in-out;
 <?php
-if(isset($theme["slider_check_borc"])){
-echo 'border:1px solid '.$theme["slider_check_borc"].';';
+if(isset($theme["addon_check_borc"])){
+echo 'border:1px solid '.$theme["addon_check_borc"].';';
 }  ?>
 }
 
@@ -324,17 +333,17 @@ color: #b3b3b3;
 
 .wpmchimpaf .wpmchimpa-item input[type='checkbox']:checked + label:before {
 <?php
-if(isset($theme["slider_check_c"])){
-echo 'background-color:'.$theme["slider_check_c"].';';
+if(isset($theme["addon_check_c"])){
+echo 'background-color:'.$theme["addon_check_c"].';';
 }  ?>
 }
 
 .wpmchimpaf .wpmchimpa-item input[type='checkbox'] + label:hover:after, .wpmchimpaf input[type='checkbox']:checked + label::after {
 content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAAAtklEQVQ4y2P4//8/A7Ux1Q0cxoaCADIbCUgCMTvVXAoE5kA8CYidyXYpGrAH4iVAHIXiCwoMDQTimUBcBsRMlBrKCsTpUANzkC0j11BuIK6EGlgKsoAkQ4FgChD7AzELVI8YEDdDDawDYk6YQaQY6gg1oAqILYC4D8oHGcyLbBAphoJAKtQgGO4EYiHk2CLHUJAXm6AG9gCxNHoSIMdQEJCFGqiALaGSayjMxQwUGzq0S6nhZygA2ojsbh6J67kAAAAASUVORK5CYII=);
 <?php 
-if($theme['slider_check_shade'] == '1'){
+if($theme['addon_check_shade'] == '1'){
 echo "content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAAAtklEQVQ4y2P4//8/A7Ux1Q0cxoaCADIbCUgCMTvVXAoE5kA8CYidyXYpGrAH4iVAHIXiCwoMDQTimUBcBsRMlBrKCsTpUANzkC0j11BuIK6EGlgKsoAkQ4FgChD7AzELVI8YEDdDDawDYk6YQaQY6gg1oAqILYC4D8oHGcyLbBAphoJAKtQgGO4EYiHk2CLHUJAXm6AG9gCxNHoSIMdQEJCFGqiALaGSayjMxQwUGzq0S6nhZygA2ojsbh6J67kAAAAASUVORK5CYII=);";
-}else if($theme['slider_check_shade'] == '2'){
+}else if($theme['addon_check_shade'] == '2'){
 echo "content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAMAAACeyVWkAAAAdVBMVEX////9/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f1HkPUuAAAAJ3RSTlMAAgQFBwkLDRIWGRsdIDc4P0FDT1FaZWdsdXZ5en6Cg4mMjpKUmaT+07zWAAAAUklEQVR42sXINQKAMAADwCDF3d3D/5/ICi0z3Hj4jGdCFe2ZmslZqlmw0+QzajaQWT1b4x5HrsOdOQrcpRzijbONp4rk4kAiJq4+FMEa4oXAXy4RfwSA5WQdGAAAAABJRU5ErkJggg==);";
 } ?>
 left: -2px;

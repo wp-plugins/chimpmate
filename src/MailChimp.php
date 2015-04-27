@@ -1,8 +1,6 @@
 <?php
 
-namespace WPMChimpA;
-
-class MailChimp
+class ChimpMate_WPMC_MailChimp
 {
     private $api_key;
     private $api_endpoint = 'https://<dc>.api.mailchimp.com/2.0';

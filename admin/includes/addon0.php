@@ -42,6 +42,10 @@ font-family: {{data.atopt.addon_msg_f | livepf}};
   top: -5px;
   margin-right: 10px;
   color: {{data.atopt.addon_check_fc}};
+font-size: {{data.atopt.addon_check_fs}}px;
+font-weight: {{data.atopt.addon_check_fw}};
+font-family: {{data.atopt.addon_check_f | livepf}};
+font-style: {{data.atopt.addon_check_fst}};
 }
 
 .wpmchimpab .addon_check .cbox{

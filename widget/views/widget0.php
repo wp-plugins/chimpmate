@@ -56,6 +56,18 @@ line-height: 20px;
   margin-right: 10px;
   color: #686868;
   <?php
+        if(isset($theme["widget_check_f"])){
+          echo 'font-family:'.str_replace("|ng","",$theme["widget_check_f"]).';';
+        }
+        if(isset($theme["widget_check_fs"])){
+            echo 'font-size:'.$theme["widget_check_fs"].'px;';
+        }
+        if(isset($theme["widget_check_fw"])){
+            echo 'font-weight:'.$theme["widget_check_fw"].';';
+        }
+        if(isset($theme["widget_check_fst"])){
+            echo 'font-style:'.$theme["widget_check_fst"].';';
+        }
         if(isset($theme["widget_check_fc"])){
             echo 'color:'.$theme["widget_check_fc"].';';
         }
@@ -180,9 +192,6 @@ content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWA
     }
     if(isset($theme["widget_status_fst"])){
         echo 'font-style:'.$theme["widget_status_fst"].';';
-    }
-    if(isset($theme["widget_status_fc"])){
-        echo 'color:'.$theme["widget_status_fc"].';';
     }
   ?>
 }

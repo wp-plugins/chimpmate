@@ -219,6 +219,10 @@ padding-left: 25px;
 margin-right: 10px;
 top: -5px;
 color: {{data.ltopt.lite_check_fc||'#fff'}};
+font-size: {{data.ltopt.lite_check_fs}}px;
+font-weight: {{data.ltopt.lite_check_fw}};
+font-family: {{data.ltopt.lite_check_f | livepf}};
+font-style: {{data.ltopt.lite_check_fst}};
 }
 #wpmchimpa .lite_check .cbox{
 display: inline-block;

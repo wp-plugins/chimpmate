@@ -87,6 +87,10 @@ transition: all 0.3s ease-in-out;
 }
 #wpmchimpaw .widget_check .ctext{
 color: {{data.wtopt.widget_check_fc}};
+font-size: {{data.wtopt.widget_check_fs}}px;
+font-weight: {{data.wtopt.widget_check_fw}};
+font-family: {{data.wtopt.widget_check_f | livepf}};
+font-style: {{data.wtopt.widget_check_fst}};
 }
 #wpmchimpaw .widget_check .cbox.checked{
 background-color: {{data.wtopt.widget_check_c}};

@@ -118,6 +118,10 @@ transition: all 0.3s ease-in-out;
 }
 #wpmchimpa .lite_check .ctext{
 color: {{data.ltopt.lite_check_fc}};
+font-size: {{data.ltopt.lite_check_fs}}px;
+font-weight: {{data.ltopt.lite_check_fw}};
+font-family: {{data.ltopt.lite_check_f | livepf}};
+font-style: {{data.ltopt.lite_check_fst}};
 }
 #wpmchimpa .lite_check .cbox.checked{
 background-color: {{data.ltopt.lite_check_c}};

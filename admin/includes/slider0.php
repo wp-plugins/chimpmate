@@ -43,7 +43,6 @@ float:left;
 margin: 2px 2px;
 }
 
-
 #wpmchimpas .slider_check .ctext {
 cursor: pointer;
 display: inline-block;
@@ -52,6 +51,10 @@ padding-left: 10px;
 top: -5px;
 margin-right: 10px;
 color: {{data.stopt.slider_check_fc||'#686868'}};
+font-size: {{data.stopt.slider_check_fs}}px;
+font-weight: {{data.stopt.slider_check_fw}};
+font-family: {{data.stopt.slider_check_f | livepf}};
+font-style: {{data.stopt.slider_check_fst}};
 }
 
 #wpmchimpas .slider_check .cbox{

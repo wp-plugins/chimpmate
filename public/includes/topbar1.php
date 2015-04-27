@@ -32,7 +32,7 @@ visibility: hidden;
   font-size: 18px;
   display: inline-block;
   line-height: 30px;
-  width: 23%;
+  width: 25%;
   margin-right: 25px;
   text-align: right;
   <?php 
@@ -55,7 +55,7 @@ visibility: hidden;
 }
 .wpmchimpat input[type="text"] {
     display: inline-block;
-    <?php if(isset($wpmchimpa['namebox']))echo 'width:21%;';else echo 'width:42%;'; ?>
+    <?php if(isset($wpmchimpa['namebox']))echo 'width:23%;';else echo 'width:42%;'; ?>
     background: #f8fafa;
    -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -111,7 +111,7 @@ visibility: hidden;
     border-radius: 3px;
   display:inline-block;
   text-align: center;
-  width: 21%;
+  width: 24%;
     height:30px;
     line-height: 28px;
     border: 1px solid #3079ed;

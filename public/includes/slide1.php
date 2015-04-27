@@ -69,7 +69,7 @@ echo 'font-size:'.$theme["slider_msg_fs"].'px;';
 }
 .wpmchimpas input[type="text"]{
 margin-bottom: 18px;
-width: 90%;
+width: 100%;
 height: 45px;
 border-radius: 5px;
 background: #f8fafa;
@@ -130,9 +130,6 @@ echo ' border:'.$theme["slider_tbox_bor"].'px solid '.$theme["slider_tbox_borc"]
     if(isset($theme["slider_status_fst"])){
         echo 'font-style:'.$theme["slider_status_fst"].';';
     }
-    if(isset($theme["slider_status_fc"])){
-        echo 'color:'.$theme["slider_status_fc"].';';
-    }
   ?>
 }
 .wpmchimpas .wpmchimpa-groups{
@@ -160,6 +157,18 @@ padding-left: 15px;
 line-height: 25px;
 min-width: 100px;
 <?php
+        if(isset($theme["slider_check_f"])){
+          echo 'font-family:'.str_replace("|ng","",$theme["slider_check_f"]).';';
+        }
+        if(isset($theme["slider_check_fs"])){
+            echo 'font-size:'.$theme["slider_check_fs"].'px;';
+        }
+        if(isset($theme["slider_check_fw"])){
+            echo 'font-weight:'.$theme["slider_check_fw"].';';
+        }
+        if(isset($theme["slider_check_fst"])){
+            echo 'font-style:'.$theme["slider_check_fst"].';';
+        }
 if(isset($theme["slider_check_fc"])){
 echo 'color:'.$theme["slider_check_fc"].';';
 }
@@ -233,7 +242,7 @@ border-radius: 3px;
 -webkit-border-radius: 3px;
 -ms-border-radius: 3px;
 -o-border-radius: 3px;
-width: 90%;
+width: 100%;
 padding: 0 22px;
 color: #fff;
 font-size: 22px;
