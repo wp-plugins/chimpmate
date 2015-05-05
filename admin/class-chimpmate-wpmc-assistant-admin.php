@@ -57,6 +57,7 @@ class ChimpMate_WPMC_Assistant_Admin {
 		 */
 		$plugin = ChimpMate_WPMC_Assistant::get_instance();
 		$this->plugin_slug = $plugin->get_plugin_slug();
+		$this->wpmchimpa = json_decode(get_option('wpmchimpa_options'),true);
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
@@ -71,6 +72,8 @@ class ChimpMate_WPMC_Assistant_Admin {
 		
 		add_action('wp_ajax_wpmchimpa_us_ajax', array( $this, 'wpmchimpa_update_setting' ) );
 		add_action('wp_ajax_wpmchimpa_secure', array( $this, 'wpmchimpa_secure' ) );
+		add_action('wp_ajax_wpmchimpa_syncom', array( $this, 'wpmchimpa_syncom' ) );
+		add_action('wp_ajax_wpmchimpa_synreg', array( $this, 'wpmchimpa_synreg' ) );
 
 		add_action('wp_ajax_wpmchimpa_load_list', array( $this, 'wpmchimpa_load_list' ) );
  		add_action('wp_ajax_wpmchimpa_sel_list', array( $this, 'wpmchimpa_sel_list' ) );
@@ -424,6 +427,45 @@ if ( ! isset( $this->plugin_screen_hook_suffix ) ) {return;} ?>
 	public function wpmchimpa_themeswitch(){
 		$opt= json_decode(get_option('wpmchimpa_options'),true);
 		echo json_encode($opt['theme'][$_GET['type'][0].$_GET['theme']]);
+		die();
+	}
+	public function wpmchimpa_syncom(){
+		$emails = array();
+		foreach (get_comments() as $comment){
+			array_push($emails, array('email' => array('email'=>$comment->comment_author_email)));
+		}
+		if(empty($emails))die('1');
+		$this->wpmchimpa_batchsubs($emails);
+	}
+	public function wpmchimpa_synreg(){
+		$emails = array();
+		foreach ( get_users() as $user ) {
+			if(in_array($user->roles[0], $this->wpmchimpa['usync_role']))
+				array_push($emails, array('email' => array('email'=>$user->user_email)));
+		}
+		if(empty($emails))die('1');
+		$this->wpmchimpa_batchsubs($emails);
+	}
+	public function wpmchimpa_batchsubs($emails){
+		$api = $this->wpmchimpa['api_key'];
+		$list = $this->wpmchimpa['list_record']['id'];
+		if(empty($api) || empty($list)){ die("0");}
+		$MailChimp = new ChimpMate_WPMC_MailChimp($api);
+		$opt_in = $this->wpmchimpa['opt_in'];
+		$options =array(
+                'id'                => $list,
+                'batch'             => $emails,
+                'double_optin'      => false,
+                'update_existing'   => false
+            );
+		if(isset($settings['opt_in'])) $options['double_optin'] = true;
+		$result = $MailChimp->call('/lists/batch-subscribe', $options);
+		if( $result['status'] === 'error' ) {
+			echo json_encode($result);
+		}
+		else{
+			echo 1;
+		}
 		die();
 	}
 

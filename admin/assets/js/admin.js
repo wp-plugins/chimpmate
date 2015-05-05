@@ -209,6 +209,31 @@ function sel_list_func(){
 	});
 }
 
+
+$('#usync_role').multipleSelect({
+    width: '300px',placeholder: "User roles"
+});
+if(isset(wpmchimpa.usync_role)){
+ $('#usync_role').multipleSelect('setSelects',wpmchimpa.usync_role);
+}
+$('.wpmc_usync').click(function(e){
+	e.preventDefault();	
+	$('.wpmcaspinner').fadeIn();
+	$.ajax({
+		type:"POST",
+		url: "./admin-ajax.php",
+		dataType: "json",
+		data: { action: $(this).attr('wpmcsync') },
+		success:function(data){
+			if(data == 1)
+				ajax_success();
+			else
+				ajax_error();
+		}
+	});
+	return false;
+});
+
 $('.wpmchimp-range-sel').change(function(e) {  
         $(this).next().find('.rangeslider__handle').attr('data-rsval',$(this).val());
 }).rangeslider({

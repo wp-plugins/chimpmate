@@ -21,7 +21,7 @@ class ChimpMate_WPMC_Assistant {
 	 *
 	 * @var      string
 	 */
-	const VERSION = '1.1.6';
+	const VERSION = '1.1.7';
 
 	/**
 	 * @since    1.0.0
@@ -58,7 +58,12 @@ class ChimpMate_WPMC_Assistant {
 		add_action( 'wp_head', array( $this, 'wpmchimpa_slide' ) );
 		add_action( 'wp_footer', array( $this, 'wpmchimpa_social' ) );
 		add_action( 'init', array($this,'register_shortcodes'));
-		
+		add_filter( 'comment_form_field_comment', array($this,'wpmchimpa_commentfield' ));
+		add_action( 'comment_post', array($this,'wpmchimpa_commentpost' ));
+
+		add_action( 'register_form', array($this,'wpmchimpa_regfield' ));
+		add_action( 'user_register',array($this,'wpmchimpa_regpost' ));
+
 		add_action('wp_ajax_wpmchimpa_add_email_ajax',  array( $this, 'wpmchimpa_add_email' ));
 		add_action('wp_ajax_nopriv_wpmchimpa_add_email_ajax',  array( $this, 'wpmchimpa_add_email' )); 
 
@@ -295,7 +300,7 @@ class ChimpMate_WPMC_Assistant {
 		}
 		if(!empty($goo_fonts)){
 			$goo = implode('|', array_values(array_unique($goo_fonts)));
-			wp_register_style($this->plugin_slug . '-googleFonts', 'http://fonts.googleapis.com/css?family='.$goo, array(), self::VERSION);
+			wp_register_style($this->plugin_slug . '-googleFonts', '//fonts.googleapis.com/css?family='.$goo, array(), self::VERSION);
             wp_enqueue_style( $this->plugin_slug . '-googleFonts');
 		}
 		wp_enqueue_style( $this->plugin_slug . '-plugin-styles', WPMCA_PLUGIN_URL. 'public/assets/css/public.css' , array(), self::VERSION );
@@ -509,7 +514,7 @@ function wpmchimpa_referral() {
 	 * @since    1.0.2
 	 * 
 	 */
-	public function wpmchimpa_add_email()
+	public function wpmchimpa_add_email($a)
 	{
 		$_POST = stripslashes_deep( $_POST );
 		$settings=json_decode(get_option('wpmchimpa_options'),true);
@@ -553,6 +558,7 @@ function wpmchimpa_referral() {
 		else{
 			echo 1;
 		}
+	    if($a == 1)return;
 	    die();
 	}
 	/**
@@ -658,6 +664,42 @@ function addon_scode($atts, $content = null) {
 		$str.='</svg>';
 		return "url('data:image/svg+xml;base64,".base64_encode($str)."')";
 	}
+
+public function wpmchimpa_commentfield( $comment_field ) {
+	if(isset($this->wpmchimpa['usyn_com']) && isset($this->wpmchimpa['usyn_comp']) && $this->wpmchimpa['usyn_comp']=='1')
+    	return $comment_field.'<label><input type="checkbox" name="wpmchimpa" value="1">'.(isset($this->wpmchimpa['usyn_compt'])?$this->wpmchimpa['usyn_compt']:'Subscribe to Newsletters').'</label>';
+    return $comment_field;
+}
+public function wpmchimpa_commentpost($comment_ID){
+	if(isset($this->wpmchimpa['usyn_com']) && isset($this->wpmchimpa['usyn_comp'])){
+		if(($this->wpmchimpa['usyn_comp']=='1' && isset ( $_POST['wpmchimpa'] )) || ($this->wpmchimpa['usyn_comp']=='0')){
+			if(is_user_logged_in()){
+				global $current_user;
+	  			get_currentuserinfo();
+	  			$_POST['email']=$current_user->user_email;
+	  			$_POST['name']=$current_user->user_firstname .' '. $current_user->user_lastname;
+			}
+			else
+				$_POST['name']=$_POST['author'];
+			$this->wpmchimpa_add_email(1);
+		}
+	}
+}
+public function wpmchimpa_regfield(){
+	if(isset($this->wpmchimpa['usyn_reg']) && isset($this->wpmchimpa['usyn_regp']) && $this->wpmchimpa['usyn_regp']=='1')
+    	echo '<label><input type="checkbox" name="wpmchimpa" value="1">'.(isset($this->wpmchimpa['usyn_regpt'])?$this->wpmchimpa['usyn_regpt']:'Subscribe to Newsletters').'</label>';
+}
+public function wpmchimpa_regpost(){
+	if(isset($this->wpmchimpa['usyn_reg']) && isset($this->wpmchimpa['usyn_regp'])){
+		$current_user = wp_get_current_user();
+		$roles = $current_user->roles;
+		if(($this->wpmchimpa['usyn_regp']=='1' && isset ( $_POST['wpmchimpa'] )) || ($this->wpmchimpa['usyn_regp']=='0' && in_array($roles[0], $this->wpmchimpa['usync_role']))){
+			$_POST['email']=$_POST['user_email'];
+			$this->wpmchimpa_add_email(1);
+		}
+	}
+}
+
 	public function extrascript($t) {
 		if(!isset($this->exscr[$t])){
 			$this->exscr[$t] = 1;
@@ -666,7 +708,6 @@ function addon_scode($atts, $content = null) {
 <script type="text/javascript">
 jQuery(function ($) {
   wpmcpre0 = function (f){
-  	console.log(f);
   	$(f).find('[wpmcerr="gen"]').html('');
   	$(f).find('input[type="text"]').each(function(){
   		$(f).find('[wpmcerr="gen"]').html('');
@@ -720,7 +761,6 @@ break;
 <script type="text/javascript">
 jQuery(function ($) {
   wpmcpre1 = function (f){
-  	console.log(f);
   	$(f).find('[wpmcerr="gen"]').html('');
   	$(f).find('input[type="text"]').each(function(){
   		$(f).find('[wpmcerr="gen"]').html('');

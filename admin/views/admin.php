@@ -130,7 +130,7 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                   <div class="wpmcapara hinted">Click <a href="https://admin.mailchimp.com/account/api/" target="_blank">here</a> to get API key or Sign up <a href="http://eepurl.com/4lavL">here</a></div>
                 </div>
                 <div class="wpmca_group"> 
-                    <button class="wpmca_button green material-design" class="item_button" id="wpmca_load_list">Load List</button>
+                    <button class="wpmca_button green material-design" id="wpmca_load_list">Load List</button>
                 </div>
                 <div class="wpmca_group p1" id="list_result">
                     <input type="hidden" name="list_record" id="wpmca_list_record"<?php if(isset($wpmchimpa["list_record"])) echo " value='".json_encode($wpmchimpa["list_record"])."'";?>/>
@@ -332,7 +332,73 @@ $atheme=$wpmchimpa['theme']['a'.$wpmchimpa['addon_theme']];
                 </div>
             </div> -->
 
-
+            <div class="wpmca_item">
+              <div class="itemhead">
+                  <h2>User Sync</h2>
+                  <span class="wpmcahint headhint" data-hint="Sync users from Website"></span>
+                </div>
+              <div class="wpmca_group wpmcacb">
+                <label><input type="checkbox" name="usyn_com" value="1" <?php if(isset($wpmchimpa["usyn_com"])) echo "checked";?>>  
+                <div class="mcheckbox"></div>Comment based Sync</label>
+              </div>
+              <div class="wpmca_group wpmcacb p2">
+                <label><input type="radio" name="usyn_comp" value="1"<?php if(isset($wpmchimpa["usyn_comp"]) && $wpmchimpa["usyn_comp"] == "1") echo " checked";?>> 
+                With User's permission</label>
+                <span class="wpmcahint" data-hint="Insert Checkbox near the Comment box"></span>
+              </div>
+               <div class="wpmca_group p3 wpmcatxt">      
+                  <input type="text" class="wpmchimp_text" required name="usyn_compt"<?php if(isset($wpmchimpa["usyn_compt"]))echo ' value="'.$wpmchimpa["usyn_compt"].'"';?>>
+                  <span class="wpmcahint" data-hint="Text for Checkbox"></span>
+                  <span class="highlighter"></span>
+                  <span class="bar"></span>
+                  <label>Permission Text</label>
+                </div>
+              <div class="wpmca_group wpmcacb p2">
+                <label><input type="radio" name="usyn_comp" value="0"<?php if(isset($wpmchimpa["usyn_comp"]) && $wpmchimpa["usyn_comp"] == "0") echo " checked";?>> 
+                Without User's permission</label>
+                <span class="wpmcahint" data-hint="Add to list directly"></span>
+              </div>
+              <div class="wpmca_group"> 
+                <button class="wpmca_button green material-design wpmc_usync" wpmcsync="wpmchimpa_syncom">Sync Now</button>
+                <span class="wpmcahint" data-hint="Sync currently commented users to list"></span>
+              </div>
+              <div class="wpmca_group wpmcacb">
+                <label><input type="checkbox" name="usyn_reg" value="1" <?php if(isset($wpmchimpa["usyn_reg"])) echo "checked";?>>  
+                <div class="mcheckbox"></div>Registration based Sync</label>
+              </div>
+              <div class="wpmca_group wpmcacb p2">
+                <label><input type="radio" name="usyn_regp" value="1"<?php if(isset($wpmchimpa["usyn_regp"]) && $wpmchimpa["usyn_regp"] == "1") echo " checked";?>> 
+                With User's permission</label>
+                <span class="wpmcahint" data-hint="Insert Checkbox near the Sign-up box"></span>
+              </div>
+               <div class="wpmca_group p3 wpmcatxt">      
+                  <input type="text" class="wpmchimp_text" required name="usyn_regpt"<?php if(isset($wpmchimpa["usyn_regpt"]))echo ' value="'.$wpmchimpa["usyn_regpt"].'"';?>>
+                  <span class="wpmcahint" data-hint="Text for Checkbox"></span>
+                  <span class="highlighter"></span>
+                  <span class="bar"></span>
+                  <label>Permission Text</label>
+                </div>
+              <div class="wpmca_group wpmcacb p2">
+                <label><input type="radio" name="usyn_regp" value="0"<?php if(isset($wpmchimpa["usyn_regp"]) && $wpmchimpa["usyn_regp"] == "0") echo " checked";?>> 
+                Without User's permission</label>
+                <span class="wpmcahint" data-hint="Add to list directly"></span>
+              </div>
+              <div class="wpmca_group p2">
+                 <select id="usync_role" multiple="multiple" wpmc-sel-name="usync_role[]" style="display: none;">
+                 <?php 
+global $wp_roles;
+$all_roles = $wp_roles->roles;
+foreach ($all_roles as $key => $value) {
+  echo '<option value="'.$key.'">'.$value['name'].'</option>';
+}
+                 ?>
+                 </select>
+              </div>
+              <div class="wpmca_group"> 
+                <button class="wpmca_button green material-design wpmc_usync" wpmcsync="wpmchimpa_synreg">Sync Now</button>
+                <span class="wpmcahint" data-hint="Sync currently registered users to list"></span>
+              </div>
+            </div>
             <div class="wpmca_item">
                 <div class="itemhead">
                     <h2>News and Updates</h2>

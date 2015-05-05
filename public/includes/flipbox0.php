@@ -260,7 +260,9 @@ height: 14px;
         }
       ?>
 }
-
+.wpmchimpaf .wpmchimpa-feedback.wpmchimpa-done{
+margin: 0
+ } 
 .wpmchimpaf .wpmchimpa-groups{
   display: inline-block;
 }

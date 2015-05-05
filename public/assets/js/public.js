@@ -267,23 +267,16 @@ if(wpmcisset(wpmchimpa.litebox) || wpmcisset(wpmchimpa.addon) || wpmcisset(wpmch
 			if(!window[preload](chimp))return false;
 		var SubsForm = $(form).serialize();
 		chimpSubmit(chimp,SubsForm);
-
-		
-
-
-		/*$(form).next(".wpmchimpa-feedback").html('');
-		var sEmail = $(form).find('.wpmchimpa_email').val();
-        if ($.trim(sEmail).length == 0 || !(wpmcvalidateEmail(sEmail))) {
-        	if(wpmcisset(wpmchimpa.errorfe)) var errmsg = wpmchimpa.errorfe;
-        	else var errmsg = 'Please enter valid email address';
-            $(form).next(".wpmchimpa-feedback").html(errmsg);
-        }
-        else {
-        	$(form).find('.wpmchimpa-signal').fadeIn();
-           	var SubsForm = $(form).serialize();
-			chimpSubmit(form,SubsForm);
-		}*/
+            	console.log('a');
 		return false;
+	});
+	$('.wpmchimpselector').each(function(){
+		var form = $(this).find('form');
+		$(form).find('input').keypress(function(e) {
+            if(e.which == 10 || e.which == 13) {
+               $(form).find('.wpmchimpa-subs-button').click();
+            }
+        });
 	});
 	$('.wpmchimpa-soc').click(function (e){
 		e.preventDefault();
