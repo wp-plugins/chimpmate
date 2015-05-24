@@ -1378,6 +1378,15 @@ foreach ($all_roles as $key => $value) {
                  <label>Position from top(%)</label>
                  <input type="range" min="0" max="100" name="slider_trigger_top" class="wpmchimp-range-sel" ng-model="data.stopt.slider_trigger_top" <?php echo ' value="'.(isset($stheme["slider_trigger_top"])? $stheme["slider_trigger_top"]:'40').'"';?>/>
               </div>
+                 <div class="wpmca_group wpmcacb">
+                    <label><input type="checkbox" name="slider_trigger_hider" value="1" ng-model="data.stopt.slider_trigger_hider" ng-checked="data.stopt.slider_trigger_hider">  
+                    <div class="mcheckbox"></div>Distraction-free Mode</label>
+                    <span class="wpmcahint" data-hint="A small button to hide trigger"></span>
+                 </div>    
+                <div class="wpmca_group wpmcacolor">
+                   <label>Hide-icon Color</label>
+                   <input minicolors name="slider_trigger_hc" type="text" class="wpmchimp-color-sel" ng-model="data.stopt.slider_trigger_hc"/>
+                </div>
               <div class="wpmca_group wpmcatxts wpmcacb"> 
                 <label><input type="checkbox" name="slider_trigger_scroll" value="1" <?php if(isset($wpmchimpa["slider_trigger_scroll"])) echo "checked";?>>  
                 <div class="mcheckbox"></div>Appear after</label>

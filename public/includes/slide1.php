@@ -603,7 +603,7 @@ echo 'top:'.$theme["slider_trigger_top"].'%;';
 }
 ?>
 }
-.wpmchimpas-trigc{ 
+.wpmchimpas-trig .wpmchimpas-trigi{ 
 background: #0066CB;
 width:50px;
 height:50px;
@@ -629,18 +629,32 @@ transform: translateX(-50px);
 -o-transform: translateX(50px);
 transform: translateX(50px);
 }
-.wpmchimpas-trig:hover .wpmchimpas-trigc{
+.wpmchimpas-trig .wpmchimpas-trigi:hover{
 -webkit-box-shadow: inset 3px 2px 21px 5px rgba(0,0,0,0.2);
 -moz-box-shadow: inset 3px 2px 21px 5px rgba(0,0,0,0.2);
 box-shadow: inset 3px 2px 21px 5px rgba(0,0,0,0.2);
 }
-.wpmchimpas-trigc:before{	
+.wpmchimpas-trig .wpmchimpas-trigi:before{	
 content:<?php echo ChimpMate_WPMC_Assistant::getIcon('m2',32,(isset($theme["slider_trigger_c"]))?$theme["slider_trigger_c"]:'#fff');?>;
 height: 32px;
 width: 32px;
 display: block;
 margin: 8px;
 position: absolute;
+}
+#wpmchimpas-trig .wpmchimpas-trigh{
+<?php
+  if(isset($theme["slider_trigger_hider"]))
+    echo 'display:block;';
+?>
+}
+#wpmchimpas-trig .wpmchimpas-trigh:before{
+<?php
+  if(isset($theme["slider_trigger_hc"])){
+    echo 'border-right-color: '.$theme["slider_trigger_hc"].';';
+    echo 'border-left-color: '.$theme["slider_trigger_hc"].';';
+  }
+?>
 }
 </style>
 
@@ -702,6 +716,9 @@ position: absolute;
 	</div>	</div></div></div></div>
 <div class="wpmchimpas-bg"></div>
 <div class="wpmchimpas-overlay"></div>
-<div id="wpmchimpas-trig" <?php if(isset($wpmchimpa['slider_trigger_scroll'])) echo 'class="scrollhide"';?>>
-<div class="wpmchimpas-trigc"></div>
+<div id="wpmchimpas-trig" class="chimpmatecss" <?php if(isset($wpmchimpa['slider_trigger_scroll'])) echo 'class="scrollhide"';?>>
+  <div class="wpmchimpas-trigc">
+    <div class="wpmchimpas-trigi"></div>
+    <div class="wpmchimpas-trigh"></div>
+  </div>
 </div>

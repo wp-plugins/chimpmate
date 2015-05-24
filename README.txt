@@ -6,7 +6,7 @@ Donate link: http://voltroid.com/chimpmate#donate
 Tags: mailchimp, mailchimp integration, MailChimp plugin, mailchimp signup, mailchimp wordpress, newsletter, newsletter signup, checkbox, newsletter, optin, registration form, shortcode, sign-up form, subscribe, widget,  analytics, automatic, collect email, double optin, email, exit popup, exit-intent, getresponse, growth, hellobar, lightbox, links, mail, newsletters, optin forms, popover, popup, popup domination, popupdomination, posts, subscribe, subscribers, subscription, referrer, search engine, social sharing, cookie, customizable, responsive
 Requires at least: 3.8
 Tested up to: 4.2
-Stable tag: 1.1.7
+Stable tag: 1.1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,10 @@ Check out our [FAQ](http://voltroid.com/chimpmate#faq)
 
 
 == Changelog ==
+
+= 1.1.8 =
+* Added Distraction-free mode for slider
+* Fixed Slider Device Filter Issue
 
 = 1.1.7 =
 * Added subscribe with Comment/Registration

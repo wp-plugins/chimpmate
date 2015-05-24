@@ -31,13 +31,14 @@ var privateMethods = {
 			$('.wpmchimpas-cont').unbind('mousewheel DOMMouseScroll', scrollCon);
 			$('.wpmchimpas-overlay').removeClass('showo');
 		    $('body > *').not('.wpmchimpas').css({
-		        '-webkit-transform': 'none',
-		        transform: 'none'
+		        '-webkit-transform': '',
+		        transform: ''
 		    });
 		    setTimeout(function() {
 		        $body.removeClass(bodyClass).removeAttr('style');
 		    }, speed);
 		    $('.wpmchimpas').removeClass('wpmchimpas-open');
+		    $trig.removeClass('wpmchimpas-trigdis');
 		}
     }
 };
@@ -80,7 +81,7 @@ function centresp() {
 	} else {
 	    bodytrans = {
 	        '-webkit-transform': 'translate(' + menuWidth + 'px,0)',
-	        transform: 'translate(' + menuWidth + 'px,0)'
+	        transform: 'translate(-' + menuWidth + 'px,0)'
 	    };
 	}
     $('body > *').not('.wpmchimpas').css(bodytrans);
@@ -155,21 +156,36 @@ $.fn.csld = function(options) {
         if (!data) {
             $this.data('wpmchimpas', name);
             if ('ontouchstart' in document.documentElement) {
-                $this.bind('touchstart', function(e) {
+                $this.find('.wpmchimpas-trigi').bind('touchstart', function(e) {
                     var theEvent = e.originalEvent.touches[0];
                     this.touched = e.timeStamp;
                 });
-                $this.bind('touchend', function(e) {
+                $this.find('.wpmchimpas-trigi').bind('touchend', function(e) {
                     var delta = Math.abs(e.timeStamp - this.touched);
-                    if (delta < 200) {
+                    if(delta < 200) {
                         e.preventDefault();
-                        methods.toggle(name);
+	                    methods.toggle(name);
+                    }
+                });
+                $this.find('.wpmchimpas-trigh').bind('touchstart', function(e) {
+                    var theEvent = e.originalEvent.touches[0];
+                    this.touched = e.timeStamp;
+                });
+                $this.find('.wpmchimpas-trigh').bind('touchend', function(e) {
+                    var delta = Math.abs(e.timeStamp - this.touched);
+                    if(delta < 200) {
+                        e.preventDefault();
+	                    $trigMenu.addClass('wpmchimpas-trigdis');
                     }
                 });
             } else {
-                $this.click(function(e) {
+                $this.find('.wpmchimpas-trigi').click(function(e) {
                     e.preventDefault();
                     methods.toggle(name);
+                });
+                $this.find('.wpmchimpas-trigh').click(function(e) {
+                    e.preventDefault();
+                    $trigMenu.addClass('wpmchimpas-trigdis');
                 });
             }
         }

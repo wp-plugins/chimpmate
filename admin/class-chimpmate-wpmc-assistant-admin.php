@@ -440,7 +440,7 @@ if ( ! isset( $this->plugin_screen_hook_suffix ) ) {return;} ?>
 	public function wpmchimpa_synreg(){
 		$emails = array();
 		foreach ( get_users() as $user ) {
-			if(in_array($user->roles[0], $this->wpmchimpa['usync_role']))
+			if(isset($this->wpmchimpa['usync_role']) && in_array($user->roles[0], $this->wpmchimpa['usync_role']))
 				array_push($emails, array('email' => array('email'=>$user->user_email)));
 		}
 		if(empty($emails))die('1');

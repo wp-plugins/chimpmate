@@ -21,7 +21,7 @@ class ChimpMate_WPMC_Assistant {
 	 *
 	 * @var      string
 	 */
-	const VERSION = '1.1.7';
+	const VERSION = '1.1.8';
 
 	/**
 	 * @since    1.0.0
@@ -520,7 +520,7 @@ function wpmchimpa_referral() {
 		$settings=json_decode(get_option('wpmchimpa_options'),true);
 		$api = $settings['api_key'];
 		$list = $settings['list_record']['id'];
-		if(empty($api) || empty($list)){ die("Please configure the plugin properly");}
+		if(empty($api) || empty($list)){ if($a == 1)return;die("0");}
 		if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) { die("Please enter valid email address");}
 		$MailChimp = new ChimpMate_WPMC_MailChimp($api);
 		$opt_in = $settings['opt_in'];
