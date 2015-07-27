@@ -100,6 +100,9 @@ Check our [Themes Demo](http://voltroid.com/chimpmate/demo)
 12. Theme Display Demo 1 - ChimpMate Pro
 13. Subscribe to Unlock - ChimpMate Pro
 14. Theme Display Demo 2 - ChimpMate Pro
+15. Theme Display Demo 3 - ChimpMate Pro
+16. Theme Display Demo 4(Responsive) - ChimpMate Pro
+17. Theme Display Demo 5 - ChimpMate Pro
 
 == Frequently Asked Questions ==
 
@@ -109,7 +112,8 @@ Check out our [FAQ](http://voltroid.com/chimpmate#faq)
 
 == Changelog ==
 
-= 1.1.8 =
+= 1.2 =
+* Added 2 new Premium themes
 * Added separate Page Filter for Topbar
 * Added separate Page Filter for Flipbox
 * Fixed color change option issue
