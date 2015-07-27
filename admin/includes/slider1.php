@@ -256,6 +256,25 @@ width: 32px;
 display: block;
 margin: 8px;
 }
+#wpmchimpas .wpmchimpa-tag{
+display: {{data.stopt.slider_tag_en? 'block':'none'}};
+}
+#wpmchimpas .wpmchimpa-tag,
+#wpmchimpas .wpmchimpa-tag *{
+pointer-events: none;
+color: {{data.stopt.slider_tag_fc||'#000'}};
+font-size: {{data.stopt.slider_tag_fs||'10'}}px;
+font-weight: {{data.stopt.slider_tag_fw||'500'}};
+font-family:Arial;
+font-family: {{data.stopt.slider_tag_f | livepf}};
+font-style: {{data.stopt.slider_tag_fst}};
+}
+#wpmchimpas .wpmchimpa-tag:before{
+content:{{getIcon('lock1',data.stopt.slider_tag_fs||10,data.stopt.slider_tag_fc||'#000')}};
+margin: 5px;
+top: 1px;
+position: relative;
+}
 </style>
 <div id="wpmchimpas-over"></div>
 <div id="wpmchimpas-trig">
@@ -301,6 +320,8 @@ margin: 8px;
             <div><div class="wpmc-live-sc righthov" ng-click="gotos($event)" data-optno="4" data-lhint="Go to Button Settings" style="right: -20px;">4</div>
               <div class="slider_button">{{data.stopt.slider_button}}</div>
             </div>
+              <div><div class="wpmc-live-sc" ng-click="gotos($event)" data-optno="8" data-lhint="Go to Tag Settings">7</div>
+  <div class="wpmchimpa-tag" ng-bind-html="data.stopt.slider_tag||'Secure and Spam free...' | safe"></div></div>
             <div>
               <div class="slider_spinner"><div class="wpmc-live-sc" ng-click="gotos($event)" data-optno="5" data-lhint="Go to Spinner Settings" style="margin:25%">5</div></div>
             </div>

@@ -712,7 +712,8 @@ if(isset($theme["lite_status_fc"])){
 #wpmchimpa-main .wpmchimpa-feedback.wpmchimpa-done{
 top: 20px;
 }
-#wpmchimpa-main .wpmchimpa-tag{
+.wpmchimpa-overlay-bg .wpmchimpa-tag,
+.wpmchimpa-overlay-bg .wpmchimpa-tag *{
 color:#000;
 font-size: 10px;
 top: -15px;
@@ -736,7 +737,7 @@ position: relative;
         }
       ?>
 }
-#wpmchimpa-main .wpmchimpa-tag a:before{
+#wpmchimpa-main .wpmchimpa-tag:before{
 
    content:<?php
         $tfs=10;
@@ -959,14 +960,11 @@ and (orientation : landscape) {
         			?>
                     <br>
         			<div class="wpmchimpa-subs-button" wpmcpre="wpmcpre1" wpmcpost="wpmcpost1"></div>
-              <?php if(isset($theme['lite_tag_en'])){
-              if(isset($theme['lite_tag'])) $tagtxt= $theme['lite_tag'];
-              else $tagtxt='Secure and Spam free...';
-              $ref='';
-              if(isset($wpmchimpa["share_text"]))
-                $ref= ' href="http://voltroid.com/chimpmate/"';
-              echo '<div class="wpmchimpa-tag"><a'.$ref.'></a>'.$tagtxt.'</div>';
-              }?>
+                        <?php if(isset($theme['lite_tag_en'])){
+                          if(isset($theme['lite_tag'])) $tagtxt= $theme['lite_tag'];
+                          else $tagtxt='Secure and Spam free...';
+                          echo '<div class="wpmchimpa-tag">'.$tagtxt.'</div>';
+                          }?>
     				<div class="wpmchimpa-signalc"><div class="wpmchimpa-signal"></div></div>
         		</form>
     			<div class="wpmchimpa-feedback" wpmcerr="gen"></div>

@@ -207,6 +207,10 @@ margin: 8px;
 }
 #wpmchimpas .wpmchimpa-tag{
 display: {{data.stopt.slider_tag_en? 'block':'none'}};
+}
+#wpmchimpas .wpmchimpa-tag,
+#wpmchimpas .wpmchimpa-tag *{
+pointer-events: none;
 color: {{data.stopt.slider_tag_fc||'#fff'}};
 font-size: {{data.stopt.slider_tag_fs||'10'}}px;
 font-weight: {{data.stopt.slider_tag_fw||'500'}};
@@ -219,9 +223,6 @@ content:{{getIcon('lock1',data.stopt.slider_tag_fs||10,data.stopt.slider_tag_fc|
 margin: 5px;
 top: 1px;
 position: relative;
-}
-#wpmchimpas .wpmchimpa-tag:after{
-content:"{{data.stopt.slider_tag||'Perfection Nothing Else...'}}";
 }
 </style>
 <div id="wpmchimpas-over"></div>
@@ -260,14 +261,9 @@ content:"{{data.stopt.slider_tag||'Perfection Nothing Else...'}}";
   </div>
 
   <div><div class="wpmc-live-sc" ng-click="gotos($event)" data-optno="8" data-lhint="Go to Tag Settings">7</div>
-  <div class="wpmchimpa-tag"></div></div>
+  <div class="wpmchimpa-tag" ng-bind-html="data.stopt.slider_tag||'Secure and Spam free...' | safe"></div></div>
   <div>
     <div class="wpmchimpa-signal"><div class="wpmc-live-sc" ng-click="gotos($event)" data-optno="5" data-lhint="Go to Spinner Settings" style="margin:18%">5</div></div>
   </div>
 </div>
 </div>
-
-
-Perfection Nothing Else...
-<div class="wpmchimpa-tag">'.$tagtxt.'</div>';
-                          }?>

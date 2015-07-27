@@ -579,7 +579,8 @@ background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYA
       opacity:0;
     }
 }
-.wpmchimpa-overlay-bg .wpmchimpa-tag{
+.wpmchimpa-overlay-bg .wpmchimpa-tag,
+.wpmchimpa-overlay-bg .wpmchimpa-tag *{
 color:#fff;
 font-size: 10px;
 <?php
@@ -600,7 +601,7 @@ font-size: 10px;
         }
       ?>
 }
-.wpmchimpa-overlay-bg .wpmchimpa-tag a:before{
+.wpmchimpa-overlay-bg .wpmchimpa-tag:before{
 
    content:<?php
         $tfs=10;
@@ -725,10 +726,7 @@ font-size: 10px;
                         <?php if(isset($theme['lite_tag_en'])){
                           if(isset($theme['lite_tag'])) $tagtxt= $theme['lite_tag'];
                           else $tagtxt='Secure and Spam free...';
-                          $ref='';
-                          if(isset($wpmchimpa["share_text"]))
-                            $ref= ' href="http://voltroid.com/chimpmate/"';
-                          echo '<div class="wpmchimpa-tag"><a'.$ref.'></a>'.$tagtxt.'</div>';
+                          echo '<div class="wpmchimpa-tag">'.$tagtxt.'</div>';
                           }?>
                     <div class="wpmchimpa-signalc"><div class="wpmchimpa-signal"></div></div>
 			            		</form>

@@ -341,16 +341,16 @@ public function wpmchimpa_slide() {
 	}
 }
 public function wpmchimpa_topbar(){
-	if(isset($this->wpmchimpa["addon"]) && isset($this->wpmchimpa["topbar"])) 
+	if(isset($this->wpmchimpa["topbar"]) && $this->wpmchimpa_pagetype('t')) 
 		include_once( 'includes/topbar_content.php');
 }
 public function wpmchimpa_flipbox(){
-	if(isset($this->wpmchimpa["addon"]) && isset($this->wpmchimpa["flipbox"])) 
+	if(isset($this->wpmchimpa["flipbox"]) && $this->wpmchimpa_pagetype('f')) 
 		include_once( 'includes/flipbox_content.php');
 }
 public function wpmchimpa_social(){
 
-		$t=array('l1','w1','a1','s1');
+		$t=array('l1','w1','a1','s1','l8','w8','a8','s8');
 	$n=false;
 
 	if(in_array('l'.$this->wpmchimpa['litebox_theme'], $t) && !isset($this->wpmchimpa['theme']['l'.$this->wpmchimpa['litebox_theme']]['lite_dissoc']) && isset($this->wpmchimpa["litebox"])) {
@@ -419,6 +419,22 @@ function wpmchimpa_pagetype($e){
 			else if(isset($this->wpmchimpa["slider_category"]) && is_archive()) return true;
 			else if(isset($this->wpmchimpa["slider_search"]) && is_search()) return true;
 			else if(isset($this->wpmchimpa["slider_404error"]) && is_404()) return true;
+			break;	
+		case 't':
+			if(isset($this->wpmchimpa["topbar_homepage"]) && is_front_page()) return true;
+			else if(isset($this->wpmchimpa["topbar_page"]) && is_page()) return true;
+			else if(isset($this->wpmchimpa["topbar_post"]) && is_single()) return true;
+			else if(isset($this->wpmchimpa["topbar_category"]) && is_archive()) return true;
+			else if(isset($this->wpmchimpa["topbar_search"]) && is_search()) return true;
+			else if(isset($this->wpmchimpa["topbar_404error"]) && is_404()) return true;
+			break;	
+		case 'f':
+			if(isset($this->wpmchimpa["flipbox_homepage"]) && is_front_page()) return true;
+			else if(isset($this->wpmchimpa["flipbox_page"]) && is_page()) return true;
+			else if(isset($this->wpmchimpa["flipbox_post"]) && is_single()) return true;
+			else if(isset($this->wpmchimpa["flipbox_category"]) && is_archive()) return true;
+			else if(isset($this->wpmchimpa["flipbox_search"]) && is_search()) return true;
+			else if(isset($this->wpmchimpa["flipbox_404error"]) && is_404()) return true;
 			break;	
 	}
 	return false;
@@ -615,11 +631,11 @@ function wpmchimpa_referral() {
 		return $content;
 	}
 function register_shortcodes(){
-	if(isset($this->wpmchimpa["addon"]) && isset($this->wpmchimpa["addon_scode"]))
+	if(isset($this->wpmchimpa["addon_scode"]))
    		add_shortcode('chimpmate', array($this,'addon_scode'));
 }
 function addon_scode($atts, $content = null) {
-	if($this->wpmchimpa_user_status() && $this->wpmchimpa_referral() && $this->wpmchimpa_pagetype_addon()){
+	if($this->wpmchimpa_user_status() && $this->wpmchimpa_referral()){
 		ob_start(); 
 		include('includes/bottom_content.php');
 		$msg = ob_get_clean();
@@ -656,6 +672,14 @@ function addon_scode($atts, $content = null) {
 			case 'm1':$str.='<path fill="'.$color.'" d="M448,64H64C28.656,64,0,92.656,0,128v256c0,35.344,28.656,64,64,64h384c35.344,0,64-28.656,64-64V128 C512,92.656,483.344,64,448,64z M342.656,234.781l135.469-116.094c0.938,3,1.875,6,1.875,9.313v256c0,2.219-0.844,4.188-1.281,6.281 L342.656,234.781z M448,96c2.125,0,4,0.813,6,1.219L256,266.938L58,97.219C60,96.813,61.875,96,64,96H448z M33.266,390.25 C32.828,388.156,32,386.219,32,384V128c0-3.313,0.953-6.313,1.891-9.313L169.313,234.75L33.266,390.25z M64,416 c-3.234,0-6.172-0.938-9.125-1.844l138.75-158.563l51.969,44.531C248.578,302.719,252.297,304,256,304s7.422-1.281,10.406-3.875 l51.969-44.531l138.75,158.563C454.188,415.063,451.25,416,448,416H64z"/>';
 				break;
 			case 'm2':$str.='<path fill="'.$color.'" d="M512,384c0,11.219-3.156,21.625-8.219,30.781L342.125,233.906L502.031,94c6.219,9.875,9.969,21.469,9.969,34V384z M256,266.75L478.5,72.063c-9.125-5-19.406-8.063-30.5-8.063H64c-11.109,0-21.391,3.063-30.484,8.063L256,266.75z M318.031,254.969 l-51.5,45.094C263.516,302.688,259.766,304,256,304s-7.516-1.313-10.531-3.938l-51.516-45.094L30.25,438.156 C40.063,444.313,51.563,448,64,448h384c12.438,0,23.938-3.688,33.75-9.844L318.031,254.969z M9.969,94C3.75,103.875,0,115.469,0,128 v256c0,11.219,3.141,21.625,8.219,30.781l161.641-180.906L9.969,94z"/>';
+				break;
+			case 'm3':$str.='<g fill="'.$color.'"><path d="M24.408,0.597L0.706,13.026c-0.975,0.511-0.935,1.26,0.088,1.665l3.026,1.196c1.021,0.404,2.569,0.185,3.437-0.494	L20.399,5.03c0.864-0.681,0.957-0.58,0.206,0.224l-10.39,11.123c-0.753,0.801-0.529,1.783,0.495,2.182l0.354,0.139 c1.024,0.396,2.698,1.062,3.717,1.478l3.356,1.366c1.02,0.415,1.854,0.759,1.854,0.765c0,0.006,0.006,0.025,0.011,0.026 c0.005,0.002,0.246-0.864,0.534-1.926L25.654,1.6C25.942,0.537,25.383,0.087,24.408,0.597z"/><path d="M10.324,19.82l-2.322-0.95c-1.018-0.417-1.506,0.072-1.084,1.089c0.001,0,2.156,5.194,2.096,5.377 c-0.062,0.182,2.068-3.082,2.068-3.082C11.684,21.332,11.342,20.237,10.324,19.82z"/></g>';
+				break;
+			case 'm4':$str.='<path fill="'.$color.'" d="M332.797,13.699c-1.489-1.306-3.608-1.609-5.404-0.776L2.893,163.695c-1.747,0.812-2.872,2.555-2.893,4.481 s1.067,3.693,2.797,4.542l91.833,45.068c1.684,0.827,3.692,0.64,5.196-0.484l89.287-66.734l-70.094,72.1 c-1,1.029-1.51,2.438-1.4,3.868l6.979,90.889c0.155,2.014,1.505,3.736,3.424,4.367c0.513,0.168,1.04,0.25,1.561,0.25 c1.429,0,2.819-0.613,3.786-1.733l48.742-56.482l60.255,28.79c1.308,0.625,2.822,0.651,4.151,0.073 c1.329-0.579,2.341-1.705,2.775-3.087L334.27,18.956C334.864,17.066,334.285,15.005,332.797,13.699z"/>';
+				break;
+			case 'm5':$str.='<g fill="'.$color.'"><path d="M306.001,325.988c90.563-0.005,123.147-90.682,131.679-165.167C448.188,69.06,404.799,0,306.001,0 c-98.782,0-142.195,69.055-131.679,160.82C182.862,235.304,215.436,325.995,306.001,325.988z"/><path d="M550.981,541.908c-0.99-28.904-4.377-57.939-9.421-86.393c-6.111-34.469-13.889-85.002-43.983-107.465 c-17.404-12.988-39.941-17.249-59.865-25.081c-9.697-3.81-18.384-7.594-26.537-11.901c-27.518,30.176-63.4,45.962-105.186,45.964 c-41.774,0-77.652-15.786-105.167-45.964c-8.153,4.308-16.84,8.093-26.537,11.901c-19.924,7.832-42.461,12.092-59.863,25.081 c-30.096,22.463-37.873,72.996-43.983,107.465c-5.045,28.454-8.433,57.489-9.422,86.393	c-0.766,22.387,10.288,25.525,29.017,32.284c23.453,8.458,47.666,14.737,72.041,19.884c47.077,9.941,95.603,17.582,143.921,17.924 c48.318-0.343,96.844-7.983,143.921-17.924c24.375-5.145,48.59-11.424,72.041-19.884	C540.694,567.435,551.747,564.297,550.981,541.908z"/></g>';
+				break;
+			case 'm6':$str.='<path fill="'.$color.'" d="M0,53.007v239.765h345.779V53.007H0z M310.717,113.122l-137.828,79.281L35.063,113.122 c-7.046-4.055-9.477-13.049-5.418-20.094c4.054-7.045,13.05-9.473,20.09-5.418l123.154,70.836l123.156-70.836 c7.043-4.056,16.035-1.627,20.091,5.418C320.192,100.073,317.762,109.067,310.717,113.122z"/>';
 				break;
 			case 'lock1':$str.='<path fill="'.$color.'" d="M417.566,209.83h-9.484v-44.388c0-82.099-65.151-150.681-146.582-152.145c-2.224-0.04-6.671-0.04-8.895,0  c-81.432,1.464-146.582,70.046-146.582,152.145v44.388h-9.485C81.922,209.83,70,224.912,70,243.539v222.632  C70,484.777,81.922,500,96.539,500h321.028c14.617,0,26.539-15.223,26.539-33.829V243.539  C444.105,224.912,432.184,209.83,417.566,209.83z M287.129,354.629v67.27c0,7.704-6.449,14.222-14.159,14.222h-31.834  c-7.71,0-14.159-6.518-14.159-14.222v-67.27c-7.477-7.361-11.83-17.537-11.83-28.795c0-21.334,16.491-39.666,37.459-40.512  c2.222-0.09,6.673-0.09,8.895,0c20.968,0.846,37.459,19.178,37.459,40.512C298.959,337.092,294.605,347.268,287.129,354.629z   M345.572,209.83H261.5h-8.895h-84.072v-44.388c0-48.905,39.744-89.342,88.519-89.342s88.52,40.437,88.52,89.342V209.83z"/>';
 				break;
@@ -809,6 +833,82 @@ jQuery(function ($) {
 </script>
 <?php
 					break;
+				case 2:?>
+<script type="text/javascript">
+jQuery(function ($) {
+  wpmcpre0 = function (f){
+  	$(f).find('[wpmcerr="gen"]').html('');
+  	$(f).find('input[type="text"]').each(function(){
+  		$(f).find('[wpmcerr="gen"]').html('');
+  		err = wpmcvalid($(this).attr('wpmcfield'),$(this).attr('wpmcreq'),this.value);
+  		if(err){
+  			$(this).addClass('wpmcerror');
+  			if($(this).attr('wpmcerrs') == 'true'){
+  				$this = $(this);
+  				$this.addClass('wpmcerrora');
+			  	setTimeout(function() {
+			  		$this.removeClass('wpmcerrora');
+			  	}, 500);
+  			}
+  			if($(this).attr('wpmcerrs') == 'par'){
+  				$this = $(this).parent();
+  				$this.addClass('wpmcerrora');
+			  	setTimeout(function() {
+			  		$this.removeClass('wpmcerrora');
+			  	}, 500);
+  			}
+  			if($(this).attr('wpmcerrs') == 'formbox'){
+  				$this = $(this).closest('.formbox');
+  				$this.addClass('wpmcerrora');
+			  	setTimeout(function() {
+			  		$this.removeClass('wpmcerrora');
+			  	}, 500);
+  			}
+  			$(f).find('[wpmcerr="'+$(this).attr('wpmcfield')+'"]').html(err);
+  		}
+  		else{
+  			$(this).removeClass('wpmcerror');
+  			$(f).find('[wpmcerr="'+$(this).attr('wpmcfield')+'"]').html('');
+  		}
+  	});
+  	if($(f).find('.wpmcerror').length){
+	  	$('.wpmchimpa-mainc').addClass('wpmcerrora');
+	  	setTimeout(function() {
+	  		$('.wpmchimpa-mainc').removeClass('wpmcerrora');
+	  	}, 500);
+	  	return false;
+  	}
+  	$(f).find('.wpmchimpa-signal').addClass('signalshow');
+  	return true;
+  }
+  wpmcpost0 =  function (f,d){
+  	$(f).find('.wpmchimpa-signal').removeClass('signalshow');
+  	if(d == 1){
+  		if(wpmcsucurl()){$('.wpmchimpa-overlay-bg').hide();}
+  		else if(wpmchimpa.suc_sub == 'suc_msg' && wpmcisset(wpmchimpa.suc_msg)){
+  			$(f).find('form').fadeOut(function () {
+  				$(f).find('[wpmcerr="gen"]').addClass('wpmchimpa-done').html(wpmchimpa.suc_msg);
+  			});
+		}
+		return false;
+  	}
+  	if(d == 214){
+  		if(wpmcsucurl()){$('.wpmchimpa-overlay-bg').hide();}
+  		else if(wpmchimpa.suc_sub == 'suc_msg' && wpmcisset(wpmchimpa.suc_msg)){
+  			$(f).find('form').fadeOut(function () {
+  				$(f).find('[wpmcerr="gen"]').addClass('wpmchimpa-done').html(errmsg[2]);
+  			});
+		}
+  	}
+  	else if(d == 0){
+  		$(f).find('[wpmcerr="gen"]').html(errmsg[4]);
+  	}
+  	else $(f).find('[wpmcerr="gen"]').html(errmsg[3]);
+  }
+});
+</script>
+<?php
+break;
 				default:
 					break;
 			}

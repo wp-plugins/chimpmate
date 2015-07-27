@@ -256,6 +256,10 @@ opacity: 0.5;
 }
 #wpmchimpa .wpmchimpa-tag{
 display: {{data.ltopt.lite_tag_en? 'block':'none'}};
+}
+#wpmchimpa .wpmchimpa-tag,
+#wpmchimpa .wpmchimpa-tag *{
+pointer-events: none;
 color: {{data.ltopt.lite_tag_fc||'#fff'}};
 font-size: {{data.ltopt.lite_tag_fs||'10'}}px;
 font-weight: {{data.ltopt.lite_tag_fw||'500'}};
@@ -268,9 +272,6 @@ content:{{getIcon('lock1',data.ltopt.lite_tag_fs||10,data.ltopt.lite_tag_fc||'#f
 margin: 5px;
 top: 1px;
 position: relative;
-}
-#wpmchimpa .wpmchimpa-tag:after{
-content:"{{data.ltopt.lite_tag||'Perfection Nothing Else...'}}";
 }
 </style>
 <div class="wpmchimpa-overlay-bg overcss">
@@ -308,7 +309,7 @@ content:"{{data.ltopt.lite_tag||'Perfection Nothing Else...'}}";
 	    			<div class="wpmchimpa-subs-button">{{data.ltopt.lite_button}}</div>
 	    		</div>
 	    		<div><div class="wpmc-live-sc" ng-click="gotos($event)" data-optno="7" data-lhint="Go to Tag Settings">6</div>
-	    		<div class="wpmchimpa-tag"></div></div>
+	    		<div class="wpmchimpa-tag" ng-bind-html="data.ltopt.lite_tag||'Secure and Spam free...' | safe"></div></div>
 	    		<div>
         			<div class="wpmchimpa-signal"><div class="wpmc-live-sc" ng-click="gotos($event)" data-optno="5" data-lhint="Go to Spinner Settings" style="margin:18%">5</div></div>
         		</div>

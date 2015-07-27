@@ -628,6 +628,11 @@ content: "";
   position:relative;
   z-index:99;
 }
+.wpmca_home .wpmca_toolbar.fixed {
+position: fixed; 
+top: 32px;
+width: calc(100% - 160px);
+}
 .fixed {
     position: fixed; 
     top: 0; 

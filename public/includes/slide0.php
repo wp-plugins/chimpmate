@@ -461,9 +461,12 @@ margin-top: 14px;
 } 
 
 .wpmchimpas .wpmchimpa-tag{
-color:#fff;
-font-size: 10px;
 margin-top: 5px;
+}
+.wpmchimpas .wpmchimpa-tag,
+.wpmchimpas .wpmchimpa-tag *{
+  color:#fff;
+font-size: 10px;
 <?php
         if(isset($theme["slider_tag_f"])){
           echo 'font-family:'.str_replace("|ng","",$theme["slider_tag_f"]).';';
@@ -482,7 +485,7 @@ margin-top: 5px;
         }
       ?>
 }
-.wpmchimpas .wpmchimpa-tag a:before{
+.wpmchimpas .wpmchimpa-tag:before{
 
    content:<?php
         $tfs=10;
@@ -592,11 +595,8 @@ position: absolute;
     <div class="wpmchimpa-subs-button" wpmcpre="wpmcpre0" wpmcpost="wpmcpost0"></div>
     <?php if(isset($theme['slider_tag_en'])){
         if(isset($theme['slider_tag'])) $tagtxt= $theme['slider_tag'];
-       else $tagtxt='Secure and Spam free...';
-        $ref='';
-        if(isset($wpmchimpa["share_text"]))
-          $ref= ' href="http://voltroid.com/chimpmate/"';
-        echo '<div class="wpmchimpa-tag"><a'.$ref.'></a>'.$tagtxt.'</div>';
+        else $tagtxt='Secure and Spam free...';
+        echo '<div class="wpmchimpa-tag">'.$tagtxt.'</div>';
         }?>
     <div class="wpmchimpa-signalc"><div class="wpmchimpa-signal"></div></div>
 	</form>

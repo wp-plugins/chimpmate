@@ -50,10 +50,20 @@ overflow-y:scroll;
 overflow-x: hidden;
 height: 100%;
 }
-.wpmchimpas-trig{
+#wpmchimpas-trig,
+#wpmchimpas-trig.wpmchimpas-trig.scrollhide,
+#wpmchimpas-trig.wpmchimpas-trig.condhide,
+body.body-wpmchimpas-open #wpmchimpas-trig .wpmchimpas-trigh{
+display: none;
+}
+.body-wpmchimpas-open #wpmchimpas-trig.wpmchimpas-trig.condhide,
+body.body-wpmchimpas-open #wpmchimpas-trig.wpmchimpas-trig.scrollhide{
+display: block;
+}
+#wpmchimpas-trig.wpmchimpas-trig{
+display: block;
 z-index: 888888;
 position:fixed;
-display: block;
 }
 #wpmchimpas-trig.wpmchimpas-trig .wpmchimpas-trigi,#wpmchimpas-trig.wpmchimpas-trig .wpmchimpas-trigh:before {
 cursor:pointer;
@@ -66,8 +76,7 @@ right: 0px;
 left: 0px;
 right: auto;
 }
-.wpmchimpas-trig .wpmchimpas-trigh,
-body.body-wpmchimpas-open #wpmchimpas-trig .wpmchimpas-trigh{
+.wpmchimpas-trig .wpmchimpas-trigh{
 display: none;
 }
 .wpmchimpas-trig .wpmchimpas-trigh:before{

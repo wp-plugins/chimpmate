@@ -443,6 +443,8 @@ foreach ($all_roles as $key => $value) {
                     <select class="wpmca_sel" ng-change="themeswitcher('lightbox')" style="width: 260px;" ng-model="data.litebox_theme" name="litebox_theme">
                       <option value="0">Basic</option>
                       <option value="1">Epsilon</option>
+                      <option value="8">Nova</option>
+                      <option value="9">Leo</option>
                       <option disabled>Material - BUY PRO</option>
                       <option disabled>Material Lite - BUY PRO</option>
                       <option disabled>Onamy - BUY PRO</option>
@@ -1060,6 +1062,8 @@ foreach ($all_roles as $key => $value) {
                     <select class="wpmca_sel" ng-change="themeswitcher('slider')" style="width: 260px;" ng-model="data.slider_theme" name="slider_theme">
                       <option value="0">Basic</option>
                       <option value="1">Epsilon</option>
+                      <option value="8">Nova</option>
+                      <option value="9">Leo</option>
                       <option disabled>Material - BUY PRO</option>
                       <option disabled>Material Lite - BUY PRO</option>
                       <option disabled>Onamy - BUY PRO</option>
@@ -1443,7 +1447,7 @@ foreach ($all_roles as $key => $value) {
                 </div>
 
                  <div class="wpmca_group wpmcacb">
-                    <label><input type="checkbox" name="slider_tag_en" value="1" ng-model="data.ltopt.lite_dissoc" ng-checked="data.ltopt.lite_dissoc">  
+                    <label><input type="checkbox" name="slider_tag_en" value="1" ng-model="data.stopt.slider_tag_en" ng-checked="data.stopt.slider_tag_en">  
                     <div class="mcheckbox"></div>Enable</label>
                  </div>                 
                 <div class="wpmca_group wpmcatxt"> 
@@ -1679,6 +1683,8 @@ foreach ($all_roles as $key => $value) {
                     <select class="wpmca_sel" ng-change="themeswitcher('widget')" style="width: 260px;" ng-model="data.widget_theme" name="widget_theme">
                       <option value="0">Basic</option>
                       <option value="1">Epsilon</option>
+                      <option value="8">Nova</option>
+                      <option value="9">Leo</option>
                       <option disabled>Material - BUY PRO</option>
                       <option disabled>Material Lite - BUY PRO</option>
                       <option disabled>Onamy - BUY PRO</option>
@@ -2092,6 +2098,8 @@ foreach ($all_roles as $key => $value) {
                     <select class="wpmca_sel" ng-change="themeswitcher('addon')" style="width: 260px;" ng-model="data.addon_theme" name="addon_theme">
                       <option value="0">Basic</option>
                       <option value="1">Epsilon</option>
+                      <option value="8">Nova</option>
+                      <option value="9">Leo</option>
                       <option disabled>Material - BUY PRO</option>
                       <option disabled>Material Lite - BUY PRO</option>
                       <option disabled>Onamy - BUY PRO</option>
@@ -2512,6 +2520,7 @@ foreach ($all_roles as $key => $value) {
                     <h2>Filter by Page type</h2>
                     <span class="wpmcahint headhint" data-hint="Show Subscription form if the user visits?"></span>
                 </div>
+                 <h3>Subscribe Box</h3>
                  <div class="wpmca_group wpmcacb">
                     <label><input type="checkbox" name="addon_page" value="1" <?php if(isset($wpmchimpa["addon_page"])) echo "checked";?>>  
                     <div class="mcheckbox"></div>Pages</label>
@@ -2519,6 +2528,56 @@ foreach ($all_roles as $key => $value) {
                  <div class="wpmca_group wpmcacb">
                     <label><input type="checkbox" name="addon_post" value="1" <?php if(isset($wpmchimpa["addon_post"])) echo "checked";?>>  
                     <div class="mcheckbox"></div>Posts</label>
+                 </div>
+                 <h3>Topbar</h3>
+                 <div class="wpmca_group wpmcacb">
+                    <label><input type="checkbox" name="topbar_homepage" value="1" <?php if(isset($wpmchimpa["topbar_homepage"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Home Page</label>
+                 </div>
+                 <div class="wpmca_group wpmcacb">
+                    <label><input type="checkbox" name="topbar_page" value="1" <?php if(isset($wpmchimpa["topbar_page"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Pages</label>
+                 </div>
+                 <div class="wpmca_group wpmcacb">
+                    <label><input type="checkbox" name="topbar_post" value="1" <?php if(isset($wpmchimpa["topbar_post"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Posts</label>
+                 </div>
+                 <div class="wpmca_group wpmcacb">
+                    <label><input type="checkbox" name="topbar_category" value="1" <?php if(isset($wpmchimpa["topbar_category"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Categories/Archives</label>
+                 </div>
+                 <div class="wpmca_group wpmcacb">
+                    <label><input type="checkbox" name="topbar_search" value="1" <?php if(isset($wpmchimpa["topbar_search"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Search</label>
+                 </div>
+                 <div class="wpmca_group wpmcacb">
+                    <label><input type="checkbox" name="topbar_404error" value="1" <?php if(isset($wpmchimpa["topbar_404error"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>404 Error</label>
+                 </div>
+                 <h3>Flipbox</h3>
+                 <div class="wpmca_group wpmcacb">
+                    <label><input type="checkbox" name="flipbox_homepage" value="1" <?php if(isset($wpmchimpa["flipbox_homepage"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Home Page</label>
+                 </div>
+                 <div class="wpmca_group wpmcacb">
+                    <label><input type="checkbox" name="flipbox_page" value="1" <?php if(isset($wpmchimpa["flipbox_page"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Pages</label>
+                 </div>
+                 <div class="wpmca_group wpmcacb">
+                    <label><input type="checkbox" name="flipbox_post" value="1" <?php if(isset($wpmchimpa["flipbox_post"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Posts</label>
+                 </div>
+                 <div class="wpmca_group wpmcacb">
+                    <label><input type="checkbox" name="flipbox_category" value="1" <?php if(isset($wpmchimpa["flipbox_category"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Categories/Archives</label>
+                 </div>
+                 <div class="wpmca_group wpmcacb">
+                    <label><input type="checkbox" name="flipbox_search" value="1" <?php if(isset($wpmchimpa["flipbox_search"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>Search</label>
+                 </div>
+                 <div class="wpmca_group wpmcacb">
+                    <label><input type="checkbox" name="flipbox_404error" value="1" <?php if(isset($wpmchimpa["flipbox_404error"])) echo "checked";?>>  
+                    <div class="mcheckbox"></div>404 Error</label>
                  </div>
             </div>
             <div class="wpmca_item">

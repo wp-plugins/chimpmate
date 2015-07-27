@@ -248,19 +248,27 @@ $('.wpmchimp-range-sel').change(function(e) {
 var extrasets={
           "lightbox": {
             "0": ["lite_bg_op"],
-            "1": ["lite_img1","lite_dislogo","lite_dissoc","lite_head_col","lite_bg_c","lite_soc_head","lite_soc_fc","lite_hshad_col","lite_soc_f","lite_close_col","lite_bg_op"]
+            "1": ["lite_img1","lite_dislogo","lite_dissoc","lite_head_col","lite_bg_c","lite_soc_head","lite_soc_fc","lite_hshad_col","lite_soc_f","lite_close_col","lite_bg_op"],
+            "8": ["lite_dissoc","lite_bg_c","lite_soc_head","lite_soc_fc","lite_soc_f","lite_close_col","lite_bg_op"],
+            "9": ["lite_bg_c","lite_close_col","lite_bg_op"]
           },
           "slider": {
             "0": ["slider_bg_c"],
-            "1": ["slider_dissoc","slider_canvas_c","slider_bg_c","slider_soc_head","slider_soc_fc","slider_soc_f"]
+            "1": ["slider_dissoc","slider_canvas_c","slider_bg_c","slider_soc_head","slider_soc_fc","slider_soc_f"],
+            "8": ["slider_dissoc","slider_canvas_c","slider_bg_c","slider_soc_head","slider_soc_fc","slider_soc_f"],
+            "9": ["slider_canvas_c","slider_bg_c"]
           },
           "widget": {
             "0": ["widget_bg_c"],
-            "1": ["widget_dissoc","widget_bg_c","widget_soc_head","widget_soc_f","widget_soc_fc"]
+            "1": ["widget_dissoc","widget_bg_c","widget_soc_head","widget_soc_f","widget_soc_fc"],
+            "8": ["widget_dissoc","widget_bg_c","widget_soc_head","widget_soc_f","widget_soc_fc"],
+            "9": ["widget_bg_c"]
           },
           "addon": {
             "0": ["addon_bg_c"],
-            "1": ["addon_dissoc","addon_bg_c","addon_soc_head","addon_soc_f","addon_soc_fc"]
+            "1": ["addon_dissoc","addon_bg_c","addon_soc_head","addon_soc_f","addon_soc_fc"],
+            "8": ["addon_dissoc","addon_bg_c","addon_soc_head","addon_soc_f","addon_soc_fc","addon_bor_c","addon_bor_w"],
+            "9": ["addon_bg_c","addon_bor_c","addon_bor_w"]
           }
         };
 function showextrafeat(type,theme){
@@ -279,7 +287,7 @@ showextrafeat('widget',wpmchimpa.widget_theme);
 showextrafeat('addon',wpmchimpa.addon_theme);
 
 $('.wpmc_media_uploader').click(function(){
-    var preid=$(this).closest('.wpmca_box').attr('id');
+    var input=$(this).prev('input');
     var wpmchimp_img1;
  
     if ( undefined !== wpmchimp_img1 ) {wpmchimp_img1.open();return;}
@@ -294,23 +302,17 @@ $('.wpmc_media_uploader').click(function(){
 
     wpmchimp_img1.on('select', function(){
         var ma = wpmchimp_img1.state().get('selection').first().toJSON();
-        jQuery('input[name="lite_img1"]').val(ma.url).change();
+        input.val(ma.url).change();
     });
     wpmchimp_img1.open();
 });
 
-$('.wpmccolor').wpColorPicker({
-	change:function (event,ui){
-		$('#wpmca_preview p').css('color','#'+ui.color._color.toString(16));
-	}
-});
-
 $(window).scroll(function(){
-    if($('.wpmca_header').height()>100)$(".wpmca_toolbar").css({"top": '0'});
+    if($(window).width() < 1000)$(".wpmca_toolbar").removeClass('fixed');
     else{
   if ($(window).scrollTop() > 110){
-    	$(".wpmca_toolbar").css({"top": ($(window).scrollTop()) -110 + "px"});
-	}else $(".wpmca_toolbar").css({"top": '0'});
+      $(".wpmca_toolbar").addClass('fixed');
+  }else $(".wpmca_toolbar").removeClass('fixed');
 }
 });
 $(window).scroll(function(){
@@ -374,65 +376,6 @@ function handleFileSelect(evt) {
 	}
 }
 $('#file_sel').change(handleFileSelect);
-	/*
-$('.premium').click(function(){
-    $(this).closest('.wpmca_group').find('.prefeat').addClass('click');
-    $('.prefeat').click(function(){
-        window.open("http://voltroid.com/wordpress/plugins/chimpmate","_blank");
-    });
-    return false;
-}); 
-$('.premium').hover(function(){
- if(!$(this).closest('.wpmca_group').find('.prefeat').hasClass('click'))
-    $(this).closest('.wpmca_group').append('<div class="prefeat"></div>');
-},function(){
-    if(!$(this).closest('.wpmca_group').find('.prefeat').hasClass('click'))
-        $(this).closest('.wpmca_group').find('.prefeat').remove();
-});
-
-$('.premiumsp').click(function(){
-    $('#premiumshow').find('.prefeat').addClass('click');
-    $('.prefeat').click(function(){
-        window.open("http://voltroid.com/wordpress/plugins/chimpmate","_blank");
-    });
-    return false;
-}); 
-$('.premiumsp').hover(function(){
- if(!$('#premiumshow').find('.prefeat').hasClass('click'))
-    $('#premiumshow').append('<div class="prefeat"></div>');
-},function(){
-    if(!$('#premiumshow').find('.prefeat').hasClass('click'))
-        $('#premiumshow').find('.prefeat').remove();
-});*/
-/*$('#view_chart').click(function(){
-    $('#goog_charts').show();
-    var data = google.visualization.arrayToDataTable([
-          ['Date', 'Subs', 'Unsubs', 'Mails Sent', 'Open', 'Click'],
-          ['1 Jan',  1000,400,60,40, 20],
-          ['3 Jan',  1170,460,80,50,50],
-          ['5 Jan',  660,1120,70,50,40],
-          ['7 Jan',  1000,400,100,68,32],
-          ['9 Jan',  1170,460,72,16,10],
-          ['11 Jan',  660,1120,60,40, 20],
-          ['13 Jan',  1000,400,80,50,50],
-          ['15 Jan',  1170,460,70,50,40],
-          ['17 Jan',  660,1120,100,68,32],
-          ['19 Jan',  1000,400,72,16,10],
-          ['21 Jan',  1170,460,60,40, 20],
-          ['23 Jan',  660,1120,80,50,50],
-          ['25 Jan',  1000,400,70,50,40],
-          ['27 Jan',  1170,460,100,68,32],
-          ['29 Jan',  660,1120,72,16,10],
-          ['31 Jan',  1030,540,60,40, 20]
-        ]);
-
-        var options = {
-          title: 'MailChimp Statistics',
-          curveType: 'function'
-        };
-        var chart = new google.visualization.LineChart(document.getElementById('goog_charts'));
-        chart.draw(data, options);
-});*/
 
 //theme specific
 //live preview
@@ -517,10 +460,8 @@ wpmcapp.controller("chimpmateController", function($scope,$http,$compile) {
                 showextrafeat('lightbox',$scope.data.litebox_theme);
                 break;
             case 'slider':
-              if($scope.data.stopt){
-                  $.each($scope.data.stopt,function(i,j){
-                      $scope.data.stopt[i]='';});
-                }
+            	$.each($scope.data.stopt,function(i,j){
+                	$scope.data.stopt[i]='';});
                 tinyMCE.get('slider_msg').setContent('');
                 var theme = $scope.data.slider_theme;
                 showextrafeat('slider',$scope.data.slider_theme);
@@ -553,21 +494,25 @@ wpmcapp.controller("chimpmateController", function($scope,$http,$compile) {
                 if(data == 'null'){ajax_success();return;}
                 switch(preid) {
                     case 'lightbox':
-                        $scope.data.ltopt = data;
+                        $.each(data,function(i,j){
+		                    $scope.data.ltopt[i]=data[i];})
                         if(isset(data.lite_msg))tinyMCE.get('lite_msg').setContent(data.lite_msg);
                         $('#'+preid+' input[name="lite_bg_op"]').val(data.lite_bg_op);
                         break;
                     case 'slider':
-                        $scope.data.stopt = data;
+                        $.each(data,function(i,j){
+		                    $scope.data.stopt[i]=data[i];})
                         if(isset(data.slider_msg))tinyMCE.get('slider_msg').setContent(data.slider_msg);
                         $('#'+preid+' input[name="slider_trigger_top"]').val(data.slider_trigger_top);
                         break;
                     case 'widget':
-                        $scope.data.wtopt = data;
+                        $.each(data,function(i,j){
+		                    $scope.data.wtopt[i]=data[i];})
                         if(isset(data.widget_msg))tinyMCE.get('widget_msg').setContent(data.widget_msg);
                         break;
                     case 'addon':
-                        $scope.data.atopt = data;
+                        $.each(data,function(i,j){
+		                    $scope.data.atopt[i]=data[i];})
                         if(isset(data.addon_msg))tinyMCE.get('addon_msg').setContent(data.addon_msg);
                         break;
                     default:break;
@@ -584,16 +529,25 @@ wpmcapp.controller("chimpmateController", function($scope,$http,$compile) {
             scrollTop: scopt.offset().top - 100
         }, 500);
     }
-    $scope.getIcon = function(icon,size,color){
-      if(!isset(icon))return 'a';
+    $scope.getIcon = function(icon,size,color,dim){
+      if(!isset(icon))return '';
       if(!isset(size))size="250";
       if(!isset(color))color="#000";
-    var str='<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="'+size+'px" height="'+size+'px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">';
+      if(!isset(dim))dim="512";
+    var str='<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="'+size+'px" height="'+size+'px" viewBox="0 0 '+dim+' '+dim+'" enable-background="new 0 0 '+dim+' '+dim+'" xml:space="preserve">';
     switch (icon) {
       case 'm1':str+='<path fill="'+color+'" d="M448,64H64C28.656,64,0,92.656,0,128v256c0,35.344,28.656,64,64,64h384c35.344,0,64-28.656,64-64V128 C512,92.656,483.344,64,448,64z M342.656,234.781l135.469-116.094c0.938,3,1.875,6,1.875,9.313v256c0,2.219-0.844,4.188-1.281,6.281 L342.656,234.781z M448,96c2.125,0,4,0.813,6,1.219L256,266.938L58,97.219C60,96.813,61.875,96,64,96H448z M33.266,390.25 C32.828,388.156,32,386.219,32,384V128c0-3.313,0.953-6.313,1.891-9.313L169.313,234.75L33.266,390.25z M64,416 c-3.234,0-6.172-0.938-9.125-1.844l138.75-158.563l51.969,44.531C248.578,302.719,252.297,304,256,304s7.422-1.281,10.406-3.875 l51.969-44.531l138.75,158.563C454.188,415.063,451.25,416,448,416H64z"/>';
         break;
       case 'm2':str+='<path fill="'+color+'" d="M512,384c0,11.219-3.156,21.625-8.219,30.781L342.125,233.906L502.031,94c6.219,9.875,9.969,21.469,9.969,34V384z M256,266.75L478.5,72.063c-9.125-5-19.406-8.063-30.5-8.063H64c-11.109,0-21.391,3.063-30.484,8.063L256,266.75z M318.031,254.969 l-51.5,45.094C263.516,302.688,259.766,304,256,304s-7.516-1.313-10.531-3.938l-51.516-45.094L30.25,438.156 C40.063,444.313,51.563,448,64,448h384c12.438,0,23.938-3.688,33.75-9.844L318.031,254.969z M9.969,94C3.75,103.875,0,115.469,0,128 v256c0,11.219,3.141,21.625,8.219,30.781l161.641-180.906L9.969,94z"/>';
         break;
+	  case 'm3':str+='<g fill="'+color+'"><path d="M24.408,0.597L0.706,13.026c-0.975,0.511-0.935,1.26,0.088,1.665l3.026,1.196c1.021,0.404,2.569,0.185,3.437-0.494	L20.399,5.03c0.864-0.681,0.957-0.58,0.206,0.224l-10.39,11.123c-0.753,0.801-0.529,1.783,0.495,2.182l0.354,0.139 c1.024,0.396,2.698,1.062,3.717,1.478l3.356,1.366c1.02,0.415,1.854,0.759,1.854,0.765c0,0.006,0.006,0.025,0.011,0.026 c0.005,0.002,0.246-0.864,0.534-1.926L25.654,1.6C25.942,0.537,25.383,0.087,24.408,0.597z"/><path d="M10.324,19.82l-2.322-0.95c-1.018-0.417-1.506,0.072-1.084,1.089c0.001,0,2.156,5.194,2.096,5.377 c-0.062,0.182,2.068-3.082,2.068-3.082C11.684,21.332,11.342,20.237,10.324,19.82z"/></g>';
+		break;
+	  case 'm4':str+='<path fill="'+color+'" d="M332.797,13.699c-1.489-1.306-3.608-1.609-5.404-0.776L2.893,163.695c-1.747,0.812-2.872,2.555-2.893,4.481 s1.067,3.693,2.797,4.542l91.833,45.068c1.684,0.827,3.692,0.64,5.196-0.484l89.287-66.734l-70.094,72.1 c-1,1.029-1.51,2.438-1.4,3.868l6.979,90.889c0.155,2.014,1.505,3.736,3.424,4.367c0.513,0.168,1.04,0.25,1.561,0.25 c1.429,0,2.819-0.613,3.786-1.733l48.742-56.482l60.255,28.79c1.308,0.625,2.822,0.651,4.151,0.073 c1.329-0.579,2.341-1.705,2.775-3.087L334.27,18.956C334.864,17.066,334.285,15.005,332.797,13.699z"/>';
+		break;
+	  case 'm5':str+='<g fill="'+color+'"><path d="M306.001,325.988c90.563-0.005,123.147-90.682,131.679-165.167C448.188,69.06,404.799,0,306.001,0 c-98.782,0-142.195,69.055-131.679,160.82C182.862,235.304,215.436,325.995,306.001,325.988z"/><path d="M550.981,541.908c-0.99-28.904-4.377-57.939-9.421-86.393c-6.111-34.469-13.889-85.002-43.983-107.465 c-17.404-12.988-39.941-17.249-59.865-25.081c-9.697-3.81-18.384-7.594-26.537-11.901c-27.518,30.176-63.4,45.962-105.186,45.964 c-41.774,0-77.652-15.786-105.167-45.964c-8.153,4.308-16.84,8.093-26.537,11.901c-19.924,7.832-42.461,12.092-59.863,25.081 c-30.096,22.463-37.873,72.996-43.983,107.465c-5.045,28.454-8.433,57.489-9.422,86.393	c-0.766,22.387,10.288,25.525,29.017,32.284c23.453,8.458,47.666,14.737,72.041,19.884c47.077,9.941,95.603,17.582,143.921,17.924 c48.318-0.343,96.844-7.983,143.921-17.924c24.375-5.145,48.59-11.424,72.041-19.884	C540.694,567.435,551.747,564.297,550.981,541.908z"/></g>';
+		break;
+	  case 'm6':str+='<path fill="'+color+'" d="M0,53.007v239.765h345.779V53.007H0z M310.717,113.122l-137.828,79.281L35.063,113.122 c-7.046-4.055-9.477-13.049-5.418-20.094c4.054-7.045,13.05-9.473,20.09-5.418l123.154,70.836l123.156-70.836 c7.043-4.056,16.035-1.627,20.091,5.418C320.192,100.073,317.762,109.067,310.717,113.122z"/>';
+		break;
       case 'lock1':str+='<path fill="'+color+'" d="M417.566,209.83h-9.484v-44.388c0-82.099-65.151-150.681-146.582-152.145c-2.224-0.04-6.671-0.04-8.895,0  c-81.432,1.464-146.582,70.046-146.582,152.145v44.388h-9.485C81.922,209.83,70,224.912,70,243.539v222.632  C70,484.777,81.922,500,96.539,500h321.028c14.617,0,26.539-15.223,26.539-33.829V243.539  C444.105,224.912,432.184,209.83,417.566,209.83z M287.129,354.629v67.27c0,7.704-6.449,14.222-14.159,14.222h-31.834  c-7.71,0-14.159-6.518-14.159-14.222v-67.27c-7.477-7.361-11.83-17.537-11.83-28.795c0-21.334,16.491-39.666,37.459-40.512  c2.222-0.09,6.673-0.09,8.895,0c20.968,0.846,37.459,19.178,37.459,40.512C298.959,337.092,294.605,347.268,287.129,354.629z   M345.572,209.83H261.5h-8.895h-84.072v-44.388c0-48.905,39.744-89.342,88.519-89.342s88.52,40.437,88.52,89.342V209.83z"/>';
         break;
       default:return '';
@@ -607,20 +561,16 @@ wpmcapp.controller("chimpmateController", function($scope,$http,$compile) {
         };
 }]).filter('livepf',function(){
 return function(input){
-  if(input != '' && typeof input != 'undefined'){
-    var patt = new RegExp("/|ng");
-    if(patt.test(input)){
-      input=input.replace('|ng','');
-      }
-      else {
-       setTimeout(function() {
-          WebFont.load({
-              google: {
-                families: [input]
-              }
-          });
-        }, 0);
-      }
+  if(input != '' && typeof input !== 'undefined'){
+    if(wpmchimpa.web_fonts.indexOf(input) < 0){
+      setTimeout(function() {
+        WebFont.load({
+            google: {
+              families: [input]
+            }
+        });
+      }, 0);
+    }
   }
   return input;
 };
